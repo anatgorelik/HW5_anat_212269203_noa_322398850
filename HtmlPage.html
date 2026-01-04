@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background-image: url("IMG_1014.JPG");
+            background-size: cover;
+            background-position: center;
+            font-family:Arial;
+            direction:rtl;
+        }
+        .main{
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            gap:20px;
+            align-items:center;
+            padding-top:135px;
+        }
+
+        .hover {
+            color: black;
+            background-color: tan;
+            width: 180px;
+            height: 45px;
+            font-size: 20px;
+            border: none;
+            border-radius:30px;
+            text-align: center;
+            font-family: Arial;
+            position: static;
+        }
+        img{
+            width:100px;
+            height:100px;
+        }
+        .registerDiv {
+            background-color: tan;
+            color: #2c1f15;
+            position: fixed;
+            display: none;
+            grid-template-rows: auto auto auto auto;
+            row-gap:5px;
+            column-gap:10px;
+            justify-items: center;
+            top: 50%;
+            width: 450px;
+            height: 240px;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            padding:20px;
+            border-radius:15px;
+        }
+        .loginMode{
+            background-color:#4d3e2e;
+            color:#140a02;
+        }
+            
+        .txtBoxReg{
+            height:25px;
+            width:130px;
+            
+        }
+
+        .partReg {
+            display:flex;
+            flex-direction:column;
+            gap:5px;
+            width:100%;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom:1px;
+        }
+        .notValReg{
+            display:none;
+            color:red;
+            font-size:10px;
+            margin-top:0px;
+            text-align:center;
+        }
+        #btnFinishReg{
+            background-color:#2c1f15;
+            color:white;
+            width:80px;
+            height:25px;
+            text-align:center;
+            border-radius:15px;
+            border:none;
+        }
+        #btnBack {
+            display: none;
+            background-color: #2c1f15;
+            color: white;
+            width: 80px;
+            height: 25px;
+            text-align: center;
+            border-radius: 15px;
+            border: none;
+        }
+       
+        
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <img src="ChatGPT Image Jan 2, 2026, 03_16_00 PM.png" />
+        <input type="button" id="btnLogIn" class="hover" value="משתמש רשום"  />
+        <input type="button" id="btnRegister"  class="hover" value="משתמש חדש" />
+    </div>
+    <div class="registerDiv">
+        <h3 id="regH3"> </h3>
+        <div class="partReg">
+            <div class="row">
+                <p class="regTxt">הכנס אימייל:</p>
+                <input type="text" id="emailTxt" />
+            </div>
+            <p class="notValReg"> אימייל לא תקין-יש להשתמש רק באותיות או מספרים, ולכתוב @ ו . </p>
+        </div>
+        <div class="partReg">
+            <div class="row">
+                <p class="regTxt">הכנס סיסמא:</p>
+                <input type="text" id="passwordTxt" />
+            </div>          
+            <p class="notValReg" >סיסמא לא תקינה - יש לכתוב לפחות 8 תווים</p>
+        </div>
+        <input type="button" value="סיום" id="btnFinishReg"class="hover2"  />
+        <input type="button" value="חזור" id="btnBack" class="hover2"/>
+    </div>
+    
+
+
+
+
+    <script>
+        let mode = "";///כדי לדעת אם הלקוח חדש או קיים
+        const registerDiv = document.querySelector(".registerDiv");
+        const title = document.getElementById("regH3")
+        const loginBtn = document.getElementById("btnLogIn");
+        loginBtn.addEventListener("click", function () {//  אם הלקוח קיים זה מה שיהיה לו
+            mode = "login";
+            registerDiv.classList.add("loginMode");
+            registerDiv.style.display = "grid";
+            title.innerText = "כניסה למערכת";
+        })
+
+
+        const registerBtn = document.getElementById("btnRegister");// אם הלקוח דחש זה מה שיהיה לו
+        registerBtn.addEventListener("click", function () {
+            mode = "register";
+            registerDiv.style.display = "grid";
+            title.innerText = "הרשמה למערכת";
+
+        })
+        const buttons = document.querySelectorAll(".hover");/// כשהעכבר על הכפתור הצבע משתנה
+        buttons.forEach(btn => {
+            btn.addEventListener("mouseover", () => {
+                btn.style.backgroundColor = "papayawhip";
+            });
+            btn.addEventListener("mouseleave", () => {
+                btn.style.backgroundColor = "tan";
+            });
+        });
+       
+        const buttons2 = document.querySelectorAll(".hover2");/// כשהעכבר על הכפתור הצבע משתנה
+        buttons2.forEach(btn => {
+            btn.addEventListener("mouseover", () => {
+                btn.style.backgroundColor = "papayawhip";
+                hoverFinish.style.color = "#4d3e2e";
+            });
+            btn.addEventListener("mouseleave", () => {
+                btn.style.backgroundColor = "#2c1f15";
+                hoverFinish.style.color = "#4d3e2e";
+            });
+        });
+
+        const finishBtn = document.getElementById("btnFinishReg");// לחיצה על כפתור הסיום, תלוי באיזה מסך אנחנו
+        finishBtn.addEventListener("click", function () {
+            if (mode == "register") {
+                register();
+            } else if (mode == "login") {
+                login();
+            }
+        });
+        const backBtn = document.getElementById("btnBack");// במסך התחברות יש כפתור חזרה למסך ראשי שמאפס הכל
+        backBtn.addEventListener("click", function () {
+            document.querySelectorAll(".notValReg")[1].style.display = "none";
+            document.getElementById("btnBack").style.display = "none";
+            registerDiv.classList.remove("loginMode");
+            registerDiv.style.display = "none";
+        });
+        
+        function register(){// כפתור סיום במסך הרשמה
+            let valid = true;
+            let userEmail = document.getElementById("emailTxt").value;
+            let userPassword = document.getElementById("passwordTxt").value;
+            const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
+            document.querySelectorAll(".notValReg")[0].style.display = "none";
+            if (!emailRegex.test(userEmail)) {
+                valid = false;
+                document.getElementById("emailTxt").value = "";
+                document.querySelectorAll(".notValReg")[0].style.display = "block";
+            }
+            document.querySelectorAll(".notValReg")[1].style.display = "none";
+            if (userPassword.length < 8) {
+                valid = false;
+                document.getElementById("passwordTxt").value = "";
+                document.querySelectorAll(".notValReg")[1].innerText = "סיסמא לא תקינה - יש לכתוב לפחות 8 תווים";
+                document.querySelectorAll(".notValReg")[1].style.display = "block";
+            }
+
+            if (valid) {
+                saveUser();
+                mode = "login";
+                document.getElementById("emailTxt").value = "";
+                document.getElementById("passwordTxt").value = "";
+                registerDiv.classList.add("loginMode");
+                registerDiv.style.display = "grid";
+                title.innerText = "כניסה למערכת";
+                resetRegisterDiv();
+           
+            }
+        }
+        function resetRegisterDiv() {// פוקנציה שמאפסת את מסכי ההרשמה
+            document.getElementById("emailTxt").value = "";
+            document.getElementById("passwordTxt").value = "";
+            document.querySelectorAll(".notValReg").style.display ="none";
+            document.getElementById("btnBack").style.display = "none";
+        }
+
+
+        let currentUser = {};
+        function login() {// כפתור סיום במסך התחברות
+            let found = false;
+            let userEmail = document.getElementById("emailTxt").value;
+            let userPassword = document.getElementById("passwordTxt").value;
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+            document.querySelectorAll(".notValReg")[1].style.display = "none";
+            document.getElementById("btnBack").style.display = "none";
+            for (user of users) {
+                if (user.email === userEmail && user.password === userPassword) {
+                    currentUser.email = userEmail;
+                    currentUser.password = userPassword;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                document.querySelectorAll(".notValReg")[1].innerText = "משתמש לא נמצא, נסו שוב";
+                document.querySelectorAll(".notValReg")[1].style.display = "block";
+                document.getElementById("btnBack").style.display = "block";
+                document.getElementById("emailTxt").value = "";
+                document.getElementById("passwordTxt").value = "";
+            } else {
+                ///////מעבר למסך הראשייייייייייייייי
+            }
+
+        }
+        function saveUser() {/// שומר את המתשמש בזיכרון- זה לא טוב צריך לראות מה יעל לימדה
+            const userEmail = document.getElementById("emailTxt").value;
+            const userPassword = document.getElementById("passwordTxt").value;
+            const user = {
+                email: userEmail,
+                password: userPassword
+            };
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            users.push(user);
+            localStorage.setItem("users", JSON.stringify(users));
+        }
+
+    </script>
+
+</body>
+</html>
