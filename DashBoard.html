@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="utf-8" />
+    <title>Dashboard</title>
+
+    <style>
+        body{
+            background-color: #2B1B17;
+            direction: rtl;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* שורות כלליות */
+        .row{
+            background-color: #F5EFE6;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            height: 100px;
+            border-radius: 15px;
+            padding: 10px 20px;
+        }
+
+        /* כפתור קטגוריות */
+        .categoryButton{
+            width: 56px;
+            height: 56px;
+            background-color: #2B1B17;
+            color: #F5EFE6;
+            font-size: 28px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        #categoryPart{
+            align-self: flex-start;
+        }
+
+        /* אזור שלום */
+        #helloPart{
+            font-size: 14px;
+            line-height: 1.2;
+        }
+
+        h2, h3{
+            margin: 0;
+        }
+
+        /* שעון */
+        #clock{
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #2B1B17;
+            color: #F5EFE6;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* ===== שורה 2 – Grid ===== */
+        .row2{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            background: none;
+            padding: 0;
+            height: auto;
+        }
+
+        /* קופסאות בשורה 2 */
+        .row2 > div{
+            background-color: #CBAFB2; /* ורוד בסיס */
+            border-radius: 20px;
+            padding: 20px;
+            min-height: 120px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+        }
+    
+    </style>
+</head>
+
+<body>
+
+<div id="clock"></div>
+
+<div class="container">
+
+    <!-- שורה 1 -->
+    <div class="row">
+        <div id="categoryPart">
+            <input type="button" value="☰" class="categoryButton">
+        </div>
+
+        <div id="helloPart">
+            <h2>שלום <span id="userName"></span></h2>
+            <h3 id="greeting"></h3>
+        </div>
+    </div>
+
+    <!-- שורה 2 -->
+    <div class="row row2">
+        <div id="menuPart">תפריט</div>
+        <div id="friendMemberPart">חברי מועדון</div>
+        <div id="myOrdersPart">ההזמנות שלי</div>
+    </div>
+
+    <!-- שורה 3 -->
+    <div class="row">
+        <div id="graphPart">גרפים</div>
+    </div>
+
+</div>
+
+<script>
+    /* ===== ברכה ===== */
+    function updateGreeting(){
+        const hour = new Date().getHours();
+        let greeting = "";
+
+        if(hour < 12){
+            greeting = "בוקר טוב!";
+        } else if(hour < 18){
+            greeting = "צהריים טובים!";
+        } else {
+            greeting = "ערב טוב!";
+        }
+
+        document.getElementById("greeting").innerText = greeting;
+        document.getElementById("userName").innerText = "NAME";
+    }
+
+    /* ===== שעון ===== */
+    function updateClock(){
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2,'0');
+        const m = String(now.getMinutes()).padStart(2,'0');
+        const s = String(now.getSeconds()).padStart(2,'0');
+        const d = String(now.getDate()).padStart(2,'0');
+        const mo = String(now.getMonth()+1).padStart(2,'0');
+        const y = now.getFullYear();
+
+        document.getElementById("clock").innerText =
+            `${d}/${mo}/${y} | ${h}:${m}:${s}`;
+    }
+
+    /* ===== HOVER עם JavaScript ===== */
+    const boxes = document.querySelectorAll(".row2 > div");
+
+    boxes.forEach(box => {
+        box.addEventListener("mouseenter", () => {
+            box.style.backgroundColor = "#F6DADF"; // ורוד בייבי בהיר
+        });
+
+        box.addEventListener("mouseleave", () => {
+            box.style.backgroundColor = "#CBAFB2"; // חזרה לבסיס
+        });
+    });
+
+    updateGreeting();
+    updateClock();
+    setInterval(updateClock,1000);
+</script>
+
+</body>
+</html>
