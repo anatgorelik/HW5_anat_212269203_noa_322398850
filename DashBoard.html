@@ -52,7 +52,7 @@
             line-height: 1.2;
         }
 
-        h2, h3, h1{
+        h2, h3{
             margin: 0;
         }
 
@@ -69,28 +69,30 @@
             font-weight: bold;
         }
 
-        /* שורה 2 – רק פריסה */
-    .row2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 20px;
-        background: none;     /* חשוב */
-        padding: 0;           /* חשוב */
-        height: auto;
-    }
+        /* ===== שורה 2 – Grid ===== */
+        .row2{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            background: none;
+            padding: 0;
+            height: auto;
+        }
 
-    /* כל קופסה בשורה 2 */
-    .row2 > div {
-        background-color: #F5EFE6;
-        border-radius: 20px;
-        padding: 20px;
-        min-height: 120px;
+        /* קופסאות בשורה 2 */
+        .row2 > div{
+            background-color: #CBAFB2; /* ורוד בסיס */
+            border-radius: 20px;
+            padding: 20px;
+            min-height: 120px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
+            cursor: pointer;
+        }
+    
     </style>
 </head>
 
@@ -114,17 +116,9 @@
 
     <!-- שורה 2 -->
     <div class="row row2">
-        <div id="menuPart">
-            <h2>תפריט</h2>
-        </div>
-
-        <div id="friendMemberPart">
-            <h2>חברי מועדון</h2>
-         </div>
-
-        <div id="myOrdersPart">
-            <h2>ההזמנות שלי</h2>
-        </div>
+        <div id="menuPart">תפריט</div>
+        <div id="friendMemberPart">חברי מועדון</div>
+        <div id="myOrdersPart">ההזמנות שלי</div>
     </div>
 
     <!-- שורה 3 -->
@@ -135,6 +129,7 @@
 </div>
 
 <script>
+    /* ===== ברכה ===== */
     function updateGreeting(){
         const hour = new Date().getHours();
         let greeting = "";
@@ -151,6 +146,7 @@
         document.getElementById("userName").innerText = "NAME";
     }
 
+    /* ===== שעון ===== */
     function updateClock(){
         const now = new Date();
         const h = String(now.getHours()).padStart(2,'0');
@@ -163,6 +159,19 @@
         document.getElementById("clock").innerText =
             `${d}/${mo}/${y} | ${h}:${m}:${s}`;
     }
+
+    /* ===== HOVER עם JavaScript ===== */
+    const boxes = document.querySelectorAll(".row2 > div");
+
+    boxes.forEach(box => {
+        box.addEventListener("mouseenter", () => {
+            box.style.backgroundColor = "#F6DADF"; // ורוד בייבי בהיר
+        });
+
+        box.addEventListener("mouseleave", () => {
+            box.style.backgroundColor = "#CBAFB2"; // חזרה לבסיס
+        });
+    });
 
     updateGreeting();
     updateClock();
