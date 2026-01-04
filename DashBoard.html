@@ -4,162 +4,66 @@
     <meta charset="utf-8" />
     <title></title>
     <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            background-image: url('IMG_1025 .JPG');
-            /*background-image: url('IMG_1027.JPG');*/
-            background-size: cover;
-            background-position: center;
-            font-family: Arial;
+        body{
+            background-color: #2B1B17; 
             direction: rtl;
         }
-
-        img {
-            width: 295px;
-            height: 135px;
-            border-radius: 15px;
+        .row{
+            background-color: #F5EFE6; 
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            min-height: 10px;
         }
-
-        .container {
-            display: grid;
-            grid-template-rows: auto auto auto auto;
-            justify-content: center;
-            text-align: center;
-            row-gap: 10px;
+        .categoryButton{
+            width: 56px;
+            height: 56px;
+            background-color: #2B1B17;
+            color: #F5EFE6;              
+            font-size: 28px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
         }
-
-        #helloPart {
-            background-color: #151649;
-            color: papayawhip;
-            width: 600px;
-            height: 80px;
-            border-radius: 15px;
+        #categoryPart {
+            align-self: flex-start;
         }
-
-        .menuOrders {
-            display: grid;
-            grid-template-rows: auto;
-            grid-template-columns: 1fr 1fr;
-            justify-content: center;
-            text-align: center;
-            column-gap: 10px;
-        }
-
-        #ordersPart .imgText {
-            position: absolute;
-            background-color: whitesmoke;
-            color: #2d2318;
-            bottom: 60px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 24px;
-            font-weight: bolder;
-        }
-
-        #ordersPart {
-            position: relative;
-        }
-
-        .friendPart {
-            background-color: #151649;
-            color: papayawhip;
-            font-size: 18px;
-            border-radius: 15px;
-            width: 600px;
-            height: 50px;
-        }
-        #bagel {
-            display:none;
-            position:fixed;
-            top:50%;
-            left:50%;
-            transform:translate(-50%,-50%);
-            padding:15px;
-            border-radius:15px;
-            z-index:1000;
-            text-align:center;
-        }
-        #bagel input{
-            color:black;
-            background-color:papayawhip;
-            width:30px;
-            height:30px;
-            text-align:center;
-            top:30px;
-            position:absolute;
-            border-radius:15px;
-            border:none;
-
-        }
-        #bagel img{
-            width:350px;
-            height:auto;
-            border-radius:15px;
-            display:block;
-
-        }
-        
+        #helloPart h1 {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1;
+}
     </style>
 </head>
 <body>
-    <div class="container">
+   <div class="container">
+    <div class="row">
+        <div id="categoryPart">
+           <input type="button" value="☰" class="categoryButton">
+        </div>
         <div id="helloPart">
-            <h4>ברוך הבא</h4>
-            <h4>השעה היא גחעךחכ</h4>
-        </div>
-        <div class="menuOrders">
-            <div class="menuPart">
-                <img src="ChatGPT Image Jan 3, 2026, 12_55_48 AM.png" />
-            </div>
-            <div id="ordersPart">
-                <img src="IMG_1030.JPG" />
-                <div class="imgText">ההזמנות שלי</div>
-            </div>
-        </div>
-        <div class="friendPart">
-            <p>חבר מועדון</p>
-        </div>
-        <div class="graphPart">
+            <h1>היי משתמש</h1>
+            <h1>השעה עכשיו</h1>
 
         </div>
-        <div id="bagel">  <!--///////// פה נוסיף את הפיצר של הברכה היומית שביקשו-->
-            <img src="IMG_1027.JPG" />
-            <input type="button" id="closeBagel" value="X"/>
-        </div>
-
-
-
+    </div>
+    <div class="row">
+        <div id="menuPart"></div>
+        <div id="myOrdersPart"></div>
+    </div>   
+    <div class="row">
+        <div id="friendMemberPart"></div>
+    </div>
+    <div class="row">
+        <div id="graphPart"></div>
     </div>
 
 
+   </div>
+  
+
     <script>
-        const helloeDiv = document.getElementById("helloPart");
-        const bagelDiv = document.getElementById("bagel");
-        helloeDiv.addEventListener("dblclick", function () {
-            bagelDiv.style.display = "block";
-        });
-        const closeBtn = document.getElementById("closeBagel");
-        closeBtn.addEventListener("click", function () {
-            bagelDiv.style.display = "none";
-        })
-
-
-        helloeDiv.addEventListener("mouseover", () => {
-            helloeDiv.style.backgroundColor = "papayawhip";
-            helloeDiv.style.color = "#151649";
-
-        });
-        helloeDiv.addEventListener("mouseleave", () => {
-            helloeDiv.style.backgroundColor = "#151649";
-            helloeDiv.style.color = "papayawhip";
-        });
-
-
-       
     </script>
-
-
-
 </body>
 </html>
