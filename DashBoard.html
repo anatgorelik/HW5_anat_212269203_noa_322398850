@@ -7,14 +7,14 @@
         body{
             background-color: #2B1B17; 
             direction: rtl;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .row{
             background-color: #F5EFE6; 
-            padding: 20px;
             display: flex;
             align-items: center;
             gap: 20px;
-            min-height: 10px;
+            height: 30px;
         }
         .categoryButton{
             width: 56px;
@@ -25,15 +25,30 @@
             border: none;
             border-radius: 6px;
             cursor: pointer;
+            margin-top: 5px;
+            margin-right: 5px;
         }
         #categoryPart {
             align-self: flex-start;
         }
-        #helloPart h1 {
-    margin: 0;
-    font-size: 14px;
-    line-height: 1;
-}
+        #helloPart{
+            margin-top: 40px;
+            font-size: 14px;
+            line-height: 1;
+        }
+        #clock {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #2B1B17;
+            color: #F5EFE6;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+
     </style>
 </head>
 <body>
@@ -43,8 +58,13 @@
            <input type="button" value="☰" class="categoryButton">
         </div>
         <div id="helloPart">
-            <h1>היי משתמש</h1>
-            <h1>השעה עכשיו</h1>
+            <div id="clock"></div>
+            <h2>שלום <span id="userName"></span></h2>
+            <h3 id="greeting"></h3>
+
+</h2>
+
+           
 
         </div>
     </div>
@@ -64,6 +84,41 @@
   
 
     <script>
+        function updateGreeting() {
+        const hour = new Date().getHours();
+        let greeting = "";
+
+        if (hour < 12) {
+            greeting = "בוקר טוב!";
+        } else if (hour < 18) {
+            greeting = "צהריים טובים!";
+        } else {
+            greeting = "ערב טוב!";
+        }
+
+        document.getElementById("greeting").innerText = greeting;
+
+        // זמני – בהמשך יגיע מהתחברות
+        document.getElementById("userName").innerText = "NAME";
+    }
+
+    updateGreeting();
+    updateGreeting();
+
+    function updateClock() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const s = String(now.getSeconds()).padStart(2, '0');
+
+        const d = String(now.getDate()).padStart(2, '0');
+        const mo = String(now.getMonth() + 1).padStart(2, '0');
+        const y = now.getFullYear();
+        document.getElementById('clock').innerText =
+            `${h}:${m}:${s}  |  ${d}/${mo}/${y}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
     </script>
 </body>
 </html>
