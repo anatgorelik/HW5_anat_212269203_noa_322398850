@@ -127,6 +127,15 @@ body{
     const popupContent = document.getElementById("popupContent");
     const closeBtn = document.getElementById("btnClose");
 
+    fetch("Menu.json")
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem("menuItems", JSON.stringify(data));
+            console.log("Menu saved to LocalStorage", data);
+        })
+        .catch(error => {
+            console.error("Error loading Menu.json", error);
+    });
     /* הצגת תפריט לפי CategoryId */
     function showMenu(categoryId) {
 
