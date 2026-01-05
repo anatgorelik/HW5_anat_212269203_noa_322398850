@@ -21,7 +21,7 @@ body{
     margin-top:120px;
 }
 
-#title-menu{
+#titleMenu{
     position:fixed;
     top:30px;
     right:100px;
@@ -88,9 +88,11 @@ body{
 /* ---------- MENU ITEMS ---------- */
 
 .menuItem{
-    margin-bottom:15px;
-    border-bottom:1px solid #ccc;
-    padding-bottom:10px;
+    position: relative;
+    padding-left: 18%;   
+    margin-bottom: 4%;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4%;
 }
 
 .categoryButton{
@@ -144,6 +146,38 @@ body{
         .categoryRows{
             margin-top: 15%;
         }
+/*buy product button*/
+.buyBtn{
+    position: absolute;
+    left: 2%;                 
+    top: 50%;
+    transform: translateY(-50%);
+    width: 7%;
+    aspect-ratio: 1 / 1;
+    background-color: #2B1B17;
+    color: #F5EFE6;
+    border: none;
+    border-radius: 50%;
+    font-size: 100%;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/* הטקסט שמופיע ב־hover */
+.buyTextHover{
+ position: absolute;
+    left: 2%;
+    top: -40%;
+    background-color: #2B1B17;
+    color: #F5EFE6;
+    padding: 2% 3%;
+    border-radius: 0.5em;
+    font-size: 70%;
+    white-space: nowrap;
+    display: none;
+}
+
 </style>
 </head>
 
@@ -229,14 +263,60 @@ body{
 
             const br = document.createElement("br");
 
+            const buyBtn = document.createElement("Button");
+            buyBtn.className = "buyBtn";
+            buyBtn.textContent = "+";
+
+            const buyTextHover = document.createElement("div");
+            buyTextHover.className = "buyTextHover";
+            buyTextHover.textContent = "רכישת פריט";
+
+           buyBtn.addEventListener("mouseenter", () => {
+                buyTextHover.style.display = "block";
+            });
+
+            buyBtn.addEventListener("mouseleave", () => {
+                buyTextHover.style.display = "none";
+            });
+
+            buyBtn.addEventListener("click", () =>{
+                addToOrder(item);
+            });
+
+
             itemDiv.appendChild(name);
             itemDiv.appendChild(br);
             itemDiv.appendChild(price);
+            itemDiv.appendChild(br.cloneNode());
+            itemDiv.appendChild(buyBtn);
+            itemDiv.appendChild(buyTextHover);
 
             popupContent.appendChild(itemDiv);
         });
 
         popup.style.display = "block";
+    }
+
+    function addToOrder(item){
+        const orders = JSON.parse(localStorage.getItem("orders"))||[];
+        
+        const timeNow = new Date();
+        const date = 
+            String(timeNow.getDate()).padStart(2,'0')+"/"+
+            String(timeNow.getMonth()+1).padStart(2,'0') + "/" +
+            timeNow.getFullYear();
+        
+        const order = {
+            Date: date,
+            ProductName: item.ProductName,
+            CategoryId:item.CategoryId,
+            Price: item.Price
+        }
+
+        orders.push(order);
+        localStorage("orders",JSON.stringify(orders));
+        
+        alert("ההזמנה נוספה בהצלחה :)");
     }
 
     /* מיפוי שמות קטגוריות */
