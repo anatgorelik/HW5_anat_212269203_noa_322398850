@@ -52,7 +52,7 @@
             justify-items: center;
             top: 37%;
             width: 450px;
-            height: 305px;
+            height: 325px;
             left: 50%;
             transform: translate(-50%,-50%);
             padding:20px;
@@ -134,6 +134,8 @@
             <input type="text" id="nameTxt" />
 
             </div>   
+            <p class="notValReg" >שם פרטי לא יכול להיות ריק</p>
+
             <div class="row">
                 <p class="regTxt">הכנס אימייל:</p>
                 <input type="text" id="emailTxt" />
@@ -224,19 +226,25 @@
             let userEmail = document.getElementById("emailTxt").value;
             let userPassword = document.getElementById("passwordTxt").value;
             const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
-            document.querySelectorAll(".notValReg")[0].style.display = "none";
+            document.querySelectorAll(".notValReg")[1].style.display = "none";
             if (!emailRegex.test(userEmail)) {
                 valid = false;
                 document.getElementById("emailTxt").value = "";
-                document.querySelectorAll(".notValReg")[0].style.display = "block";
+                document.querySelectorAll(".notValReg")[1].style.display = "block";
             }
-            document.querySelectorAll(".notValReg")[1].style.display = "none";
+            document.querySelectorAll(".notValReg")[2].style.display = "none";
             if (userPassword.length < 8) {
                 valid = false;
                 document.getElementById("passwordTxt").value = "";
-                document.querySelectorAll(".notValReg")[1].innerText = "סיסמא לא תקינה - יש לכתוב לפחות 8 תווים";
-                document.querySelectorAll(".notValReg")[1].style.display = "block";
+                document.querySelectorAll(".notValReg")[2].style.display = "block";
             }
+            document.querySelectorAll(".notValReg")[0].style.display = "none";
+            if(document.getElementById("nameTxt").value.trim() === "")
+            {
+                valid=false;
+                document.querySelectorAll(".notValReg")[0].style.display = "block";
+            }
+        
 
         
 
@@ -273,6 +281,8 @@
             for (user of users) {
                 if (user.email === userEmail && user.password === userPassword) {
                     currentUser=user;
+                    currentUserName=user.name;
+                    localStorage.setItem("currentUserName",JSON.stringify(currentUser));
                     localStorage.setItem("currentUser",JSON.stringify(currentUser));
                     found = true;
                     window.location.href="DashBoard.html";
@@ -280,8 +290,8 @@
                 }
             }
             if (!found) {
-                document.querySelectorAll(".notValReg")[1].innerText = "משתמש לא נמצא, נסו שוב";
-                document.querySelectorAll(".notValReg")[1].style.display = "block";
+                document.querySelectorAll(".notValReg")[2].innerText = "משתמש לא נמצא, נסו שוב";
+                document.querySelectorAll(".notValReg")[2].style.display = "block";
                 document.getElementById("btnBack").style.display = "block";
                 document.getElementById("emailTxt").value = "";
                 document.getElementById("passwordTxt").value = "";
