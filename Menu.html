@@ -101,15 +101,15 @@ body{
 <div class="container">
 
     <div class="row">
-        <div class="menuBox" id="breakfast">ארוחות בוקר</div>
-        <div class="menuBox" id="sandwich">כריכים</div>
-        <div class="menuBox" id="toast">טוסטים</div>
+        <div class="menuBox" id="1">ארוחות בוקר</div>
+        <div class="menuBox" id="2">כריכים</div>
+        <div class="menuBox" id="3">טוסטים</div>
     </div>
 
     <div class="row">
-        <div class="menuBox" id="salads">סלטים</div>
-        <div class="menuBox" id="pastries">מאפים</div>
-        <div class="menuBox" id="drink">משקאות</div>
+        <div class="menuBox" id="4">סלטים</div>
+        <div class="menuBox" id="5">מאפים</div>
+        <div class="menuBox" id="6">משקאות</div>
     </div>
 
 </div>
@@ -121,58 +121,85 @@ body{
 </div>
 
 <script>
-const menuBoxes = document.querySelectorAll(".menuBox");
-const popup = document.getElementById("popup");
-const popupContent = document.getElementById("popupContent");
-const closeBtn = document.getElementById("btnClose");
 
+    const menuBoxes = document.querySelectorAll(".menuBox");
+    const popup = document.getElementById("popup");
+    const popupContent = document.getElementById("popupContent");
+    const closeBtn = document.getElementById("btnClose");
 
-/* הצגת קטגוריה לפי ID */
-function showCategory(categoryId) {
+    /* הצגת תפריט לפי CategoryId */
+    function showMenu(categoryId) {
 
-    const data = JSON.parse(localStorage.getItem("menuData"));
-    if (!data) return;
+        const data = JSON.parse(localStorage.getItem("menuItems"));
+        if (!data) return;
 
-    const category = data.menu.find(c => c.id === categoryId);
-    if (!category) return;
+        popupContent.innerHTML = ""; // ניקוי קודם
 
-    let html = `<h2>${category.name}</h2>`;
+        // כותרת
+        const title = document.createElement("h2");
+        title.textContent = getCategoryName(Number(categoryId));
+        popupContent.appendChild(title);
 
-    category.items.forEach(item => {
-        html += `
-            <div class="menuItem">
-                <strong>${item.name}</strong><br>
-                <span>${item.description}</span><br>
-                <span>₪${item.price}</span>
-            </div>
-        `;
+        // סינון פריטים לפי קטגוריה
+        const items = data.filter(item => item.CategoryId === Number(categoryId));
+
+        items.forEach(item => {
+
+            const itemDiv = document.createElement("div");
+            itemDiv.className = "menuItem";
+
+            const name = document.createElement("strong");
+            name.textContent = item.ProductName;
+
+            const price = document.createElement("span");
+            price.textContent = " ₪" + item.Price;
+
+            const br = document.createElement("br");
+
+            itemDiv.appendChild(name);
+            itemDiv.appendChild(br);
+            itemDiv.appendChild(price);
+
+            popupContent.appendChild(itemDiv);
+        });
+
+        popup.style.display = "block";
+    }
+
+    /* מיפוי שמות קטגוריות */
+    function getCategoryName(id) {
+        const map = {
+            1: "ארוחות בוקר",
+            2: "כריכים",
+            3: "טוסטים",
+            4: "סלטים",
+            5: "מאפים",
+            6: "משקאות"
+        };
+        return map[id];
+    }
+
+    /* חיבור הקופסאות */
+    menuBoxes.forEach(box => {
+
+        box.addEventListener("mouseenter", () => {
+            box.style.backgroundColor = "#F6DADF";
+        });
+
+        box.addEventListener("mouseleave", () => {
+            box.style.backgroundColor = "#F5EFE6";
+        });
+
+        box.addEventListener("click", () => {
+            showMenu(box.id);
+        });
+
     });
 
-    popupContent.innerHTML = html;
-    popup.style.display = "block";
-}
-
-/* חיבור הקופסאות */
-menuBoxes.forEach(box => {
-
-    box.addEventListener("mouseenter", () => {
-        box.style.backgroundColor = "#F6DADF";
+    /* סגירה */
+    closeBtn.addEventListener("click", () => {
+        popup.style.display = "none";
     });
-
-    box.addEventListener("mouseleave", () => {
-        box.style.backgroundColor = "#F5EFE6";
-    });
-
-    box.addEventListener("click", () => {
-        showCategory(box.id);
-    });
-
-});
-
-/* סגירת popup */
-closeBtn.addEventListener("click", () => {
-    popup.style.display = "none";
-});
 </script>
 
 </body>
