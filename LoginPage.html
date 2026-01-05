@@ -167,6 +167,9 @@
         const loginBtn = document.getElementById("btnLogIn");
         loginBtn.addEventListener("click", function () {//  אם הלקוח קיים זה מה שיהיה לו
             mode = "login";
+            document.querySelectorAll(".notValReg").forEach(p => {
+                p.style.display = "none";
+            });
             registerDiv.classList.add("loginMode");
             registerDiv.style.display = "grid";
             title.innerText = "כניסה למערכת";
@@ -175,8 +178,11 @@
 
 
         const registerBtn = document.getElementById("btnRegister");// אם הלקוח דחש זה מה שיהיה לו
-        registerBtn.addEventListener("click", function () {
+            registerBtn.addEventListener("click", function () {
             mode = "register";
+            document.querySelectorAll(".notValReg").forEach(p => {
+                p.style.display = "none";
+            });
             registerDiv.style.display = "grid";
             title.innerText = "הרשמה למערכת";
             registerDiv.classList.remove("loginMode");
@@ -215,7 +221,9 @@
         });
         const backBtn = document.getElementById("btnBack");// במסך התחברות יש כפתור חזרה למסך ראשי שמאפס הכל
         backBtn.addEventListener("click", function () {
-            document.querySelectorAll(".notValReg")[1].style.display = "none";
+            document.querySelectorAll(".notValReg").forEach(p => {
+                    p.style.display = "none";
+               });           
             document.getElementById("btnBack").style.display = "none";
             registerDiv.classList.remove("loginMode");
             registerDiv.style.display = "none";
@@ -236,6 +244,7 @@
             if (userPassword.length < 8) {
                 valid = false;
                 document.getElementById("passwordTxt").value = "";
+                document.querySelectorAll(".notValReg")[2].innerText = "סיסמא לא תקינה - יש לכתוב לפחות 8 תווים";
                 document.querySelectorAll(".notValReg")[2].style.display = "block";
             }
             document.querySelectorAll(".notValReg")[0].style.display = "none";
@@ -295,9 +304,7 @@
                 document.getElementById("btnBack").style.display = "block";
                 document.getElementById("emailTxt").value = "";
                 document.getElementById("passwordTxt").value = "";
-            } else {
-                ///////מעבר למסך הראשייייייייייייייי
-            }
+            } 
 
         }
         function saveUser() {/// שומר את המתשמש בזיכרון- זה לא טוב צריך לראות מה יעל לימדה
