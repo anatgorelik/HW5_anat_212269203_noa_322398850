@@ -81,7 +81,7 @@
         }
         #clock{
             position: absolute;
-            top:10px;
+            top:55px;
             left: 10px;
             background-color: #2B1B17;
             color: #F5EFE6;
@@ -192,7 +192,7 @@
 
         #categoryPart div{
           
-            font-size: 35px;
+            font-size: 25px;
             gap:10px;
             border-radius: 15px;
             width: 80%;
@@ -287,6 +287,13 @@
 
 <script>
 
+ const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (currentUser && currentUser.name) {
+        document.getElementById("userName").innerText = currentUser.name;
+        } else {
+        document.getElementById("userName").innerText = "אורח";
+    }
 
     document.getElementById("menuPart").addEventListener("click", ()=>{
         window.location.href = "Menu.html";
@@ -306,7 +313,6 @@
         }
 
         document.getElementById("greeting").innerText = greeting;
-        document.getElementById("userName").innerText = "!!!!!!!";
        
     }
 
