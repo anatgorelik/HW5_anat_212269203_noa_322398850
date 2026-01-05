@@ -172,7 +172,7 @@
         }
         #categoryPart{
             display:none;
-            background-color: #CBAFB2;
+            background-image: url("images/pinkBackGround.JPG");
             color: #2B1B17;
             position: fixed;
             top: 1%;
@@ -182,11 +182,11 @@
             height: 98%;
             z-index: 1004;
             border-radius: 15px;
-            row-gap: 10px;   
+            row-gap: 10px;  
+            right: 0.5%;
         }
 
-        #categoryPart div{
-          
+        .divCategory{
             font-size: 25px;
             gap:10px;
             border-radius: 15px;
@@ -206,6 +206,7 @@
         .categoryRows{
             margin-top: 15%;
         }
+        
 
     </style>
 </head>
@@ -215,9 +216,11 @@
     <div id="categoryPart">
         <input type="button"value="X" id="closeCategory">
         <div class="categoryRows">
-            <div class="divCategory"><p>הזמנות שלי</p></div>
-        <div class="divCategory"><p>תפריט</p></div>
-        <div class="divCategory"><p>חבר מועדון</p></div>
+            <div id="homeCategory" class="divCategory"><p>בית</p></div>
+            <div id="myOrdersCategory" class="divCategory"><p>הזמנות שלי</p></div>
+            <div id="menuCategory" class="divCategory"><p>תפריט</p></div>
+            <div id="frienMemberCategory" class="divCategory"><p>חבר מועדון</p></div>
+            <div id="logOutCategory" class="divCategory"><p>התנתקות</p></div>
         </div>
        
     </div>
@@ -386,7 +389,7 @@
         });
 
         box.addEventListener("mouseleave", () => {
-            box.style.backgroundColor = "#CBAFB2"; // חזרה לבסיס
+            box.style.backgroundColor = "transparent"; // חזרה לבסיס
         });
     });
     const categoryBtn=document.querySelector(".categoryButton");// הכפתור שפותח את החלון קטגוריות
@@ -395,6 +398,10 @@
     });
     btnCloseCategory.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="none";
+    });
+    const outDiv=document.getElementById("logOutCategory");
+    outDiv.addEventListener("click",()=>{
+        window.location.href = "LoginPage.html";
     });
 
 </script>
