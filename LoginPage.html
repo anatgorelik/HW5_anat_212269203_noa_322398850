@@ -8,7 +8,7 @@
         body {
             margin: 0;
             height: 100vh;
-            background-image: url("IMG_1014.JPG");
+            background-image: url("images/PolCoffee.JPG");
             background-size: cover;
             background-position: center;
             font-family:Arial;
@@ -50,9 +50,9 @@
             row-gap:5px;
             column-gap:10px;
             justify-items: center;
-            top: 50%;
+            top: 37%;
             width: 450px;
-            height: 240px;
+            height: 305px;
             left: 50%;
             transform: translate(-50%,-50%);
             padding:20px;
@@ -110,20 +110,29 @@
             border-radius: 15px;
             border: none;
         }
-       
+       .regTxt{
+        width: 100px;
+       }
+       .main img:hover {
+            width: 180px;
+        }
         
 
     </style>
 </head>
 <body>
     <div class="main">
-        <img src="ChatGPT Image Jan 2, 2026, 03_16_00 PM.png" />
+        <img src="images/CoffeeLogo.png" />
         <input type="button" id="btnLogIn" class="hover" value="משתמש רשום"  />
         <input type="button" id="btnRegister"  class="hover" value="משתמש חדש" />
     </div>
     <div class="registerDiv">
         <h3 id="regH3"> </h3>
         <div class="partReg">
+             <div class="row">
+                <p class="regTxt" id="nameTxt"> הכנס שם פרטי:</p>
+                <input type="text" id="nameTxt" />
+            </div>   
             <div class="row">
                 <p class="regTxt">הכנס אימייל:</p>
                 <input type="text" id="emailTxt" />
@@ -136,6 +145,7 @@
                 <input type="text" id="passwordTxt" />
             </div>          
             <p class="notValReg" >סיסמא לא תקינה - יש לכתוב לפחות 8 תווים</p>
+           
         </div>
         <input type="button" value="סיום" id="btnFinishReg"class="hover2"  />
         <input type="button" value="חזור" id="btnBack" class="hover2"/>
@@ -146,6 +156,8 @@
 
 
     <script>
+
+        const nameRow=document.getElementById("nameTxt").parentElement;
         let mode = "";///כדי לדעת אם הלקוח חדש או קיים
         const registerDiv = document.querySelector(".registerDiv");
         const title = document.getElementById("regH3")
@@ -155,6 +167,7 @@
             registerDiv.classList.add("loginMode");
             registerDiv.style.display = "grid";
             title.innerText = "כניסה למערכת";
+            nameRow.style.display = "none";
         })
 
 
@@ -163,6 +176,8 @@
             mode = "register";
             registerDiv.style.display = "grid";
             title.innerText = "הרשמה למערכת";
+            registerDiv.classList.remove("loginMode");
+            nameRow.style.display = "flex";
 
         })
         const buttons = document.querySelectorAll(".hover");/// כשהעכבר על הכפתור הצבע משתנה
@@ -222,7 +237,10 @@
                 document.querySelectorAll(".notValReg")[1].style.display = "block";
             }
 
+        
+
             if (valid) {
+                nameRow.style.display = "none";
                 saveUser();
                 mode = "login";
                 document.getElementById("emailTxt").value = "";
@@ -235,6 +253,7 @@
             }
         }
         function resetRegisterDiv() {// פוקנציה שמאפסת את מסכי ההרשמה
+            document.getElementById("nameTxt").value = "";
             document.getElementById("emailTxt").value = "";
             document.getElementById("passwordTxt").value = "";
             document.querySelectorAll(".notValReg").style.display ="none";
@@ -252,9 +271,10 @@
             document.getElementById("btnBack").style.display = "none";
             for (user of users) {
                 if (user.email === userEmail && user.password === userPassword) {
-                    currentUser.email = userEmail;
-                    currentUser.password = userPassword;
+                    currentUser=user;
+                    localStorage.setItem("currentUser",JSON.stringify(currentUser));
                     found = true;
+                    window.location.href="DashBoard.html";
                     break;
                 }
             }
@@ -272,14 +292,27 @@
         function saveUser() {/// שומר את המתשמש בזיכרון- זה לא טוב צריך לראות מה יעל לימדה
             const userEmail = document.getElementById("emailTxt").value;
             const userPassword = document.getElementById("passwordTxt").value;
+            const userName = document.getElementById("nameTxt").value;
             const user = {
                 email: userEmail,
-                password: userPassword
+                password: userPassword,
+                name:userName
             };
             let users = JSON.parse(localStorage.getItem("users")) || [];
             users.push(user);
             localStorage.setItem("users", JSON.stringify(users));
         }
+        const imgDash = document.querySelector(".main img");
+
+            imgDash.addEventListener("mouseover", () => {
+                imgDash.src = "images/BagelLogo.png";
+            });
+
+            imgDash.addEventListener("mouseleave", () => {
+                imgDash.src = "images/CoffeeLogo.png";
+            });
+
+            
 
     </script>
 
