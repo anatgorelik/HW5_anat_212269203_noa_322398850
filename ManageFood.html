@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+    fetch("Menu.json")
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem("menuItems", JSON.stringify(data));
+            console.log("Menu saved to LocalStorage", data);
+        })
+        .catch(error => {
+            console.error("Error loading Menu.json", error);
+        });
+    </script>
+</body>
+</html>

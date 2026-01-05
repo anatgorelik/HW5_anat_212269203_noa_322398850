@@ -1,0 +1,21 @@
+[
+  { "ProductName": "ארוחת בוקר ישראלית", "CategoryId": 1, "Price": "48" },
+  { "ProductName": "ארוחת בוקר טבעונית", "CategoryId": 1, "Price": "46" },
+
+  { "ProductName": "כריך טונה", "CategoryId": 2, "Price": "34" },
+  { "ProductName": "כריך מוצרלה", "CategoryId": 2, "Price": "36" },
+
+  { "ProductName": "טוסט גבינות", "CategoryId": 3, "Price": "36" },
+  { "ProductName": "טוסט פסטו", "CategoryId": 3, "Price": "34" },
+  { "ProductName": "טוסט פיצה", "CategoryId": 3, "Price": "32" },
+
+  { "ProductName": "סלט יווני", "CategoryId": 4, "Price": "42" },
+  { "ProductName": "סלט קינואה", "CategoryId": 4, "Price": "44" },
+  { "ProductName": "סלט קיסר", "CategoryId": 4, "Price": "46" },
+
+  { "ProductName": "קרואסון שוקולד", "CategoryId": 5, "Price": "15" },
+  { "ProductName": "בורקס גבינה", "CategoryId": 5, "Price": "16" },
+
+  { "ProductName": "קפה הפוך", "CategoryId": 6, "Price": "14" },
+  { "ProductName": "מיץ תפוזים", "CategoryId": 6, "Price": "16" }
+]
