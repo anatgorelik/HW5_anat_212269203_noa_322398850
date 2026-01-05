@@ -11,6 +11,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 20px;
+            background-image: url("images/backGrountCoffee.JPG");
         }
 
         .container{
@@ -42,10 +43,10 @@
         }
 
         .row1Part1, .row1Part3{
+            position: relative;
             font-size: 14px;
             align-self: flex-start;
             background-color: #F5EFE6;
-            width: 42%;
             height: 100px;
             border-radius: 15px;
             display: flex;
@@ -79,9 +80,9 @@
 
         }
         #clock{
-            position: fixed;
-            top:40px;
-            right: 370px;
+            position: absolute;
+            top:10px;
+            left: 10px;
             background-color: #2B1B17;
             color: #F5EFE6;
             padding: 8px 14px;
@@ -174,40 +175,87 @@
             z-index: 1002;
             /* border: none; */
         }
+        #categoryPart{
+            display:none;
+            background-color: #CBAFB2;
+            color: #2B1B17;
+            position: fixed;
+            top: 1%;
+            bottom:1%;
+            right: 0px;
+            width: 20%;
+            height: 98%;
+            z-index: 1004;
+            border-radius: 15px;
+            row-gap: 10px;   
+        }
+
+        #categoryPart div{
+          
+            font-size: 35px;
+            gap:10px;
+            border-radius: 15px;
+            width: 80%;
+        }
+        #closeCategory{
+            position: absolute;
+            top:3%;
+            left:3%;
+            background-color:#2B1B17 ;
+            color: #CBAFB2;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 20px;
+            border: none;
+        }
+        .categoryRows{
+            margin-top: 15%;
+        }
 
     </style>
 </head>
 
 <body>
+    
+    <div id="categoryPart">
+        <input type="button"value="X" id="closeCategory">
+        <div class="categoryRows">
+            <div class="divCategory"><p>הזמנות שלי</p></div>
+        <div class="divCategory"><p>תפריט</p></div>
+        <div class="divCategory"><p>חבר מועדון</p></div>
+        </div>
+       
+    </div>
 
-<div id="clock"></div>
+
 
 <div class="container">
 
 
 
-<div class="row1">
-    
-    <!-- שליש ימני – שלום + כפתור קטגוריות -->
-    <div class="row1Part1">
-        <input type="button" value="☰" class="categoryButton">
-        <div id="helloPart">
-            <h2>שלום <span id="userName"></span></h2>
-            <h3 id="greeting"></h3>
+    <div class="row1">
+        
+        <!-- שליש ימני – שלום + כפתור קטגוריות -->
+        <div class="row1Part1">
+            <input type="button" value="☰" class="categoryButton" >
+            <div id="helloPart">
+                <h2>שלום <span id="userName"></span></h2>
+                <h3 id="greeting"></h3>
+            </div>
+            <div id="clock"></div>
         </div>
-    </div>
 
-    <!-- שליש אמצעי – לוגו בלבד -->
-    <div class="row1Part2">
-        <img src="images/CoffeeLogo.png" alt="לוגו קפה" id="logo">
-    </div>
+        <!-- שליש אמצעי – לוגו בלבד -->
+        <div class="row1Part2">
+            <img src="images/CoffeeLogo.png" alt="לוגו קפה" id="logo">
+        </div>
 
-    <!-- שליש שמאלי – מקום עתידי -->
-    <div class="row1Part3">
-        <p>פה נכתוב את הפיצר שביקשו</p>
-    </div>
+        <!-- שליש שמאלי – מקום עתידי -->
+        <div class="row1Part3">
+            <p>פה נכתוב את הפיצר שביקשו</p>
+        </div>
 
-</div>
+    </div>
 
 
     <!-- שורה 2 -->
@@ -238,6 +286,8 @@
 </div>
 
 <script>
+
+
     /* ===== ברכה ===== */
     function updateGreeting(){
         const hour = new Date().getHours();
@@ -252,7 +302,8 @@
         }
 
         document.getElementById("greeting").innerText = greeting;
-        document.getElementById("userName").innerText = "NAME";
+        document.getElementById("userName").innerText = "!!!!!!!";
+       
     }
 
     /* ===== שעון ===== */
@@ -287,6 +338,14 @@
     updateGreeting();
     updateClock();
     setInterval(updateClock,1000);
+//     window.addEventListener("DOMContentLoaded", () => {
+//     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+//     if (currentUser && currentUser.name) {
+//         document.getElementById("userName").innerText = currentUser.name;
+//     } else {
+//         document.getElementById("userName").innerText = "משתמש";
+//     }
+// });
 
 
 
@@ -299,8 +358,8 @@
     });
 
 
-    const graphDiv=document.getElementById("graphPart");
-    const closeBtn=document.getElementById("btnCloseGraph");
+    const graphDiv=document.getElementById("graphPart");//// החלק של הגרף
+    const closeBtn=document.getElementById("btnCloseGraph");/// הכפתור שיסגור את ההצגה הגדולה של הגרף
 
     graphDiv.addEventListener("click",()=>{
             graphDiv.classList.add("bigGraph");
@@ -320,6 +379,38 @@
         closeBtn.style.backgroundColor = "#2B1B17";
         closeBtn.style.color = "#F5EFE6";
     });
+
+
+    const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
+    btnCloseCategory.addEventListener("mouseover", () => {
+        btnCloseCategory.style.backgroundColor = "#F5EFE6";
+        btnCloseCategory.style.color = "#2B1B17";
+    });
+    btnCloseCategory.addEventListener("mouseleave", () => {
+        btnCloseCategory.style.backgroundColor = "#2B1B17";
+        btnCloseCategory.style.color = "#F5EFE6";
+    });
+    const categoryDiv=document.querySelectorAll(".divCategory");// מה שמופיע שחלק של הקטגוריות- המעברים לדפים
+    categoryDiv.forEach(box => {
+        box.addEventListener("mouseenter", () => {
+            box.style.backgroundColor = "#F6DADF"; // ורוד בייבי בהיר
+        });
+
+        box.addEventListener("mouseleave", () => {
+            box.style.backgroundColor = "#CBAFB2"; // חזרה לבסיס
+        });
+    });
+    const categoryBtn=document.querySelector(".categoryButton");// הכפתור שפותח את החלון קטגוריות
+    categoryBtn.addEventListener("click",()=>{
+        document.getElementById("categoryPart").style.display="block";
+    });
+    btnCloseCategory.addEventListener("click",()=>{
+        document.getElementById("categoryPart").style.display="none";
+    })
+
+   
+
+
 </script>
 
 </body>
