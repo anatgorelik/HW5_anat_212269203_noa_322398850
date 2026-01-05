@@ -31,8 +31,6 @@
             padding: 10px 20px;
         }     
 
-        /*55555555555555555555555555555555555555555555555555555*/
-
         .row1 {    /*   השורה הראשונה, תיהיה מחולקת ל3 חלקים*/
             display: flex;
             align-items: center;
@@ -99,8 +97,6 @@
             width: 180px;
         }
        
-
-        /*22222222222222222222222222222222222222222222222*/
          /* ===== שורה 2 – Grid ===== */
         .row2{
             display: grid;
@@ -173,7 +169,6 @@
             font-size: 22px;
             border-radius: 15px;
             z-index: 1002;
-            /* border: none; */
         }
         #categoryPart{
             display:none;
@@ -227,11 +222,7 @@
        
     </div>
 
-
-
 <div class="container">
-
-
 
     <div class="row1">
         
@@ -280,7 +271,6 @@
                <p>פיצר </p>
             </div>
         </div>
-       
     </div>
     
 </div>
@@ -348,16 +338,6 @@
     updateGreeting();
     updateClock();
     setInterval(updateClock,1000);
-//     window.addEventListener("DOMContentLoaded", () => {
-//     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-//     if (currentUser && currentUser.name) {
-//         document.getElementById("userName").innerText = currentUser.name;
-//     } else {
-//         document.getElementById("userName").innerText = "משתמש";
-//     }
-// });
-
-
 
     const imgDash=document.querySelector(".row1Part2 img");
     imgDash.addEventListener("mouseover",()=>{
@@ -366,7 +346,6 @@
     imgDash.addEventListener("mouseleave",()=>{
         imgDash.src="images/CoffeeLogo.png";
     });
-
 
     const graphDiv=document.getElementById("graphPart");//// החלק של הגרף
     const closeBtn=document.getElementById("btnCloseGraph");/// הכפתור שיסגור את ההצגה הגדולה של הגרף
@@ -416,10 +395,7 @@
     });
     btnCloseCategory.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="none";
-    })
-
-   
-
+    });
 
 </script>
 
