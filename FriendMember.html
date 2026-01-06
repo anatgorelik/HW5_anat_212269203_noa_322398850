@@ -95,7 +95,9 @@
             width: 500px;
             height: 230px;
             padding: 20px;
-            box-shadow: 0 8px 20px rgba(0 0 0 0.25);
+            box-shadow:
+               0 4px 10px rgba(0,0,0,0.18),
+               0 10px 30px rgba(0,0,0,0.25);               
         }
         #loadMoney{
             color: #2B1B17;
@@ -125,9 +127,11 @@
         #userNameCard{
             font-size: 30px;
             align-items: center;
+            text-align: center;
         }
-        #currentBalence{
-            font-size: 20px;
+        #currentBalance{
+            font-size: 25px;
+            text-align: center;
         }
         
 
@@ -150,8 +154,8 @@
 
     <div id="friendMemberPart">
          <div id="friendMemberCard">
-              <p id="userNameCard">פה יהיה כתוב השם של בעל הכרטיס</p>
-              <p id="currentBalence">טעינה נוכחית : ***** </p>
+              <p id="userNameCard"></p>
+              <p id="currentBalance">טעינה נוכחית : </p>
          </div>
          <div id="loadMoney">
               <p id="insertMoneyTxt">הכנס סכום לטעינה</p>
@@ -164,7 +168,20 @@
 
 
     <script>
-        const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));// משיכת שם משתמש מהזיכרון כדי לכתוב בשם הכרטיס
+    const currentUserCardName=document.getElementById("userNameCard");
+    if(currentUser&&currentUser.name){
+        currentUserCardName.innerText="בעל הכרטיס    "+currentUser.name;
+    }else{
+        currentUserCardName="אורח";
+    }
+    const balanceTxt=document.getElementById("currentBalance");
+    ////////////////////////////////////////////////////////
+    //פה נצטרך לשמוך את היתרה מהזיכרון ולכתוב אותה + שח//
+    //אחרת נכתוב 0//
+    balanceTxt.innerText+="  0 שח";
+
+    const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
     btnCloseCategory.addEventListener("mouseover", () => {
         btnCloseCategory.style.backgroundColor = "#F5EFE6";
         btnCloseCategory.style.color = "#2B1B17";

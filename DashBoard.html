@@ -59,7 +59,7 @@
         
 
          /* כפתור קטגוריות */
-        .categoryButton{
+        #categoryButton{
             width:56px;
             height: 56px;
             background-color: #2B1B17;
@@ -231,7 +231,7 @@
         
         <!-- שליש ימני – שלום + כפתור קטגוריות -->
         <div class="row1Part1">
-            <input type="button" value="☰" class="categoryButton" >
+            <input type="button" value="☰" id="categoryButton" >
             <div id="helloPart">
                 <h2>שלום <span id="userName"></span></h2>
                 <h3 id="greeting"></h3>
@@ -291,6 +291,18 @@
     document.getElementById("menuPart").addEventListener("click", ()=>{
         window.location.href = "Menu.html";
     });
+     document.getElementById("friendMemberPart").addEventListener("click", ()=>{
+        window.location.href = "FriendMember.html";
+    });
+    document.getElementById("menuCategory").addEventListener("click", ()=>{
+        window.location.href = "Menu.html";
+    });
+    document.getElementById("frienMemberCategory").addEventListener("click", ()=>{
+        window.location.href = "FriendMember.html";
+    });
+    
+    
+    
     
     /* ===== ברכה ===== */
     function updateGreeting(){
@@ -392,10 +404,25 @@
             box.style.backgroundColor = "transparent"; // חזרה לבסיס
         });
     });
-    const categoryBtn=document.querySelector(".categoryButton");// הכפתור שפותח את החלון קטגוריות
+    const categoryBtn=document.getElementById("categoryButton");// הכפתור שפותח את החלון קטגוריות
     categoryBtn.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="block";
     });
+    categoryBtn.addEventListener("mouseover",()=>{
+        categoryBtn.style.backgroundColor="#F6DADF";
+        categoryBtn.style.color="#2B1B17";
+
+    });
+    categoryBtn.addEventListener("mouseleave",()=>{
+        categoryBtn.style.backgroundColor="#2B1B17";
+        categoryBtn.style.color="#F5EFE6";
+
+    });
+
+
+
+
+
     btnCloseCategory.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="none";
     });
