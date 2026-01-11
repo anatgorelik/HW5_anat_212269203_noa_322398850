@@ -184,6 +184,10 @@
         .categoryRows{
             margin-top: 15%;
         }
+        #friendMemberPart{
+            display:flex;
+            flex-direction: column;
+        }
         @media screen and (max-width: 600px) {      
 
             /* שורה ראשונה – נסתיר את הלוגו ואת כפתור הקטגוריות */
@@ -274,7 +278,10 @@
     <!-- שורה 2 -->
     <div class="row2">
         <div id="menuPart">תפריט</div>
-        <div id="friendMemberPart">חברי מועדון</div>
+        <div id="friendMemberPart"> 
+            <p>חבר מועדון</p>
+            <p id="showBalance"></p>
+        </div>
         <div id="myOrdersPart">ההזמנות שלי</div>
     </div>
 
@@ -300,6 +307,8 @@
 
  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
+    const balance=currentUser.balance;
+    document.getElementById("showBalance").innerText="יתרה: "+balance+" שח";
     if (currentUser && currentUser.name) {
         document.getElementById("userName").innerText = currentUser.name;
         } else {
@@ -388,15 +397,7 @@
     });
 
     
-    closeBtn.addEventListener("mouseover", () => {
-    closeBtn.style.backgroundColor = "#F5EFE6";
-    closeBtn.style.color = "#2B1B17";
-    });
-
-    closeBtn.addEventListener("mouseleave", () => {
-        closeBtn.style.backgroundColor = "#2B1B17";
-        closeBtn.style.color = "#F5EFE6";
-    });
+    
 
 
     const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
@@ -435,6 +436,15 @@
 
     btnCloseCategory.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="none";
+    });
+    closeBtn.addEventListener("mouseover", () => {
+    closeBtn.style.backgroundColor = "#F5EFE6";
+    closeBtn.style.color = "#2B1B17";
+    });
+
+    closeBtn.addEventListener("mouseleave", () => {
+        closeBtn.style.backgroundColor = "#2B1B17";
+        closeBtn.style.color = "#F5EFE6";
     });
 
 </script>
