@@ -2,46 +2,47 @@
 <html lang="he">
 <head>
 <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>תפריט</title>
 
 <style>
-    body{
-    direction:rtl;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin:0;
-    padding:20px;
-    background-image: url("images/backGrountCoffee.JPG");
+        body{
+        direction:rtl;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin:0;
+        padding:20px;
+        background-image: url("images/backGrountCoffee.JPG");
 
-}
+        }
 
         .categoryButton{
-                    width:56px;
-                    height: 56px;
-                    background-color: #2B1B17;
-                    color: #F5EFE6;
-                    font-size: 28px;
-                    border: none;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    margin-top: 10px;
-                    margin-right: 10px;
-                    align-self: flex-start;
-                    
+            width:56px;
+            height: 56px;
+            background-color: #2B1B17;
+            color: #F5EFE6;
+            font-size: 28px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 10px;
+            align-self: flex-start;                 
         }
         #categoryPart{
-                    display:none;
-                    background-image: url("images/pinkBackGround.JPG");
-                    color: #2B1B17;
-                    position: fixed;
-                    top: 1%;
-                    bottom:1%;
-                    right: 0px;
-                    width: 20%;
-                    height: 98%;
-                    z-index: 1004;
-                    border-radius: 15px;
-                    row-gap: 10px;  
-                    right: 0.5%;
+            display:none;
+            background-image: url("images/pinkBackGround.JPG");
+            color: #2B1B17;
+            position: fixed;
+            top: 1%;
+            bottom:1%;
+            right: 0px;
+            width: 20%;
+            height: 98%;
+            z-index: 1004;
+            border-radius: 15px;
+            row-gap: 10px;  
+            right: 0.5%;
         }
 
         #categoryPart div{
@@ -75,8 +76,6 @@
         }
 
 
-
-
         #friendMemberPart{
             display: flex;
             flex-direction: column;
@@ -90,12 +89,14 @@
             max-width: 900px;
         }
         #friendMemberCard{
-            background-color: #CBAFB2;
+            background-image: url("images/card.JPG");
             border-radius: 20px;
             width: 500px;
             height: 230px;
             padding: 20px;
-            box-shadow: 0 8px 20px rgba(0 0 0 0.25);
+            box-shadow:
+               0 4px 10px rgba(0,0,0,0.18),
+               0 10px 30px rgba(0,0,0,0.25);               
         }
         #loadMoney{
             color: #2B1B17;
@@ -125,10 +126,25 @@
         #userNameCard{
             font-size: 30px;
             align-items: center;
+            text-align: center;
         }
-        #currentBalence{
-            font-size: 20px;
+        #currentBalance{
+            font-size: 25px;
+            text-align: center;
         }
+         @media screen and (max-width: 600px) {    
+
+            .categoryButton {
+                display: none;
+            }
+            #friendMemberCard{
+                width: 300px;
+            }
+             #friendMemberPart{
+                width: 300px;
+             }
+            
+         }
         
 
 </style>
@@ -150,8 +166,8 @@
 
     <div id="friendMemberPart">
          <div id="friendMemberCard">
-              <p id="userNameCard">פה יהיה כתוב השם של בעל הכרטיס</p>
-              <p id="currentBalence">טעינה נוכחית : ***** </p>
+              <p id="userNameCard"></p>
+              <p id="currentBalance">טעינה נוכחית : </p>
          </div>
          <div id="loadMoney">
               <p id="insertMoneyTxt">הכנס סכום לטעינה</p>
@@ -160,11 +176,47 @@
         </div>
     </div>
 
-   
-
-
     <script>
-        const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));// משיכת שם משתמש מהזיכרון כדי לכתוב בשם הכרטיס
+    const currentUserCardName=document.getElementById("userNameCard");
+    let balance=0;////////זה היתרה-ג!!!!!!!!!!
+    if(currentUser&&currentUser.name){
+        currentUserCardName.innerText="הכרטיס של    "+currentUser.name;
+        balance=currentUser.balance;
+    }else{
+        currentUserCardName="אורח";
+    }
+    const balanceTxt=document.getElementById("currentBalance");
+    balanceTxt.innerText = "טעינה נוכחית: " + balance + " שח";
+    
+    
+    function loadBalance(){//////פוקנציה שתקרא את הסכום שהמתשמש רוצה לטעון
+        let sumInput=document.getElementById("userInsertSum");
+        let sumMoney=Number(sumInput.value);
+        if(sumMoney<0 ||isNaN(sumMoney)){
+            sumInput.value = "";
+            sumInput.placeholder = "ערך לא תקין";
+         }
+        else{
+            balance+=sumMoney;
+            balanceTxt.innerText="טעינה נוכחית: " + balance + " שח";
+            sumInput.value = "";
+            sumInput.placeholder="";
+            if (currentUser) {
+            currentUser.balance = balance;
+            localStorage.setItem("currentUser", JSON.stringify(currentUser));
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            users = users.map(u => u.email === currentUser.email ? currentUser : u);
+            localStorage.setItem("users", JSON.stringify(users));
+        }
+        }
+    }
+    const btnLoadMoney=document.getElementById("loadConfirmBtn");
+    btnLoadMoney.addEventListener("click",()=>{
+        loadBalance();
+    });
+
+    const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
     btnCloseCategory.addEventListener("mouseover", () => {
         btnCloseCategory.style.backgroundColor = "#F5EFE6";
         btnCloseCategory.style.color = "#2B1B17";
@@ -190,8 +242,16 @@
     btnCloseCategory.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="none";
     });
-    const outDiv=document.getElementById("logOutCategory");
-    outDiv.addEventListener("click",()=>{
+    document.getElementById("homeCategory").addEventListener("click", ()=>{
+        window.location.href = "DashBoard.html";
+    });
+    document.getElementById("menuCategory").addEventListener("click", ()=>{
+        window.location.href = "Menu.html";
+    });
+    document.getElementById("myOrdersCategory").addEventListener("click", ()=>{
+        window.location.href = "MyOrders.html";
+    });
+     document.getElementById("logOutCategory").addEventListener("click", ()=>{
         window.location.href = "LoginPage.html";
     });
 
@@ -203,7 +263,5 @@
         loadConfirmation.style.backgroundColor="#F5EFE6";
     })
     </script>
-
-
 </body>
 </html>

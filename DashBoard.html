@@ -2,6 +2,8 @@
 <html lang="he">
 <head>
     <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Dashboard</title>
 
     <style>
@@ -59,7 +61,7 @@
         
 
          /* כפתור קטגוריות */
-        .categoryButton{
+        #categoryButton{
             width:56px;
             height: 56px;
             background-color: #2B1B17;
@@ -145,31 +147,7 @@
             justify-content: center;
             border-radius: 15px;
         }
-        .bigGraph{
-            position: fixed;
-            top: 20x;        
-            left: 100px;;
-            transform: translate(-50%,-50%);
-            width: 750px;
-            height: 550px;
-            padding: 20px;
-            border-radius: 15px;
-            z-index: 1000;
-        }
-        #btnCloseGraph{
-            position: absolute;
-            top: 85px;
-            right: 340px;
-            height: 50px;
-            width: 50px;
-            background-color:#2B1B17 ;
-            color: #F5EFE6;
-            text-align: center;
-            display: none;
-            font-size: 22px;
-            border-radius: 15px;
-            z-index: 1002;
-        }
+       
         #categoryPart{
             display:none;
             background-image: url("images/pinkBackGround.JPG");
@@ -206,7 +184,49 @@
         .categoryRows{
             margin-top: 15%;
         }
-        
+        @media screen and (max-width: 600px) {      
+
+            /* שורה ראשונה – נסתיר את הלוגו ואת כפתור הקטגוריות */
+            .row1Part2, #categoryButton {
+                display: none;
+            }
+
+            .row1 {
+                flex-direction: column;
+                height: auto;
+                gap: 10px;
+                padding: 5px;
+            }
+
+            /* נשאיר רק את החלק עם ההגיד שלום ושעה */
+            .row1Part1 {
+                width: 100%;     
+            }
+            .row1Part3 {
+                width: 100%;
+                height: 120px; /* אפשר לשנות לפי הצורך */
+            }
+
+            /* השורות הבאות – כל דיב שורה לבד */
+            .row2 {
+                display: flex;
+                flex-direction: column;
+                gap: 10px; 
+                height: auto;         
+            }
+            .row3 {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .row3Left {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+           
+        }
 
     </style>
 </head>
@@ -227,11 +247,10 @@
 
 <div class="container">
 
-    <div class="row1">
-        
+    <div class="row1">     
         <!-- שליש ימני – שלום + כפתור קטגוריות -->
         <div class="row1Part1">
-            <input type="button" value="☰" class="categoryButton" >
+            <input type="button" value="☰" id="categoryButton" >
             <div id="helloPart">
                 <h2>שלום <span id="userName"></span></h2>
                 <h3 id="greeting"></h3>
@@ -264,7 +283,6 @@
         <div id="graphPart">
             גרפים
         </div>
-        <input type="button" value="X" id="btnCloseGraph">
 
         <div class="row3Left">
             <div id="row3Col1Top">
@@ -288,10 +306,29 @@
         document.getElementById("userName").innerText = "אורח";
     }
 
-    document.getElementById("menuPart").addEventListener("click", ()=>{
+    document.getElementById("menuPart").addEventListener("click",()=>{
+        window.location.href = "Menu.html";
+    })
+    document.getElementById("friendMemberPart").addEventListener("click",()=>{
+        window.location.href = "FriendMember.html";
+    })
+    document.getElementById("myOrdersPart").addEventListener("click",()=>{
+        window.location.href = "MyOrders.html";
+    })
+
+    document.getElementById("menuCategory").addEventListener("click", ()=>{
         window.location.href = "Menu.html";
     });
-    
+    document.getElementById("frienMemberCategory").addEventListener("click", ()=>{
+        window.location.href = "FriendMember.html";
+    });
+    document.getElementById("myOrdersCategory").addEventListener("click", ()=>{
+        window.location.href = "MyOrders.html";
+    });
+     document.getElementById("logOutCategory").addEventListener("click", ()=>{
+        window.location.href = "LoginPage.html";
+    });
+ 
     /* ===== ברכה ===== */
     function updateGreeting(){
         const hour = new Date().getHours();
@@ -350,18 +387,7 @@
         imgDash.src="images/CoffeeLogo.png";
     });
 
-    const graphDiv=document.getElementById("graphPart");//// החלק של הגרף
-    const closeBtn=document.getElementById("btnCloseGraph");/// הכפתור שיסגור את ההצגה הגדולה של הגרף
-
-    graphDiv.addEventListener("click",()=>{
-            graphDiv.classList.add("bigGraph");
-            closeBtn.style.display="block";
-    });
-    closeBtn.addEventListener("click",()=>{
-        graphDiv.classList.remove("bigGraph");
-        closeBtn.style.display="none";
-    });
-
+    
     closeBtn.addEventListener("mouseover", () => {
     closeBtn.style.backgroundColor = "#F5EFE6";
     closeBtn.style.color = "#2B1B17";
@@ -392,16 +418,23 @@
             box.style.backgroundColor = "transparent"; // חזרה לבסיס
         });
     });
-    const categoryBtn=document.querySelector(".categoryButton");// הכפתור שפותח את החלון קטגוריות
+    const categoryBtn=document.getElementById("categoryButton");// הכפתור שפותח את החלון קטגוריות
     categoryBtn.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="block";
     });
+    categoryBtn.addEventListener("mouseover",()=>{
+        categoryBtn.style.backgroundColor="#F6DADF";
+        categoryBtn.style.color="#2B1B17";
+
+    });
+    categoryBtn.addEventListener("mouseleave",()=>{
+        categoryBtn.style.backgroundColor="#2B1B17";
+        categoryBtn.style.color="#F5EFE6";
+
+    });
+
     btnCloseCategory.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="none";
-    });
-    const outDiv=document.getElementById("logOutCategory");
-    outDiv.addEventListener("click",()=>{
-        window.location.href = "LoginPage.html";
     });
 
 </script>
