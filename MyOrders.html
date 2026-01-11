@@ -23,27 +23,129 @@
             font-size:40px;
             font-weight:bold;
         }
+        .container{
+        display:flex;
+        flex-direction:column;
+        gap:30px;
+        margin-top:120px;
+        }
+
+    /* רשימת ההזמנות */
+    .orderList{
+        display:flex;
+        flex-direction:column;
+        gap:20px;
+        width: 100%;
+    }
+
+    /* הזמנה בודדת */
+    .orderItem{
+        background-color:#F5EFE6;
+        border:2px solid #2B1B17;
+        border-radius:12px;
+        padding:10px 18px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        box-shadow:0 3px 10px rgba(0,0,0,0.15);
+    }
+
+    /* צד ימין – שם ותאריך */
+    .orderInfo{
+        display:flex;
+        flex-direction:column;
+        gap:3px;
+    }
+
+    .orderName{
+        font-size:20px;
+        font-weight:bold;
+        color:#2B1B17;
+    }
+
+    .orderTime{
+        font-size:14px;
+        color:#6b5a55;
+    }
+
+    /* מחיר */
+    .orderPrice{
+        font-size:18px;
+        font-weight:bold;
+        color:#2B1B17;
+    }
+
 
 
     </style>
 </head>
 
 <body>
-    <div id="titleMyOrder">ההזמנות שלי:</div>
     <div class="container">
+        <!-- <input type="button"value="X" id="closeCategory"> -->
+        <div id="titleMyOrder">ההזמנות שלי:</div>
+        <div class="orderList" id="orderList">
+
+        </div>
 
     </div>
 
     <script>
-        fetch("MyOrders.json")
-        .then(response => response.json())
-        .then(data => {
-            localStorage.setItem("orders", JSON.stringify(data));
-        })
-        .catch(error => {
-                    console.error("Error loading MyOrders.json", error);
+      
+    function loadOrders(){
+        const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+        orders.sort((a, b) => {
+            const dateA = new Date(a.Date.split('/').reverse().join('-'));
+            const dateB = new Date(b.Date.split('/').reverse().join('-'));
+            return dateB - dateA; // חדש למעלה
         });
+        const orderList = document.getElementById("orderList");
+
+        while(orderList.firstChild){
+            orderList.removeChild(orderList.firstChild);
+        }
+
+        if(orders.length === 0){
+            const msg = document.createElement("p");
+            msg.textContent = "אין הזמנות עדיין";
+            orderList.appendChild(msg);
+            return;
+        }
+
+        orders.forEach(order => {
+
+            const orderDiv = document.createElement("div");
+            orderDiv.className = "orderItem";
+
+            const infoDiv = document.createElement("div");
+            infoDiv.className = "orderInfo";
+
+            const nameDiv = document.createElement("div");
+            nameDiv.className = "orderName";
+            nameDiv.textContent = order.ProductName;
+
+            const timeDiv = document.createElement("div");
+            timeDiv.className = "orderTime";
+            timeDiv.textContent = order.Date;
+
+            const PriceDiv = document.createElement("div");
+            PriceDiv.className = "orderPrice";
+            PriceDiv.textContent = "₪ " + order.Price;
+
+            infoDiv.appendChild(nameDiv);
+            infoDiv.appendChild(timeDiv);
+
+            orderDiv.appendChild(infoDiv);
+            orderDiv.appendChild(PriceDiv);
+
+            orderList.appendChild(orderDiv);
+        });
+    }
+
+    loadOrders();
     </script>
+
 
 
 </body>
