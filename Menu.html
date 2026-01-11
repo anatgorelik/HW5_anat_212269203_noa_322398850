@@ -325,10 +325,32 @@
             buyBtn.addEventListener("mouseleave", () => {
                 buyTextHover.style.display = "none";
             });
-
+            
+            const currentUser=JSON.parse(localStorage.getItem("currentUser"));
             buyBtn.addEventListener("click", () =>{
+
+                let currentUser = JSON.parse(localStorage.getItem("currentUser"));              
+
+                if (currentUser.balance < item.Price) {
+                    alert("אין מספיק כסף, יש לטעון את חבר המועדון");
+                    return;
+                }
                 addToOrder(item);
+                currentUser.balance -= item.Price;
+                let users = JSON.parse(localStorage.getItem("users")) || [];
+                const userIndex = users.findIndex(
+                    u => u.email === currentUser.email
+                );
+
+                if (userIndex !== -1) {
+                    users[userIndex].balance = currentUser.balance;
+                }
+                localStorage.setItem("currentUser", JSON.stringify(currentUser));
+                localStorage.setItem("users", JSON.stringify(users));
+
             });
+                          
+                            
 
 
             itemDiv.appendChild(name);
