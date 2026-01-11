@@ -180,7 +180,7 @@
         display: none;
     }
 
-    #title-menu{
+    #titleMenu{
                 position:fixed;
                 top:30px;
                 right:100px;
@@ -190,7 +190,7 @@
             }
 
 
-            @media screen and (max-width: 600px) {
+        @media screen and (max-width: 600px) {
 
         /* הסתרת כפתור הקטגוריות */
         .categoryButton {
@@ -210,7 +210,7 @@
         }
 
         /* הכותרת למעלה תישאר רגילה או ניתן להקטין קצת אם רוצים */
-        #title-menu {
+        #titleMenu {
             right: 20px;
         }
         /* אפשר גם להקטין קצת את הפאדינג של הקונטיינר */
@@ -241,7 +241,7 @@
        
     </div>
 <input type="button" class="categoryButton" value="☰">
-<div id="title-menu">תפריט</div>
+<div id="titleMenu">תפריט</div>
 
 <div class="container">
 
@@ -361,7 +361,7 @@
         }
 
         orders.push(order);
-        localStorage("orders",JSON.stringify(orders));
+        localStorage.setItem("orders", JSON.stringify(orders));
         
         alert("ההזמנה נוספה בהצלחה :)");
     }
