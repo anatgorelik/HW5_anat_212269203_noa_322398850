@@ -7,43 +7,42 @@
 <title>תפריט</title>
 
 <style>
-    body{
-    direction:rtl;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin:0;
-    padding:20px;
-    background-image: url("images/backGrountCoffee.JPG");
+        body{
+        direction:rtl;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin:0;
+        padding:20px;
+        background-image: url("images/backGrountCoffee.JPG");
 
-}
+        }
 
         .categoryButton{
-                    width:56px;
-                    height: 56px;
-                    background-color: #2B1B17;
-                    color: #F5EFE6;
-                    font-size: 28px;
-                    border: none;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    margin-top: 10px;
-                    margin-right: 10px;
-                    align-self: flex-start;
-                    
+            width:56px;
+            height: 56px;
+            background-color: #2B1B17;
+            color: #F5EFE6;
+            font-size: 28px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 10px;
+            align-self: flex-start;                 
         }
         #categoryPart{
-                    display:none;
-                    background-image: url("images/pinkBackGround.JPG");
-                    color: #2B1B17;
-                    position: fixed;
-                    top: 1%;
-                    bottom:1%;
-                    right: 0px;
-                    width: 20%;
-                    height: 98%;
-                    z-index: 1004;
-                    border-radius: 15px;
-                    row-gap: 10px;  
-                    right: 0.5%;
+            display:none;
+            background-image: url("images/pinkBackGround.JPG");
+            color: #2B1B17;
+            position: fixed;
+            top: 1%;
+            bottom:1%;
+            right: 0px;
+            width: 20%;
+            height: 98%;
+            z-index: 1004;
+            border-radius: 15px;
+            row-gap: 10px;  
+            right: 0.5%;
         }
 
         #categoryPart div{
@@ -177,9 +176,6 @@
         </div>
     </div>
 
-   
-
-
     <script>
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));// משיכת שם משתמש מהזיכרון כדי לכתוב בשם הכרטיס
     const currentUserCardName=document.getElementById("userNameCard");
@@ -215,14 +211,10 @@
         }
         }
     }
-
     const btnLoadMoney=document.getElementById("loadConfirmBtn");
     btnLoadMoney.addEventListener("click",()=>{
         loadBalance();
     });
-
-
-
 
     const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
     btnCloseCategory.addEventListener("mouseover", () => {
@@ -270,9 +262,6 @@
     loadConfirmation.addEventListener("mouseleave",()=>{
         loadConfirmation.style.backgroundColor="#F5EFE6";
     })
-
     </script>
-
-
 </body>
 </html>
