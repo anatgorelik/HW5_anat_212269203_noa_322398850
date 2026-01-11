@@ -2,8 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title></title>
     <style>
+
 
         body {
             margin: 0;
@@ -20,7 +23,9 @@
             justify-content:center;
             gap:20px;
             align-items:center;
-            padding-top:135px;
+            top:40%;
+
+            position: relative;
         }
 
         .overStyle {
@@ -50,7 +55,7 @@
             row-gap:5px;
             column-gap:10px;
             justify-items: center;
-            top: 37%;
+            top: 50%;
             width: 450px;
             height: 350px;
             left: 50%;
@@ -288,10 +293,12 @@
             const user = {
                 email: userEmail,
                 password: userPassword,
-                name:userName
+                name:userName,
+                balance:0
             };
             let users = JSON.parse(localStorage.getItem("users")) || [];
             users.push(user);
+            localStorage.setItem("currentUser", JSON.stringify(user));
             localStorage.setItem("users", JSON.stringify(users));
         }
         const imgDash = document.querySelector(".main img");//בייגל

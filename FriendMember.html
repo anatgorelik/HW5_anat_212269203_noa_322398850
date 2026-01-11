@@ -2,6 +2,8 @@
 <html lang="he">
 <head>
 <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>תפריט</title>
 
 <style>
@@ -75,8 +77,6 @@
         }
 
 
-
-
         #friendMemberPart{
             display: flex;
             flex-direction: column;
@@ -133,6 +133,19 @@
             font-size: 25px;
             text-align: center;
         }
+         @media screen and (max-width: 600px) {    
+
+            .categoryButton {
+                display: none;
+            }
+            #friendMemberCard{
+                width: 300px;
+            }
+             #friendMemberPart{
+                width: 300px;
+             }
+            
+         }
         
 
 </style>
@@ -170,16 +183,46 @@
     <script>
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));// משיכת שם משתמש מהזיכרון כדי לכתוב בשם הכרטיס
     const currentUserCardName=document.getElementById("userNameCard");
+    let balance=0;////////זה היתרה-ג!!!!!!!!!!
     if(currentUser&&currentUser.name){
-        currentUserCardName.innerText="בעל הכרטיס    "+currentUser.name;
+        currentUserCardName.innerText="הכרטיס של    "+currentUser.name;
+        balance=currentUser.balance;
     }else{
         currentUserCardName="אורח";
     }
     const balanceTxt=document.getElementById("currentBalance");
-    ////////////////////////////////////////////////////////
-    //פה נצטרך לשמוך את היתרה מהזיכרון ולכתוב אותה + שח//
-    //אחרת נכתוב 0//
-    balanceTxt.innerText+="  0 שח";
+    balanceTxt.innerText = "טעינה נוכחית: " + balance + " שח";
+    
+    
+    function loadBalance(){//////פוקנציה שתקרא את הסכום שהמתשמש רוצה לטעון
+        let sumInput=document.getElementById("userInsertSum");
+        let sumMoney=Number(sumInput.value);
+        if(sumMoney<0 ||isNaN(sumMoney)){
+            sumInput.value = "";
+            sumInput.placeholder = "ערך לא תקין";
+         }
+        else{
+            balance+=sumMoney;
+            balanceTxt.innerText="טעינה נוכחית: " + balance + " שח";
+            sumInput.value = "";
+            sumInput.placeholder="";
+            if (currentUser) {
+            currentUser.balance = balance;
+            localStorage.setItem("currentUser", JSON.stringify(currentUser));
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            users = users.map(u => u.email === currentUser.email ? currentUser : u);
+            localStorage.setItem("users", JSON.stringify(users));
+        }
+        }
+    }
+
+    const btnLoadMoney=document.getElementById("loadConfirmBtn");
+    btnLoadMoney.addEventListener("click",()=>{
+        loadBalance();
+    });
+
+
+
 
     const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
     btnCloseCategory.addEventListener("mouseover", () => {
@@ -207,8 +250,16 @@
     btnCloseCategory.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="none";
     });
-    const outDiv=document.getElementById("logOutCategory");
-    outDiv.addEventListener("click",()=>{
+    document.getElementById("homeCategory").addEventListener("click", ()=>{
+        window.location.href = "DashBoard.html";
+    });
+    document.getElementById("menuCategory").addEventListener("click", ()=>{
+        window.location.href = "Menu.html";
+    });
+    document.getElementById("myOrdersCategory").addEventListener("click", ()=>{
+        window.location.href = "MyOrders.html";
+    });
+     document.getElementById("logOutCategory").addEventListener("click", ()=>{
         window.location.href = "LoginPage.html";
     });
 
@@ -219,6 +270,7 @@
     loadConfirmation.addEventListener("mouseleave",()=>{
         loadConfirmation.style.backgroundColor="#F5EFE6";
     })
+
     </script>
 
 
