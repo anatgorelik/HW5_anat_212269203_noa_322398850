@@ -184,6 +184,10 @@
         .categoryRows{
             margin-top: 15%;
         }
+        #friendMemberPart{
+            display:flex;
+            flex-direction: column;
+        }
         @media screen and (max-width: 600px) {      
 
             /* שורה ראשונה – נסתיר את הלוגו ואת כפתור הקטגוריות */
@@ -274,7 +278,10 @@
     <!-- שורה 2 -->
     <div class="row2">
         <div id="menuPart">תפריט</div>
-        <div id="friendMemberPart">חברי מועדון</div>
+        <div id="friendMemberPart"> 
+            <p>חבר מועדון</p>
+            <p id="showBalance"></p>
+        </div>
         <div id="myOrdersPart">ההזמנות שלי</div>
     </div>
 
@@ -300,6 +307,8 @@
 
  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
+    const balance=currentUser.balance;
+    document.getElementById("showBalance").innerText="יתרה: "+balance+" שח";
     if (currentUser && currentUser.name) {
         document.getElementById("userName").innerText = currentUser.name;
         } else {
