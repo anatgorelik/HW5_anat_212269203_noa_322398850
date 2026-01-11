@@ -1,0 +1,314 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title></title>
+    <style>
+
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background-image: url("images/backGrountCoffee.JPG");
+            background-size: cover;
+            background-position: center;
+            font-family:Arial;
+            direction:rtl;
+        }
+        .main{  
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            gap:20px;
+            align-items:center;
+            top:40%;
+
+            position: relative;
+        }
+
+        .overStyle {
+            color: black;
+            background-color: tan;
+            width: 180px;
+            height: 45px;
+            font-size: 20px;
+            border: none;
+            border-radius:30px;
+            text-align: center;
+            font-family: Arial;
+            position: static;
+        }
+        img{
+            width:100px;
+            height:100px;
+        }
+
+        
+        .screenStart {
+            background-color: #F5EFE6;
+            color: #2c1f15;
+            position: fixed;
+            display: none;
+            grid-template-rows: auto auto auto auto;
+            row-gap:5px;
+            column-gap:10px;
+            justify-items: center;
+            top: 50%;
+            width: 450px;
+            height: 350px;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            padding:20px;
+            border-radius:15px;
+        }
+        .loginMode{
+            background-color:#CBAFB2;
+            color:#140a02;
+        }
+            
+        .screenPart {
+            display:flex;
+            flex-direction:column;
+            gap:5px;
+            width:100%;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom:1px;
+        }
+        #warningUserName , #warningPassAndUser , #warningEmail{
+            display:none;
+            color:red;
+            font-size:10px;
+            margin-top:0px;
+            text-align:center;
+        }
+        #btnFinishReg,#btnBack{
+            background-color:#2c1f15;
+            color:white;
+            width:80px;
+            height:25px;
+            text-align:center;
+            border-radius:15px;
+            border:none;
+        }
+        .inputTxt{
+            width: 100px;
+        }
+        .main img:hover {
+                width: 180px;
+            }
+        
+    </style>
+</head>
+<body>
+    <div class="main">
+        <img src="images/CoffeeLogo.png" />
+        <input type="button" id="btnLogIn" class="overStyle" value="משתמש רשום"  />
+        <input type="button" id="btnRegister"  class="overStyle" value="משתמש חדש" />
+    </div>
+    <div class="screenStart">
+        <h3 id="screenH3"> </h3>
+        <div class="screenPart">
+            <div class="row" id="row1">
+            <p class="inputTxt"> הכנס שם פרטי:</p>
+            <input type="text" id="userNameTxt" />
+
+            </div>   
+            <p class="notValReg" id="warningUserName">שם פרטי לא יכול להיות ריק</p>
+
+            <div class="row">
+                <p class="inputTxt">הכנס אימייל:</p>
+                <input type="text" id="userEmailTxt" />
+            </div>
+            <p class="notValReg" id="warningEmail"> אימייל לא תקין-יש להשתמש רק באותיות או מספרים, ולכתוב @ ו . </p>
+        </div>
+        <div class="screenPart">
+            <div class="row">
+                <p class="inputTxt">הכנס סיסמא:</p>
+                <input type="text" id="userPasswordTxt" />
+            </div>          
+            <p class="notValReg" id="warningPassAndUser">סיסמא לא תקינה - יש לכתוב לפחות 8 תווים</p>
+           
+        </div>
+        <input type="button" value="סיום" id="btnFinishReg"class="overStyling2"  />
+        <input type="button" value="חזור" id="btnBack" class="overStyling2"/>
+    </div>
+    
+
+    <script>
+
+        const nameRow=document.getElementById("row1");// שומרים במשתנה את החלק של הכנסת שם פרטי
+        let mode = "";//מייצג לנו על איזה מבין הכפתורים הלקוח לחץ
+        const screenStart = document.querySelector(".screenStart");//מסך הכניסה שמור במשתנה
+        const title = document.getElementById("screenH3")//הכותרת שמורה במשתנה
+        const loginBtn = document.getElementById("btnLogIn");//כפתור הסיום שמור במשתנה
+        loginBtn.addEventListener("click", function () {//  אם הלקוח לחץ על משתמש קיים
+            mode = "login";
+            document.querySelectorAll(".notValReg").forEach(p => {//ניקוי כל ההיערות
+                p.style.display = "none";
+            });
+            screenStart.classList.add("loginMode");//הוספת מחלקת עיצוב
+            screenStart.style.display = "grid";//מציגים את המסך
+            title.innerText = "כניסה למערכת";//כותרת בהתאם
+            nameRow.style.display = "none";// בגלל שהמשתמש רשום, מסתירים את החלק של הכנסת פרטי משתמש 
+        })
+
+
+        const registerBtn = document.getElementById("btnRegister");// אם הלקוח לחץ על משתמש חדש
+            registerBtn.addEventListener("click", function () {
+            mode = "register";
+            document.querySelectorAll(".notValReg").forEach(p => {//ניקוי של פקדי ההיערות
+                p.style.display = "none";
+            });
+            screenStart.style.display = "grid";
+            title.innerText = "הרשמה למערכת";
+            screenStart.classList.remove("loginMode");// מסירים את מחלקת העיצוב של מסך הכניסה,למקרה שהיה שימוש בו לפני וזה נשמר
+            nameRow.style.display = "flex";//הצגת החלק של הכנסת שם משתמש
+
+        })
+        const buttons = document.querySelectorAll(".overStyle");/// כשהעכבר על הכפתורים הראשונים הצבע משתנה
+        buttons.forEach(btn => {
+            btn.addEventListener("mouseover", () => {
+                btn.style.backgroundColor = "papayawhip";
+            });
+            btn.addEventListener("mouseleave", () => {
+                btn.style.backgroundColor = "tan";
+            });
+        });
+       
+        const buttons2 = document.querySelectorAll(".overStyling2");/// כשהעכבר על הכפתור חזור וסיום הצבע משתנה
+        buttons2.forEach(btn => {
+            btn.addEventListener("mouseover", () => {
+                btn.style.backgroundColor = "papayawhip";
+                hoverFinish.style.color = "#4d3e2e";
+            });
+            btn.addEventListener("mouseleave", () => {
+                btn.style.backgroundColor = "#2c1f15";
+                hoverFinish.style.color = "#4d3e2e";
+            });
+        });
+
+        const finishBtn = document.getElementById("btnFinishReg");// לחיצה על כפתור הסיום, תלוי באיזה מסך אנחנו
+        finishBtn.addEventListener("click", function () {
+            if (mode == "register") {//לחיצה על כפתור הסיום כשאנחנו במשתמתש חדש
+                register();
+            } else if (mode == "login") {//לחיצה על כפתור סיום כשאנחנו במשתמש קיים
+                login();
+            }
+        });
+        const backBtn = document.getElementById("btnBack");// במסך התחברות יש כפתור חזרה למסך ראשי שמאפס הכל
+        backBtn.addEventListener("click", function () {
+            document.querySelectorAll(".notValReg").forEach(p => {
+                    p.style.display = "none";
+               });              
+            screenStart.classList.remove("loginMode");//מסירים את מחלקת העיצוב של משתמש רשום, היא תעלה מחדש כשירצו להתחבר שוב
+            screenStart.style.display = "none";//מסתירים את המסך כי לחתנו על חזור
+            resetScreen();  
+        });
+        
+        function register(){// כפתור סיום במסך משתמש חדש
+            let valid = true;
+            let userEmail = document.getElementById("userEmailTxt").value;//האימייל שהמשתמש הכניס
+            let userPassword = document.getElementById("userPasswordTxt").value;//הסיסימא שהמשתמש הכניס
+            const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;//בדיקת תקינות של האימייל
+            document.getElementById("warningEmail").style.display = "none";
+            if (!emailRegex.test(userEmail)) {
+                valid = false;
+                document.getElementById("userEmailTxt").value = "";
+                document.getElementById("warningEmail").style.display = "block";
+            }
+            document.getElementById("warningPassAndUser").style.display = "none";
+            if (userPassword.length < 8) {
+                valid = false;
+                document.getElementById("userPasswordTxt").value = "";
+                document.getElementById("warningPassAndUser").innerText = "סיסמא לא תקינה - יש לכתוב לפחות 8 תווים";
+                document.getElementById("warningPassAndUser").style.display = "block";
+            }
+            document.getElementById("warningUserName").style.display = "none";       
+            if(document.getElementById("userNameTxt").value.trim() === "")
+            {
+                valid=false;
+                document.getElementById("warningUserName").style.display = "block";
+            }
+
+
+            if (valid) {//אם הכל תקין נעבור למסך של התחברות למשתמש קיים
+                nameRow.style.display = "none";//מסתירים את החלק של שם השמתמש
+                saveUser();//שומרים את המשתמש 
+                mode = "login";
+                screenStart.classList.add("loginMode");//מוסיפים למסך את מחלקת העיצוב שלמשתמש קיים
+                title.innerText = "כניסה למערכת";
+                resetScreen();
+           
+            }
+        }
+        function resetScreen() {// פוקנציה שמאפסת את מסכי ההרשמה
+            document.getElementById("userNameTxt").value = "";
+            document.getElementById("userEmailTxt").value = "";
+            document.getElementById("userPasswordTxt").value = "";
+            document.querySelectorAll(".notValReg").style.display ="none";
+        }
+
+
+        let currentUser = {};//פה נשמור את הפרטים של מי שמתחבר
+        function login() {// כפתור סיום במסך התחברות
+            let found = false;
+            let userEmail = document.getElementById("userEmailTxt").value;//האימייל שהוא הכניס
+            let userPassword = document.getElementById("userPasswordTxt").value;//הסייסמא שהוא הכניס
+            const users = JSON.parse(localStorage.getItem("users")) || [];//משיכה מהזיכרון בשביל לבדוק אם קיים כזה משתמש????????????
+            document.getElementById("warningPassAndUser").style.display = "none";
+            for (user of users) {
+                if (user.email === userEmail && user.password === userPassword) {//בדיקה אם יש משתמש כזה, אם כן
+                    currentUser=user;//נשמור אותו
+                    localStorage.setItem("currentUser",JSON.stringify(currentUser));//נשמור את המשתמש הנוכחי בזיכרון כדי להשתמש בו אחרי זה
+                    found = true;
+                    window.location.href="DashBoard.html";
+                    break;
+                }
+            }
+            if (!found) {//אם השמתמש לא נמצא
+                document.getElementById("warningPassAndUser").innerText = "משתמש לא נמצא, נסו שוב";//תגית אזהרה אדומה גם לסיסמא וגם לשמתמש שלא נמצא, משנים לה תא הטקטס
+                document.getElementById("warningPassAndUser").style.display = "block";
+                document.getElementById("userEmailTxt").value = "";
+                document.getElementById("userPasswordTxt").value = "";
+            } 
+
+        }
+        function saveUser() {/// שומר את המתשמש בזיכרון- זה לא טוב צריך לראות מה יעל לימדה
+            const userEmail = document.getElementById("userEmailTxt").value;
+            const userPassword = document.getElementById("userPasswordTxt").value;
+            const userName = document.getElementById("userNameTxt").value;
+            const user = {
+                email: userEmail,
+                password: userPassword,
+                name:userName,
+                balance:0
+            };
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            users.push(user);
+            localStorage.setItem("currentUser", JSON.stringify(user));
+            localStorage.setItem("users", JSON.stringify(users));
+        }
+        const imgDash = document.querySelector(".main img");//בייגל
+
+            imgDash.addEventListener("mouseover", () => {
+                imgDash.src = "images/BagelLogo.png";
+            });
+
+            imgDash.addEventListener("mouseleave", () => {
+                imgDash.src = "images/CoffeeLogo.png";
+            });
+         
+
+    </script>
+
+</body>
+</html>

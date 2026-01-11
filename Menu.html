@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>תפריט</title>
+
+    <style>
+    body{
+        direction:rtl;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin:0;
+        padding:20px;
+        background-image: url("images/backGrountCoffee.JPG");
+
+    }
+
+    .container{
+        display:flex;
+        flex-direction:column;
+        gap:30px;
+        margin-top:120px;
+    }
+
+    #titleMenu{
+        position:fixed;
+        top:30px;
+        right:100px;
+        color:#F5EFE6;
+        font-size:40px;
+        font-weight:bold;
+    }
+
+    .row{
+        display:grid;
+        grid-template-columns:1fr 1fr 1fr;
+        gap:20px;
+    }
+
+    .menuBox{
+        background-color:#F5EFE6;
+        border-radius:20px;
+        min-height:120px;
+        font-size:22px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        cursor:pointer;
+        transition:0.3s;
+    }
+
+    /* ---------- POPUP ---------- */
+
+    .popup{
+        position:fixed;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        width:520px;
+        min-height:300px;
+        background-color:#F5EFE6;
+        border-radius:20px;
+        padding:30px;
+        display:none;
+        z-index:2000;
+        box-shadow:0 10px 40px rgba(0,0,0,0.4);
+    }
+
+    #popupContent{
+        font-size:20px;
+        line-height:1.6;
+        color:#2B1B17;
+    }
+
+    #btnClose{
+        position:absolute;
+        top:15px;
+        left:15px;
+        width:40px;
+        height:40px;
+        background-color:#2B1B17;
+        color:#F5EFE6;
+        border:none;
+        border-radius:10px;
+        font-size:18px;
+        cursor:pointer;
+    }
+
+    /* ---------- MENU ITEMS ---------- */
+
+    .menuItem{
+        position: relative;
+        padding-left: 18%;   
+        margin-bottom: 4%;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 4%;
+    }
+
+    .categoryButton{
+            width:56px;
+            height: 56px;
+            background-color: #2B1B17;
+            color: #F5EFE6;
+            font-size: 28px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 10px;
+            align-self: flex-start;
+                
+    }
+    #categoryPart{
+            display:none;
+            background-image: url("images/pinkBackGround.JPG");
+            color: #2B1B17;
+            position: fixed;
+            top: 1%;
+            bottom:1%;
+            right: 0px;
+            width: 20%;
+            height: 98%;
+            z-index: 1004;
+            border-radius: 15px;
+            row-gap: 10px;  
+            right: 0.5%;
+    }
+
+            #categoryPart div{
+            
+                font-size: 25px;
+                gap:10px;
+                border-radius: 15px;
+                width: 80%;
+            }
+            #closeCategory{
+                position: absolute;
+                top:3%;
+                left:3%;
+                background-color:#2B1B17 ;
+                color: #CBAFB2;
+                text-align: center;
+                border-radius: 10px;
+                font-size: 20px;
+                border: none;
+            }
+            .categoryRows{
+                margin-top: 15%;
+            }
+    /*buy product button*/
+    .buyBtn{
+        position: absolute;
+        left: 2%;                 
+        top: 50%;
+        transform: translateY(-50%);
+        width: 7%;
+        aspect-ratio: 1 / 1;
+        background-color: #2B1B17;
+        color: #F5EFE6;
+        border: none;
+        border-radius: 50%;
+        font-size: 100%;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+
+    /* הטקסט שמופיע ב־hover */
+    .buyTextHover{
+    position: absolute;
+        left: 2%;
+        top: -40%;
+        background-color: #2B1B17;
+        color: #F5EFE6;
+        padding: 2% 3%;
+        border-radius: 0.5em;
+        font-size: 70%;
+        white-space: nowrap;
+        display: none;
+    }
+
+    #titleMenu{
+                position:fixed;
+                top:30px;
+                right:100px;
+                color:#F5EFE6;
+                font-size:40px;
+                font-weight:bold;
+            }
+
+
+        @media screen and (max-width: 600px) {
+
+        /* הסתרת כפתור הקטגוריות */
+        .categoryButton {
+            display: none;
+        }
+
+        /* כל השורות יהיו עמודה אחת מתחת לשנייה */
+        .row {
+            display: flex;            
+            flex-direction: column;  
+            gap: 15px;              
+        }
+
+        /* הדיבים עצמם יתפרסו לכל רוחב */
+        .menuBox {
+            width: 100%;
+        }
+
+        /* הכותרת למעלה תישאר רגילה או ניתן להקטין קצת אם רוצים */
+        #titleMenu {
+            right: 20px;
+        }
+        /* אפשר גם להקטין קצת את הפאדינג של הקונטיינר */
+        .container {
+            padding: 10px;
+            gap: 20px;
+            margin-top: 100px;
+        }
+        .popup{
+            width: 300px;
+            top:30%;
+        }
+    }
+
+    </style>
+</head>
+
+<body>
+    <div id="categoryPart">
+        <input type="button"value="X" id="closeCategory">
+        <div class="categoryRows">
+            <div id="homeCategory" class="divCategory"><p>בית</p></div>
+            <div id="myOrdersCategory" class="divCategory"><p>הזמנות שלי</p></div>
+            <div id="menuCategory" class="divCategory"><p>תפריט</p></div>
+            <div id="frienMemberCategory" class="divCategory"><p>חבר מועדון</p></div>
+            <div id="logOutCategory" class="divCategory"><p>התנתקות</p></div>
+        </div>
+       
+    </div>
+<input type="button" class="categoryButton" value="☰">
+<div id="titleMenu">תפריט</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="menuBox" id="1">ארוחות בוקר</div>
+        <div class="menuBox" id="2">כריכים</div>
+        <div class="menuBox" id="3">טוסטים</div>
+    </div>
+
+    <div class="row">
+        <div class="menuBox" id="4">סלטים</div>
+        <div class="menuBox" id="5">מאפים</div>
+        <div class="menuBox" id="6">משקאות</div>
+    </div>
+
+</div>
+
+<!-- POPUP -->
+<div id="popup" class="popup">
+    <button id="btnClose">X</button>
+    <div id="popupContent"></div>
+</div>
+
+<script>
+
+    const menuBoxes = document.querySelectorAll(".menuBox");
+    const popup = document.getElementById("popup");
+    const popupContent = document.getElementById("popupContent");
+    const closeBtn = document.getElementById("btnClose");
+
+    fetch("Menu.json")
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem("menuItems", JSON.stringify(data));
+            console.log("Menu saved to LocalStorage", data);
+        })
+        .catch(error => {
+            console.error("Error loading Menu.json", error);
+    });
+    /* הצגת תפריט לפי CategoryId */
+    function showMenu(categoryId) {
+
+        const data = JSON.parse(localStorage.getItem("menuItems"));
+        if (!data) return;
+
+        popupContent.innerHTML = ""; // ניקוי קודם
+
+        // כותרת
+        const title = document.createElement("h2");
+        title.textContent = getCategoryName(Number(categoryId));
+        popupContent.appendChild(title);
+
+        // סינון פריטים לפי קטגוריה
+        const items = data.filter(item => item.CategoryId === Number(categoryId));
+
+        items.forEach(item => {
+
+            const itemDiv = document.createElement("div");
+            itemDiv.className = "menuItem";
+
+            const name = document.createElement("strong");
+            name.textContent = item.ProductName;
+
+            const price = document.createElement("span");
+            price.textContent = " ₪" + item.Price;
+
+            const br = document.createElement("br");
+
+            const buyBtn = document.createElement("Button");
+            buyBtn.className = "buyBtn";
+            buyBtn.textContent = "+";
+
+            const buyTextHover = document.createElement("div");
+            buyTextHover.className = "buyTextHover";
+            buyTextHover.textContent = "רכישת פריט";
+
+           buyBtn.addEventListener("mouseenter", () => {
+                buyTextHover.style.display = "block";
+            });
+
+            buyBtn.addEventListener("mouseleave", () => {
+                buyTextHover.style.display = "none";
+            });
+
+            buyBtn.addEventListener("click", () =>{
+                addToOrder(item);
+            });
+
+
+            itemDiv.appendChild(name);
+            itemDiv.appendChild(br);
+            itemDiv.appendChild(price);
+            itemDiv.appendChild(br.cloneNode());
+            itemDiv.appendChild(buyBtn);
+            itemDiv.appendChild(buyTextHover);
+
+            popupContent.appendChild(itemDiv);
+        });
+
+        popup.style.display = "block";
+    }
+
+    function addToOrder(item){
+        const orders = JSON.parse(localStorage.getItem("orders"))||[];
+        
+        const timeNow = new Date();
+        const date = 
+            String(timeNow.getDate()).padStart(2,'0')+"/"+
+            String(timeNow.getMonth()+1).padStart(2,'0') + "/" +
+            timeNow.getFullYear();
+        
+        const order = {
+            Date: date,
+            ProductName: item.ProductName,
+            CategoryId:item.CategoryId,
+            Price: item.Price
+        }
+
+        orders.push(order);
+        localStorage.setItem("orders", JSON.stringify(orders));
+        
+        alert("ההזמנה נוספה בהצלחה :)");
+    }
+
+    /* מיפוי שמות קטגוריות */
+    function getCategoryName(id) {
+        const map = {
+            1: "ארוחות בוקר",
+            2: "כריכים",
+            3: "טוסטים",
+            4: "סלטים",
+            5: "מאפים",
+            6: "משקאות"
+        };
+        return map[id];
+    }
+
+    /* חיבור הקופסאות */
+    menuBoxes.forEach(box => {
+
+        box.addEventListener("mouseenter", () => {
+            box.style.backgroundColor = "#F6DADF";
+        });
+
+        box.addEventListener("mouseleave", () => {
+            box.style.backgroundColor = "#F5EFE6";
+        });
+
+        box.addEventListener("click", () => {
+            showMenu(box.id);
+        });
+
+    });
+
+    /* סגירה */
+    closeBtn.addEventListener("click", () => {
+        popup.style.display = "none";
+    });
+
+
+    const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
+    btnCloseCategory.addEventListener("mouseover", () => {
+        btnCloseCategory.style.backgroundColor = "#F5EFE6";
+        btnCloseCategory.style.color = "#2B1B17";
+    });
+    btnCloseCategory.addEventListener("mouseleave", () => {
+        btnCloseCategory.style.backgroundColor = "#2B1B17";
+        btnCloseCategory.style.color = "#F5EFE6";
+    });
+    const categoryDiv=document.querySelectorAll(".divCategory");// מה שמופיע שחלק של הקטגוריות- המעברים לדפים
+    categoryDiv.forEach(box => {
+        box.addEventListener("mouseenter", () => {
+            box.style.backgroundColor = "#F6DADF"; // ורוד בייבי בהיר
+        });
+
+        box.addEventListener("mouseleave", () => {
+            box.style.backgroundColor = "transparent"; // חזרה לבסיס
+        });
+    });
+    const categoryBtn=document.querySelector(".categoryButton");// הכפתור שפותח את החלון קטגוריות
+    categoryBtn.addEventListener("click",()=>{
+        document.getElementById("categoryPart").style.display="block";
+    });
+    btnCloseCategory.addEventListener("click",()=>{
+        document.getElementById("categoryPart").style.display="none";
+    });
+     document.getElementById("homeCategory").addEventListener("click", ()=>{
+        window.location.href = "DashBoard.html";
+    });
+    document.getElementById("frienMemberCategory").addEventListener("click", ()=>{
+        window.location.href = "FriendMember.html";
+    });
+    document.getElementById("myOrdersCategory").addEventListener("click", ()=>{
+        window.location.href = "MyOrders.html";
+    });
+     document.getElementById("logOutCategory").addEventListener("click", ()=>{
+        window.location.href = "LoginPage.html";
+    });
+
+    
+</script>
+
+</body>
+</html>
