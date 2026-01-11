@@ -187,7 +187,7 @@
         currentUserCardName="אורח";
     }
     const balanceTxt=document.getElementById("currentBalance");
-    balanceTxt.innerText = "טעינה נוכחית: " + balance + " שח";
+    balanceTxt.innerText = "טעינה נוכחית: " + balance + " ₪";
     
     
     function loadBalance(){//////פוקנציה שתקרא את הסכום שהמתשמש רוצה לטעון
@@ -199,7 +199,7 @@
          }
         else{
             balance+=sumMoney;
-            balanceTxt.innerText="טעינה נוכחית: " + balance + " שח";
+            balanceTxt.innerText="טעינה נוכחית: " + balance + " ₪";
             sumInput.value = "";
             sumInput.placeholder="";
             if (currentUser) {
