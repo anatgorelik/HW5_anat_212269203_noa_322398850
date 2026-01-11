@@ -388,15 +388,7 @@
     });
 
     
-    closeBtn.addEventListener("mouseover", () => {
-    closeBtn.style.backgroundColor = "#F5EFE6";
-    closeBtn.style.color = "#2B1B17";
-    });
-
-    closeBtn.addEventListener("mouseleave", () => {
-        closeBtn.style.backgroundColor = "#2B1B17";
-        closeBtn.style.color = "#F5EFE6";
-    });
+    
 
 
     const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
@@ -435,6 +427,15 @@
 
     btnCloseCategory.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="none";
+    });
+    closeBtn.addEventListener("mouseover", () => {
+    closeBtn.style.backgroundColor = "#F5EFE6";
+    closeBtn.style.color = "#2B1B17";
+    });
+
+    closeBtn.addEventListener("mouseleave", () => {
+        closeBtn.style.backgroundColor = "#2B1B17";
+        closeBtn.style.color = "#F5EFE6";
     });
 
 </script>
