@@ -272,15 +272,15 @@
     const popupContent = document.getElementById("popupContent");
     const closeBtn = document.getElementById("btnClosePopup");
 
-    fetch("Menu.json")
-        .then(response => response.json())
-        .then(data => {
-            localStorage.setItem("menuItems", JSON.stringify(data));
-            console.log("Menu saved to LocalStorage", data);
-        })
-        .catch(error => {
-            console.error("Error loading Menu.json", error);
-    });
+    // fetch("Menu.json")
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         localStorage.setItem("menuItems", JSON.stringify(data));
+    //         console.log("Menu saved to LocalStorage", data);
+    //     })
+    //     .catch(error => {
+    //         console.error("Error loading Menu.json", error);
+    // });
     /* הצגת תפריט לפי CategoryId */
     function showMenu(categoryId) {
 
@@ -451,7 +451,7 @@
     btnCloseCategory.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="none";
     });
-     document.getElementById("homeCategory").addEventListener("click", ()=>{
+    document.getElementById("homeCategory").addEventListener("click", ()=>{
         window.location.href = "DashBoard.html";
     });
     document.getElementById("frienMemberCategory").addEventListener("click", ()=>{
@@ -463,6 +463,7 @@
      document.getElementById("logOutCategory").addEventListener("click", ()=>{
         window.location.href = "LoginPage.html";
     });
+   
 
     
 </script>
