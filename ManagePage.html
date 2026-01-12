@@ -2,21 +2,177 @@
 <html lang="he">
 <head>
 <meta charset="utf-8">
-<title>טעינת הזמנות</title>
+<title>עמוד ניהול</title>
+
+<style>
+body{
+    direction:rtl;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url("images/backGrountCoffee.JPG");
+    margin:0;
+    padding:40px;
+}
+
+.admin-panel{
+    max-width:520px;
+    margin:auto;
+    background-color:#F5EFE6;
+    color:#2B1B17;
+    padding:30px;
+    border-radius:15px;
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+.admin-title{
+    text-align:center;
+}
+
+.admin-section{
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:15px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.admin-action{
+    background-color:#2B1B17;
+    color:#F5EFE6;
+    padding:16px;
+    border-radius:12px;
+    text-align:center;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.2s;
+}
+
+.admin-note{
+    font-size:13px;
+    color:#555;
+    text-align:center;
+}
+</style>
 </head>
+
 <body>
 
-<button onclick="loadOrders()">טען הזמנות התחלתיות</button>
+<div class="admin-panel">
+    <h1 class="admin-title">עמוד ניהול</h1>
+
+    <!-- ניהול תפריט -->
+    <div class="admin-section">
+        <strong>ניהול תפריט</strong>
+
+        <div class="admin-action" id="menu-load-from-project">
+            טעינת תפריט מהפרויקט
+        </div>
+
+        <div class="admin-action" id="menu-load-from-file">
+            טעינת תפריט מקובץ חיצוני
+        </div>
+    </div>
+
+    <!-- ניהול הזמנות -->
+    <div class="admin-section">
+        <strong>ניהול הזמנות</strong>
+
+        <div class="admin-action" id="orders-load-from-project">
+            טעינת הזמנות מהפרויקט
+        </div>
+
+        <div class="admin-action" id="orders-load-from-file">
+            טעינת הזמנות מקובץ חיצוני
+        </div>
+    </div>
+
+    <div class="admin-note">
+        ⚠ טעינה דורסת נתונים קיימים בלוקאל סטורג׳
+    </div>
+</div>
 
 <script>
-function loadOrders() {
-    fetch("MyOrders.json")
+/* ---------- HOVER ---------- */
+const adminActions = document.querySelectorAll(".admin-action");
+
+adminActions.forEach(action => {
+    action.addEventListener("mouseenter", () => {
+        action.style.backgroundColor = "#3a2622";
+    });
+    action.addEventListener("mouseleave", () => {
+        action.style.backgroundColor = "#2B1B17";
+    });
+});
+
+/* ---------- CLICK EVENTS ---------- */
+
+// תפריט
+document.getElementById("menu-load-from-project")
+    .addEventListener("click", () => {
+        loadJsonFromProject("Menu.json", "menuItems");
+    });
+
+document.getElementById("menu-load-from-file")
+    .addEventListener("click", () => {
+        loadJsonFromFile("menuItems");
+    });
+
+// הזמנות
+document.getElementById("orders-load-from-project")
+    .addEventListener("click", () => {
+        loadJsonFromProject("MyOrders.json", "orders");
+    });
+
+document.getElementById("orders-load-from-file")
+    .addEventListener("click", () => {
+        loadJsonFromFile("orders");
+    });
+
+/* ---------- פונקציות ---------- */
+
+function loadJsonFromProject(fileName, storageKey){
+    fetch(fileName)
         .then(response => response.json())
         .then(data => {
-            localStorage.setItem("orders", JSON.stringify(data));
-            alert("ההזמנות נטענו בהצלחה");
+            if(!Array.isArray(data)){
+                alert("הקובץ חייב להכיל מערך נתונים");
+                return;
+            }
+            localStorage.setItem(storageKey, JSON.stringify(data));
+            alert("הנתונים נטענו בהצלחה");
         })
-        .catch(err => console.error(err));
+        .catch(() => alert("שגיאה בטעינת הקובץ מהפרויקט"));
+}
+
+function loadJsonFromFile(storageKey){
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = ".json";
+
+    fileInput.addEventListener("change", () => {
+        const file = fileInput.files[0];
+        if(!file) return;
+
+        const reader = new FileReader();
+        reader.onload = event => {
+            try{
+                const data = JSON.parse(event.target.result);
+                if(!Array.isArray(data)){
+                    alert("הקובץ חייב להכיל מערך נתונים");
+                    return;
+                }
+                localStorage.setItem(storageKey, JSON.stringify(data));
+                alert("הקובץ נטען בהצלחה");
+            }catch{
+                alert("קובץ JSON לא תקין");
+            }
+        };
+        reader.readAsText(file);
+    });
+
+    fileInput.click();
 }
 </script>
 
