@@ -1,21 +1,125 @@
-
-
 <!DOCTYPE html>
+<html lang="he">
 <head>
 <meta charset="utf-8">
-<title>ההזמנות שלי</title>
+<title>עמוד ניהול</title>
 
-    <style>
-    </style>
+<style>
+body{
+    direction:rtl;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color:#2B1B17;
+    color:#F5EFE6;
+    margin:0;
+    padding:40px;
+}
+
+.adminBox{
+    max-width:520px;
+    margin:auto;
+    background-color:#F5EFE6;
+    color:#2B1B17;
+    padding:30px;
+    border-radius:15px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+h1{
+    text-align:center;
+}
+
+button{
+    padding:14px;
+    font-size:16px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background-color:#2B1B17;
+    color:#F5EFE6;
+}
+
+button:hover{
+    background-color:#3a2622;
+}
+
+input[type="file"]{
+    font-size:14px;
+}
+
+.note{
+    font-size:13px;
+    color:#555;
+    text-align:center;
+}
+</style>
 </head>
 
 <body>
-    <script>
-fetch("MyOrders.json")
-.then(response => response.json())
-.then(data => {
-    localStorage.setItem("orders", JSON.stringify(data));
-})
 
+<div class="adminBox">
+    <h1>עמוד ניהול</h1>
+
+    <!-- תפריט -->
+    <button onclick="loadMenu()">טעינת תפריט (Menu.json)</button>
+
+    <input type="file" accept=".json"
+           onchange="loadFromFile(this, 'menuItems')">
+
+    <!-- הזמנות -->
+    <button onclick="loadOrders()">טעינת הזמנות (MyOrders.json)</button>
+
+    <input type="file" accept=".json"
+           onchange="loadFromFile(this, 'orders')">
+
+    <div class="note">
+        טעינה תדרוס נתונים קיימים בלוקאל סטורג׳
+    </div>
+</div>
+
+<script>
+function loadMenu(){
+    fetch("Menu.json")
+        .then(r => r.json())
+        .then(data => {
+            localStorage.setItem("menuItems", JSON.stringify(data));
+            alert("התפריט נטען בהצלחה");
+        })
+        .catch(() => alert("שגיאה בטעינת התפריט"));
+}
+
+function loadOrders(){
+    fetch("MyOrders.json")
+        .then(r => r.json())
+        .then(data => {
+            localStorage.setItem("orders", JSON.stringify(data));
+            alert("ההזמנות נטענו בהצלחה");
+        })
+        .catch(() => alert("שגיאה בטעינת ההזמנות"));
+}
+
+/* טעינת JSON מקובץ */
+function loadFromFile(input, storageKey){
+    const file = input.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+        try{
+            const data = JSON.parse(e.target.result);
+            localStorage.setItem(storageKey, JSON.stringify(data));
+            alert("הקובץ נטען בהצלחה");
+        } catch{
+            alert("קובץ JSON לא תקין");
+        }
+    };
+
+    reader.readAsText(file);
+}
 </script>
+
 </body>
+</html>
+
