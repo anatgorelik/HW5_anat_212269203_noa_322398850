@@ -24,7 +24,6 @@
             gap:20px;
             align-items:center;
             top:40%;
-
             position: relative;
         }
 
@@ -110,7 +109,7 @@
 </head>
 <body>
     <div class="main">
-        <img src="images/CoffeeLogo.png" />
+        <img src="images/CoffeeLogo.png" id="imgLogo"/>
         <input type="button" id="btnLogIn" class="overStyle" value="משתמש רשום"  />
         <input type="button" id="btnRegister"  class="overStyle" value="משתמש חדש" />
     </div>
@@ -282,30 +281,32 @@
             } 
 
         }
-        function saveUser() {/// שומר את המתשמש בזיכרון- זה לא טוב צריך לראות מה יעל לימדה
+        function saveUser() {
             const userEmail = document.getElementById("userEmailTxt").value;
             const userPassword = document.getElementById("userPasswordTxt").value;
             const userName = document.getElementById("userNameTxt").value;
+
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+
             const user = {
                 email: userEmail,
                 password: userPassword,
-                name:userName,
-                balance:0
+                name: userName,
+                balance: 0
             };
-            let users = JSON.parse(localStorage.getItem("users")) || [];
+
             users.push(user);
-            localStorage.setItem("currentUser", JSON.stringify(user));
             localStorage.setItem("users", JSON.stringify(users));
+            localStorage.setItem("currentUser", JSON.stringify(user));
         }
-        const imgDash = document.querySelector(".main img");//בייגל
-
-            imgDash.addEventListener("mouseover", () => {
-                imgDash.src = "images/BagelLogo.png";
+        const imgDash=document.getElementById("imgLogo")
+            imgDash.addEventListener("mouseover",()=>{
+                imgDash.src="images/BagelLogo.png";
+            });
+            imgDash.addEventListener("mouseleave",()=>{
+                imgDash.src="images/CoffeeLogo.png";
             });
 
-            imgDash.addEventListener("mouseleave", () => {
-                imgDash.src = "images/CoffeeLogo.png";
-            });
          
 
     </script>
