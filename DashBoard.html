@@ -344,6 +344,19 @@
      document.getElementById("logOutCategory").addEventListener("click", ()=>{
         window.location.href = "LoginPage.html";
     });
+    document.querySelector(".row1Part3").addEventListener("click", ()=>{
+        window.location.href = "ManagePage.html";
+    });
+     document.querySelector(".row1Part3").addEventListener("mouseover",()=>{
+         document.querySelector(".row1Part3").style.backgroundColor="papayawhip";
+         document.querySelector(".row1Part3").style.color="#2B1B17";
+
+    });
+     document.querySelector(".row1Part3").addEventListener("mouseleave",()=>{
+         document.querySelector(".row1Part3").style.backgroundColor="#F5EFE6";
+         document.querySelector(".row1Part3").style.color="#2B1B17";
+
+    });
  
     /* ===== ברכה ===== */
     function updateGreeting(){
