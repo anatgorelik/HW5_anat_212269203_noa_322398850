@@ -8,13 +8,12 @@
 body{
     direction:rtl;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color:#2B1B17;
-    color:#F5EFE6;
+    background-image: url("images/backGrountCoffee.JPG");
     margin:0;
     padding:40px;
 }
 
-.adminBox{
+.admin-panel{
     max-width:520px;
     margin:auto;
     background-color:#F5EFE6;
@@ -23,32 +22,34 @@ body{
     border-radius:15px;
     display:flex;
     flex-direction:column;
-    gap:20px;
+    gap:25px;
 }
 
-h1{
+.admin-title{
     text-align:center;
 }
 
-button{
-    padding:14px;
-    font-size:16px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
+.admin-section{
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:15px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.admin-action{
     background-color:#2B1B17;
     color:#F5EFE6;
+    padding:16px;
+    border-radius:12px;
+    text-align:center;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.2s;
 }
 
-button:hover{
-    background-color:#3a2622;
-}
-
-input[type="file"]{
-    font-size:14px;
-}
-
-.note{
+.admin-note{
     font-size:13px;
     color:#555;
     text-align:center;
@@ -58,68 +59,122 @@ input[type="file"]{
 
 <body>
 
-<div class="adminBox">
-    <h1>עמוד ניהול</h1>
+<div class="admin-panel">
+    <h1 class="admin-title">עמוד ניהול</h1>
 
-    <!-- תפריט -->
-    <button onclick="loadMenu()">טעינת תפריט (Menu.json)</button>
+    <!-- ניהול תפריט -->
+    <div class="admin-section">
+        <strong>ניהול תפריט</strong>
 
-    <input type="file" accept=".json"
-           onchange="loadFromFile(this, 'menuItems')">
+        <div class="admin-action" id="menu-load-from-project">
+            טעינת תפריט מהפרויקט
+        </div>
 
-    <!-- הזמנות -->
-    <button onclick="loadOrders()">טעינת הזמנות (MyOrders.json)</button>
+        <div class="admin-action" id="menu-load-from-file">
+            טעינת תפריט מקובץ חיצוני
+        </div>
+    </div>
 
-    <input type="file" accept=".json"
-           onchange="loadFromFile(this, 'orders')">
+    <!-- ניהול הזמנות -->
+    <div class="admin-section">
+        <strong>ניהול הזמנות</strong>
 
-    <div class="note">
-        טעינה תדרוס נתונים קיימים בלוקאל סטורג׳
+        <div class="admin-action" id="orders-load-from-project">
+            טעינת הזמנות מהפרויקט
+        </div>
+
+        <div class="admin-action" id="orders-load-from-file">
+            טעינת הזמנות מקובץ חיצוני
+        </div>
+    </div>
+
+    <div class="admin-note">
+        ⚠ טעינה דורסת נתונים קיימים בלוקאל סטורג׳
     </div>
 </div>
 
 <script>
-function loadMenu(){
-    fetch("Menu.json")
-        .then(r => r.json())
+/* ---------- HOVER ---------- */
+const adminActions = document.querySelectorAll(".admin-action");
+
+adminActions.forEach(action => {
+    action.addEventListener("mouseenter", () => {
+        action.style.backgroundColor = "#3a2622";
+    });
+    action.addEventListener("mouseleave", () => {
+        action.style.backgroundColor = "#2B1B17";
+    });
+});
+
+/* ---------- CLICK EVENTS ---------- */
+
+// תפריט
+document.getElementById("menu-load-from-project")
+    .addEventListener("click", () => {
+        loadJsonFromProject("Menu.json", "menuItems");
+    });
+
+document.getElementById("menu-load-from-file")
+    .addEventListener("click", () => {
+        loadJsonFromFile("menuItems");
+    });
+
+// הזמנות
+document.getElementById("orders-load-from-project")
+    .addEventListener("click", () => {
+        loadJsonFromProject("MyOrders.json", "orders");
+    });
+
+document.getElementById("orders-load-from-file")
+    .addEventListener("click", () => {
+        loadJsonFromFile("orders");
+    });
+
+/* ---------- פונקציות ---------- */
+
+function loadJsonFromProject(fileName, storageKey){
+    fetch(fileName)
+        .then(response => response.json())
         .then(data => {
-            localStorage.setItem("menuItems", JSON.stringify(data));
-            alert("התפריט נטען בהצלחה");
-        })
-        .catch(() => alert("שגיאה בטעינת התפריט"));
-}
-
-function loadOrders(){
-    fetch("MyOrders.json")
-        .then(r => r.json())
-        .then(data => {
-            localStorage.setItem("orders", JSON.stringify(data));
-            alert("ההזמנות נטענו בהצלחה");
-        })
-        .catch(() => alert("שגיאה בטעינת ההזמנות"));
-}
-
-/* טעינת JSON מקובץ */
-function loadFromFile(input, storageKey){
-    const file = input.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-
-    reader.onload = function(e){
-        try{
-            const data = JSON.parse(e.target.result);
+            if(!Array.isArray(data)){
+                alert("הקובץ חייב להכיל מערך נתונים");
+                return;
+            }
             localStorage.setItem(storageKey, JSON.stringify(data));
-            alert("הקובץ נטען בהצלחה");
-        } catch{
-            alert("קובץ JSON לא תקין");
-        }
-    };
+            alert("הנתונים נטענו בהצלחה");
+        })
+        .catch(() => alert("שגיאה בטעינת הקובץ מהפרויקט"));
+}
 
-    reader.readAsText(file);
+function loadJsonFromFile(storageKey){
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = ".json";
+
+    fileInput.addEventListener("change", () => {
+        const file = fileInput.files[0];
+        if(!file) return;
+
+        const reader = new FileReader();
+        reader.onload = event => {
+            try{
+                const data = JSON.parse(event.target.result);
+                if(!Array.isArray(data)){
+                    alert("הקובץ חייב להכיל מערך נתונים");
+                    return;
+                }
+                localStorage.setItem(storageKey, JSON.stringify(data));
+                alert("הקובץ נטען בהצלחה");
+            }catch{
+                alert("קובץ JSON לא תקין");
+            }
+        };
+        reader.readAsText(file);
+    });
+
+    fileInput.click();
 }
 </script>
 
 </body>
 </html>
-
