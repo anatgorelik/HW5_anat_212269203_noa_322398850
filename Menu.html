@@ -73,7 +73,7 @@
         color:#2B1B17;
     }
 
-    #btnClose{
+    #btnClosePopup{
         position:absolute;
         top:15px;
         left:15px;
@@ -109,7 +109,7 @@
             margin-top: 10px;
             margin-right: 10px;
             align-self: flex-start;
-                
+              
     }
     #categoryPart{
             display:none;
@@ -261,7 +261,7 @@
 
 <!-- POPUP -->
 <div id="popup" class="popup">
-    <button id="btnClose">X</button>
+    <button id="btnClosePopup">X</button>
     <div id="popupContent"></div>
 </div>
 
@@ -270,7 +270,7 @@
     const menuBoxes = document.querySelectorAll(".menuBox");
     const popup = document.getElementById("popup");
     const popupContent = document.getElementById("popupContent");
-    const closeBtn = document.getElementById("btnClose");
+    const closeBtn = document.getElementById("btnClosePopup");
 
     fetch("Menu.json")
         .then(response => response.json())
@@ -340,7 +340,6 @@
 
             popupContent.appendChild(itemDiv);
         });
-
         popup.style.display = "block";
     }
 
@@ -357,13 +356,14 @@
             Date: date,
             ProductName: item.ProductName,
             CategoryId:item.CategoryId,
-            Price: item.Price
+            Amount: item.Price
         }
 
         orders.push(order);
         localStorage.setItem("orders", JSON.stringify(orders));
         
         alert("ההזמנה נוספה בהצלחה :)");
+        popup.style.display = "none";
     }
 
     /* מיפוי שמות קטגוריות */
@@ -424,6 +424,7 @@
     const categoryBtn=document.querySelector(".categoryButton");// הכפתור שפותח את החלון קטגוריות
     categoryBtn.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="block";
+        popup.style.display = "none";
     });
     btnCloseCategory.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="none";

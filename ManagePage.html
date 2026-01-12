@@ -1,21 +1,24 @@
-
-
 <!DOCTYPE html>
+<html lang="he">
 <head>
 <meta charset="utf-8">
-<title>ההזמנות שלי</title>
-
-    <style>
-    </style>
+<title>טעינת הזמנות</title>
 </head>
-
 <body>
-    <script>
-fetch("MyOrders.json")
-.then(response => response.json())
-.then(data => {
-    localStorage.setItem("orders", JSON.stringify(data));
-})
 
+<button onclick="loadOrders()">טען הזמנות התחלתיות</button>
+
+<script>
+function loadOrders() {
+    fetch("MyOrders.json")
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem("orders", JSON.stringify(data));
+            alert("ההזמנות נטענו בהצלחה");
+        })
+        .catch(err => console.error(err));
+}
 </script>
+
 </body>
+</html>

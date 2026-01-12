@@ -12,30 +12,35 @@
             padding:20px;
         }
         .container{
+            height:100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container{
             flex-direction:column;
             gap:30px;
+            display: flex;
         }
         #titleMyOrder{
-            position:fixed;
-            top:30px;
-            right:100px;
+            padding: 20px;
+            flex-shrink: 0;
             color:#F5EFE6;
             font-size:40px;
             font-weight:bold;
-        }
-        .container{
-        display:flex;
-        flex-direction:column;
-        gap:30px;
-        margin-top:120px;
+            
         }
 
     /* רשימת ההזמנות */
     .orderList{
+        flex:1;                    /* תופס את כל השאר */
+        overflow-y:auto;           /* גלילה רק פה */
+        direction: rtl;
+        padding:20px;
         display:flex;
         flex-direction:column;
         gap:20px;
-        width: 100%;
+        /* מסתיר את הסקרול גלילה */
+        scrollbar-width: none;
     }
 
     /* הזמנה בודדת */
@@ -48,6 +53,7 @@
         justify-content:space-between;
         align-items:center;
         box-shadow:0 3px 10px rgba(0,0,0,0.15);
+        direction: rtl;
     }
 
     /* צד ימין – שם ותאריך */
@@ -91,7 +97,6 @@
     </div>
 
     <script>
-      
     function loadOrders(){
         const orders = JSON.parse(localStorage.getItem("orders")) || [];
 
@@ -131,7 +136,7 @@
 
             const PriceDiv = document.createElement("div");
             PriceDiv.className = "orderPrice";
-            PriceDiv.textContent = "₪ " + order.Price;
+            PriceDiv.textContent = "₪ " + order.Amount;
 
             infoDiv.appendChild(nameDiv);
             infoDiv.appendChild(timeDiv);
