@@ -145,6 +145,7 @@
             justify-content: center;
             border-radius: 15px;
             position: relative;
+            margin-bottom: 15px;
         }
        
         #row3Col1Top, #row3Col1Buttom{     
@@ -646,18 +647,18 @@ updateMonthOrdersCount();
     return count;
 }
 
-    function getProductCounts() {
-    const orders = JSON.parse(localStorage.getItem("orders")) || {};
-    const productCounts = {};
+function getProductCounts() {
+const orders = JSON.parse(localStorage.getItem("orders")) || {};
+const productCounts = {};
 
-    orders.forEach(order => {
-        const productName = order.ProductName;
-        if (productCounts[productName]) {
-            productCounts[productName]++;
-        } else {
-            productCounts[productName] = 1;
-        }
-    });
+orders.forEach(order => {
+    const productName = order.ProductName;
+    if (productCounts[productName]) {
+        productCounts[productName]++;
+    } else {
+        productCounts[productName] = 1;
+    }
+});
 
     return productCounts;
 }
