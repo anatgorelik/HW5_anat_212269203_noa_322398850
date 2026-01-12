@@ -238,12 +238,14 @@
             }
            
         }
+        
 
     </style>
 </head>
 
 <body>
-    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <div id="categoryPart">
         <input type="button"value="X" id="closeCategory">
         <div class="categoryRows">
@@ -295,12 +297,12 @@
     <!-- שורה 3 -->
     <div class="row3">
         <div id="graphPart">
-            גרפים
+            <canvas id="productsChart" width="400" height="200"></canvas>
         </div>
 
         <div class="row3Left">
             <div id="row3Col1Top">
-                <p>פיצר </p>
+                <p id="numOfOrders"></p>
             </div> 
             <div id="row3Col1Buttom">
                <p>פיצר </p>
@@ -461,7 +463,91 @@
         btnCloseCategory.style.backgroundColor = "#2B1B17";
         btnCloseCategory.style.color = "#F5EFE6";
     });
-    
+
+
+    function countOrdersThisMonth() {
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    const today = new Date();
+    const currentMonth = today.getMonth(); // 0–11
+    const currentYear = today.getFullYear();
+
+    let count = 0;
+
+    orders.forEach(order => {
+        const [day, month, year] = order.Date.split("/").map(Number);
+        const orderDate = new Date(year, month - 1, day);
+
+        if (
+            orderDate.getMonth() === currentMonth &&
+            orderDate.getFullYear() === currentYear
+        ) {
+            count++;
+        }
+    });
+
+    return count;
+}
+
+    function getProductCounts() {
+    const orders = JSON.parse(localStorage.getItem("orders")) || {};
+    const productCounts = {};
+
+    orders.forEach(order => {
+        const productName = order.ProductName;
+        if (productCounts[productName]) {
+            productCounts[productName]++;
+        } else {
+            productCounts[productName] = 1;
+        }
+    });
+
+    return productCounts;
+}
+function drawProductsHistogram() {
+    const productCounts = getProductCounts();
+
+    const labels = Object.keys(productCounts);   // שמות מוצרים
+    const data = Object.values(productCounts);   // כמות רכישות
+
+    const ctx = document.getElementById("productsChart").getContext("2d");
+
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "כמות רכישות",
+                data: data,
+                backgroundColor: "#CBAFB2"
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {   // כיבוי ההאובר
+                    enabled: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+}
+
+drawProductsHistogram();
+
+
+
 
 </script>
 
