@@ -54,13 +54,84 @@ body{
     color:#555;
     text-align:center;
 }
+.categoryButton{
+            width:56px;
+            height: 56px;
+            background-color: #2B1B17;
+            color: #F5EFE6;
+            font-size: 28px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 10px;
+            align-self: flex-start;
+              
+    }
+    #categoryPart{
+            display:none;
+            background-image: url("images/pinkBackGround.JPG");
+            color: #2B1B17;
+            position: fixed;
+            top: 1%;
+            bottom:1%;
+            right: 0px;
+            width: 20%;
+            height: 98%;
+            z-index: 1004;
+            border-radius: 15px;
+            row-gap: 10px;  
+            right: 0.5%;
+    }
+
+            #categoryPart div{
+            
+                font-size: 25px;
+                gap:10px;
+                border-radius: 15px;
+                width: 80%;
+            }
+            #closeCategory{
+                position: absolute;
+                top:3%;
+                left:3%;
+                background-color:#2B1B17 ;
+                color: #CBAFB2;
+                text-align: center;
+                border-radius: 10px;
+                font-size: 20px;
+                border: none;
+            }
+            .categoryRows{
+                margin-top: 15%;
+            }
+             .admin-title{
+                position:fixed;
+                top:15px;
+                right: 120px;
+                color:#F5EFE6;
+                font-size:40px;
+                font-weight:bold;
+            }
 </style>
 </head>
 
 <body>
+<div id="categoryPart">
+        <input type="button"value="X" id="closeCategory">
+        <div class="categoryRows">
+            <div id="homeCategory" class="divCategory"><p>בית</p></div>
+            <div id="myOrdersCategory" class="divCategory"><p>הזמנות שלי</p></div>
+            <div id="menuCategory" class="divCategory"><p>תפריט</p></div>
+            <div id="frienMemberCategory" class="divCategory"><p>חבר מועדון</p></div>
+            <div id="logOutCategory" class="divCategory"><p>התנתקות</p></div>
+        </div>
+       
+    </div>
+    <input type="button" class="categoryButton" value="☰">
+    <h1 class="admin-title">עמוד ניהול</h1>
 
 <div class="admin-panel">
-    <h1 class="admin-title">עמוד ניהול</h1>
 
     <!-- ניהול תפריט -->
     <div class="admin-section">
@@ -94,6 +165,47 @@ body{
 </div>
 
 <script>
+const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
+    btnCloseCategory.addEventListener("mouseover", () => {
+        btnCloseCategory.style.backgroundColor = "#F5EFE6";
+        btnCloseCategory.style.color = "#2B1B17";
+    });
+    btnCloseCategory.addEventListener("mouseleave", () => {
+        btnCloseCategory.style.backgroundColor = "#2B1B17";
+        btnCloseCategory.style.color = "#F5EFE6";
+    });
+    const categoryDiv=document.querySelectorAll(".divCategory");// מה שמופיע שחלק של הקטגוריות- המעברים לדפים
+    categoryDiv.forEach(box => {
+        box.addEventListener("mouseenter", () => {
+            box.style.backgroundColor = "#F6DADF"; // ורוד בייבי בהיר
+        });
+
+        box.addEventListener("mouseleave", () => {
+            box.style.backgroundColor = "transparent"; // חזרה לבסיס
+        });
+    });
+    const categoryBtn=document.querySelector(".categoryButton");// הכפתור שפותח את החלון קטגוריות
+    categoryBtn.addEventListener("click",()=>{
+        document.getElementById("categoryPart").style.display="block";
+        popup.style.display = "none";
+    });
+    btnCloseCategory.addEventListener("click",()=>{
+        document.getElementById("categoryPart").style.display="none";
+    });
+    document.getElementById("homeCategory").addEventListener("click", ()=>{
+        window.location.href = "DashBoard.html";
+    });
+    document.getElementById("frienMemberCategory").addEventListener("click", ()=>{
+        window.location.href = "FriendMember.html";
+    });
+    document.getElementById("myOrdersCategory").addEventListener("click", ()=>{
+        window.location.href = "MyOrders.html";
+    });
+     document.getElementById("logOutCategory").addEventListener("click", ()=>{
+        window.location.href = "LoginPage.html";
+    });
+
+
 /* ---------- HOVER ---------- */
 const adminActions = document.querySelectorAll(".admin-action");
 
