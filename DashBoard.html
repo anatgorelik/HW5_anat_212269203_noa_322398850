@@ -154,6 +154,13 @@
             justify-content: center;
             border-radius: 15px;
         }
+        .row3Left{
+            display:flex;
+            flex-direction:column;
+            gap:20px;
+            height:100%;
+            margin-bottom: 15px;
+        }
        
         #categoryPart{
             display:none;
@@ -195,6 +202,81 @@
             display:flex;
             flex-direction: column;
         }
+        /* ===== TOP PRODUCT FEATURE ===== */
+        .topProductBox{
+            background:linear-gradient(135deg,#F5EFE6,#E6D6C7);
+            display:flex;
+            align-items:center;
+            gap:18px;
+            padding:20px;
+            height:100%;
+            box-sizing:border-box;
+        }
+
+        .topIcon{
+            font-size:42px;
+        }
+
+        .topContent{
+            display:flex;
+            flex-direction:column;
+            gap:6px;
+        }
+
+        .topTitle{
+            font-size:14px;
+            color:#6B4E3D;
+            font-weight:600;
+        }
+
+        .topName{
+            font-size:22px;
+            font-weight:bold;
+            color:#2B1B17;
+        }
+
+        .topQty{
+            font-size:14px;
+            color:#4A2C23;
+        }
+        /* ===== MONTH ORDERS FEATURE ===== */
+        .monthOrdersBox{
+            background:linear-gradient(135deg,#F5EFE6,#E6D6C7);
+            display:flex;
+            align-items:center;
+            gap:18px;
+            padding:20px;
+            height:100%;
+            box-sizing:border-box;
+        }
+
+        .monthIcon{
+            font-size:42px;
+        }
+
+        .monthContent{
+            display:flex;
+            flex-direction:column;
+            gap:6px;
+        }
+
+        .monthTitle{
+            font-size:14px;
+            color:#6B4E3D;
+            font-weight:600;
+        }
+
+        .monthNumber{
+            font-size:26px;
+            font-weight:bold;
+            color:#2B1B17;
+        }
+
+        .monthSub{
+            font-size:13px;
+            color:#4A2C23;
+        }
+
         @media screen and (max-width: 600px) {      
 
             /* שורה ראשונה – נסתיר את הלוגו ואת כפתור הקטגוריות */
@@ -301,12 +383,26 @@
         </div>
 
         <div class="row3Left">
-            <div id="row3Col1Top">
-                <p id="numOfOrders"></p>
-            </div> 
-            <div id="row3Col1Buttom">
-               <p>פיצר </p>
+           <div id="row3Col1Top" class="topProductBox">
+        <div class="topIcon">🔥</div>
+        <div class="topContent">
+            <div class="topTitle">הפריט הנמכר ביותר החודש</div>
+            <div class="topName" id="topProductName">—</div>
+            <div class="topQty">
+                נרכש <span id="topProductQty">0</span> פעמים
             </div>
+        </div>
+    </div>
+
+        <div id="row3Col1Buttom" class="monthOrdersBox">
+    <div class="monthIcon">🔥</div>
+    <div class="monthContent">
+        <div class="monthTitle">הזמנות החודש</div>
+        <div class="monthNumber" id="monthOrdersCount">0</div>
+        <div class="monthSub">הוזמנו עד כה</div>
+    </div>
+</div>
+
         </div>
     </div>
     
@@ -359,7 +455,68 @@
          document.querySelector(".row1Part3").style.color="#2B1B17";
 
     });
- 
+
+        /* ===== פריט הכי נקנה החודש ===== */
+
+    function updateTopProduct(){
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+    if(!orders.length) return;
+
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
+    const counter = {};
+
+    orders.forEach(order=>{
+        const d = new Date(order.date || order.orderDate || Date.now());
+        if(d.getMonth() === currentMonth && d.getFullYear() === currentYear){
+            counter[order.ProductName] =
+                (counter[order.ProductName] || 0) + 1;
+        }
+    });
+
+    let topName = "";
+    let topQty = 0;
+
+    for(const name in counter){
+        if(counter[name] > topQty){
+            topQty = counter[name];
+            topName = name;
+        }
+    }
+
+    if(topName){
+        document.getElementById("topProductName").innerText = topName;
+        document.getElementById("topProductQty").innerText = topQty;
+    }
+}
+
+updateTopProduct();
+    /* ===== כמות הזמנות החודש ===== */
+
+ function updateMonthOrdersCount(){
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
+    if(!orders.length) return;
+
+    const now = new Date();
+    const month = now.getMonth();
+    const year = now.getFullYear();
+
+    let count = 0;
+
+    orders.forEach(order=>{
+        const d = new Date(order.date || order.orderDate || Date.now());
+        if(d.getMonth() === month && d.getFullYear() === year){
+            count++;
+        }
+    });
+
+    document.getElementById("monthOrdersCount").innerText = count;
+}
+
+updateMonthOrdersCount();
+
     /* ===== ברכה ===== */
     function updateGreeting(){
         const hour = new Date().getHours();
