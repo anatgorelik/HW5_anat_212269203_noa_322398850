@@ -22,7 +22,7 @@
             gap: 13px;
         }
 
-        /* שורות כלליות */
+
         .row{
             background-color: #F5EFE6;
             display: flex;
@@ -33,7 +33,7 @@
             padding: 10px 20px;
         }     
 
-        .row1 {    /*   השורה הראשונה, תיהיה מחולקת ל3 חלקים*/
+        .row1 {    
             display: flex;
             align-items: center;
             border-radius: 15px;
@@ -67,7 +67,6 @@
         }
         
 
-         /* כפתור קטגוריות */
         #categoryButton{
             width:56px;
             height: 56px;
@@ -106,7 +105,7 @@
             width: 180px;
         }
        
-         /* ===== שורה 2 – Grid ===== */
+  
         .row2{
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -116,9 +115,9 @@
             height: auto;
         }
 
-        /* קופסאות בשורה 2 */
+
         .row2 > div{
-            background-color: #CBAFB2; /* ורוד בסיס */
+            background-color: #CBAFB2; 
             border-radius: 20px;
             padding: 20px;
             min-height: 120px;
@@ -203,7 +202,7 @@
             display:flex;
             flex-direction: column;
         }
-        /* ===== TOP PRODUCT FEATURE ===== */
+
         .topProductBox{
             background:linear-gradient(135deg,#F5EFE6,#E6D6C7);
             display:flex;
@@ -240,7 +239,7 @@
             font-size:14px;
             color:#4A2C23;
         }
-        /* ===== MONTH ORDERS FEATURE ===== */
+
         .monthOrdersBox{
             background:linear-gradient(135deg,#F5EFE6,#E6D6C7);
             display:flex;
@@ -280,7 +279,7 @@
 
         @media screen and (max-width: 600px) {      
 
-            /* שורה ראשונה – נסתיר את הלוגו ואת כפתור הקטגוריות */
+
             .row1Part2, #categoryButton {
                 display: none;
             }
@@ -292,16 +291,15 @@
                 padding: 5px;
             }
 
-            /* נשאיר רק את החלק עם ההגיד שלום ושעה */
+    
             .row1Part1 {
                 width: 100%;     
             }
             .row1Part3 {
                 width: 100%;
-                height: 120px; /* אפשר לשנות לפי הצורך */
+                height: 120px; 
             }
 
-            /* השורות הבאות – כל דיב שורה לבד */
             .row2 {
                 display: flex;
                 flex-direction: column;
@@ -318,17 +316,13 @@
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
-            }
-           
+            }   
         }
-        
-
     </style>
 </head>
 
 <body>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <div id="categoryPart">
         <input type="button"value="X" id="closeCategory">
         <div class="categoryRows">
@@ -337,14 +331,10 @@
             <div id="menuCategory" class="divCategory"><p>תפריט</p></div>
             <div id="frienMemberCategory" class="divCategory"><p>חבר מועדון</p></div>
             <div id="logOutCategory" class="divCategory"><p>התנתקות</p></div>
-        </div>
-       
+        </div>       
     </div>
-
 <div class="container">
-
     <div class="row1">     
-        <!-- שליש ימני – שלום + כפתור קטגוריות -->
         <div class="row1Part1">
             <input type="button" value="☰" id="categoryButton" >
             <div id="helloPart">
@@ -353,21 +343,14 @@
             </div>
             <div id="clock"></div>
         </div>
-
-        <!-- שליש אמצעי – לוגו בלבד -->
         <div class="row1Part2">
             <img src="images/CoffeeLogo.png" alt="לוגו קפה" id="logo">
         </div>
-
-        <!-- שליש שמאלי – מקום עתידי -->
         <div class="row1Part3">
             <p>טעינת Json</p>
         </div>
-
     </div>
 
-
-    <!-- שורה 2 -->
     <div class="row2">
         <div id="menuPart">תפריט</div>
         <div id="friendMemberPart"> 
@@ -377,50 +360,241 @@
         <div id="myOrdersPart">ההזמנות שלי</div>
     </div>
 
-    <!-- שורה 3 -->
     <div class="row3">
         <div id="graphPart">
             <canvas id="productsChart" width="400" height="200"></canvas>
         </div>
-
         <div class="row3Left">
-           <div id="row3Col1Top" class="topProductBox">
-        <div class="topIcon">🔥</div>
-        <div class="topContent">
-            <div class="topTitle">הפריט הנמכר ביותר החודש</div>
-            <div class="topName" id="topProductName">—</div>
-            <div class="topQty">
-                נרכש <span id="topProductQty">0</span> פעמים
+            <div id="row3Col1Top" class="topProductBox">
+              <div class="topIcon">🔥</div>
+              <div class="topContent">
+                  <div class="topTitle">הפריט הנמכר ביותר החודש</div>
+                  <div class="topName" id="topProductName">—</div>
+                  <div class="topQty">
+                      נרכש <span id="topProductQty">0</span> פעמים
+                  </div>
+              </div>
+            </div>
+            <div id="row3Col1Buttom" class="monthOrdersBox">
+               <div class="monthIcon">🔥</div>
+               <div class="monthContent">
+                  <div class="monthTitle">הזמנות החודש</div>
+                  <div class="monthNumber" id="monthOrdersCount">0</div>
+                  <div class="monthSub">הוזמנו עד כה</div>
+               </div>
             </div>
         </div>
-    </div>
-
-        <div id="row3Col1Buttom" class="monthOrdersBox">
-    <div class="monthIcon">🔥</div>
-    <div class="monthContent">
-        <div class="monthTitle">הזמנות החודש</div>
-        <div class="monthNumber" id="monthOrdersCount">0</div>
-        <div class="monthSub">הוזמנו עד כה</div>
-    </div>
+    </div> 
 </div>
-
-        </div>
-    </div>
-    
-</div>
-
 <script>
-
- const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
-    const balance=currentUser.balance;
+    const imgDash=document.querySelector(".row1Part2 img");//תמונה
+    const categoryBtn=document.getElementById("categoryButton");// כפתור קטגוריות
+    const categoryDiv=document.querySelectorAll(".divCategory");//אופציות של הקטגוריות
+    const btnCloseCategory=document.getElementById("closeCategory");//כפתור שסוגר את הקטגוריות
+    const boxes = document.querySelectorAll(".row2 > div");//דיבים וורודים 
+   
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));//משיכה של המשתמש הנוכחי מהלוקאל סטוראג
+    const balance=currentUser.balance;//משיכת היתרה של המשתמש הנוכחי מהלוקאל סטוראג
     document.getElementById("showBalance").innerText="יתרה: "+balance+" שח";
-    if (currentUser && currentUser.name) {
+    if (currentUser && currentUser.name) {//הצגת של הלקוח בברכת השלום
         document.getElementById("userName").innerText = currentUser.name;
         } else {
         document.getElementById("userName").innerText = "אורח";
     }
 
+    updateTopProduct();//קריאה לפונקציה שמראה מי המוצר שהומזן הכי הרבה החודש
+    updateMonthOrdersCount();//קריאה לפוקנציה שמראה כמה הזמנות בוצעו החודש
+    updateGreeting();//קריאה לפוקנציית ברכת שלום
+    updateClock();//קריאה לפוקנציית שעון
+    setInterval(updateClock,1000);//הפעלה של השעון
+    drawProductsHistogram();//קריאה לפוקנציה שמייצרת את הגרף
+
+    function updateGreeting(){//פוקנציה של הצגת ברכת שלום
+        const hour = new Date().getHours();
+        let greeting = "";
+
+        if(hour < 12){
+            greeting = "בוקר טוב!";
+        } else if(hour < 18){
+            greeting = "צהריים טובים!";
+        } else {
+            greeting = "ערב טוב!";
+        }
+        document.getElementById("greeting").innerText = greeting;    
+    }
+
+    function updateClock(){//פוקנציה של הצגת שעון
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2,'0');
+        const m = String(now.getMinutes()).padStart(2,'0');
+        const s = String(now.getSeconds()).padStart(2,'0');
+        const d = String(now.getDate()).padStart(2,'0');
+        const mo = String(now.getMonth()+1).padStart(2,'0');
+        const y = now.getFullYear();
+        document.getElementById("clock").innerText =
+            `${d}/${mo}/${y} | ${h}:${m}:${s}`;
+    }
+
+    function getProductCounts() {//פוקנציית עזר לגרף שמחזירה את סוגי המוצרים שנרכשו החודשים והכמות שלהם
+    const orders = JSON.parse(localStorage.getItem("orders")) || {};
+    const productCounts = {};
+
+    orders.forEach(order => {//יצירת אובייקט שמחזיק את כל המוצרים שנרכשו החודש ואת הכמות שלהם
+        const productName = order.ProductName;
+        if (productCounts[productName]) {
+            productCounts[productName]++;
+        } else {
+            productCounts[productName] = 1;
+        }
+    });
+
+        return productCounts;
+    }
+    function drawProductsHistogram() {//פונצקיית יצירת גרף
+        const productCounts = getProductCounts();//פה מקבלים את המוצרים שנרכשו החודש ואת הכמות
+
+        const labels = Object.keys(productCounts);   // שמות מוצרים
+        const data = Object.values(productCounts);   // כמות רכישות
+
+        const ctx = document.getElementById("productsChart").getContext("2d");
+
+        new Chart(ctx, {//יצירת הגרף
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "כמות רכישות",
+                    data: data,
+                    backgroundColor: "#CBAFB2"
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: { 
+                        enabled: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function updateMonthOrdersCount(){//פוקנציה שמציגה כמה הזמנות היו החודש
+        const orders = JSON.parse(localStorage.getItem("orders")) || [];
+        if(!orders.length) return;
+        const now = new Date();
+        const month = now.getMonth();
+        const year = now.getFullYear();
+        let count = 0;
+        orders.forEach(order=>{//מעבר על כל ההזמנות ובדיקה אם הן בוצעו החודש
+            const d = new Date(order.date || order.orderDate || Date.now());
+            if(d.getMonth() === month && d.getFullYear() === year){
+                count++;
+            }
+        });
+        document.getElementById("monthOrdersCount").innerText = count;//הצגת מספר ההזמנות שבצועו החודש
+    }
+
+    function updateTopProduct(){// פוקנציה שמציגה איזה מוצר הוזמן הכי הרבה החודש 
+        const orders = JSON.parse(localStorage.getItem("orders")) || [];//משיכה של ההזמנות מתוך קובץ גייסון שבלוקאל סטורגאג
+        if(!orders.length) return;
+        const now = new Date();
+        const currentMonth = now.getMonth();//חודש נוכחי
+        const currentYear = now.getFullYear();//שנה נוכחית
+        const counter = {};//אובייקט
+        orders.forEach(order=>{//מעבר על כל ההזמנות
+            const d = new Date(order.date || order.orderDate || Date.now());//החזקת תאריך של ההזמנה שעליה עוברים
+            if(d.getMonth() === currentMonth && d.getFullYear() === currentYear){//בדיקה אם היא בוצעה החודש
+                counter[order.ProductName] =
+                    (counter[order.ProductName] || 0) + 1;
+            }
+        });
+        let topName = "";
+        let topQty = 0;
+        for(const name in counter){//מעבר על האוביייקט שמחזיק את כל המוצרים שנרכשו החודש
+            if(counter[name] > topQty){//הוצאת הפריט שנמכר הכי הרבה
+                topQty = counter[name];
+                topName = name;
+            }
+        }
+        if(topName){//הצגת המוצר
+            document.getElementById("topProductName").innerText = topName;
+            document.getElementById("topProductQty").innerText = topQty;
+        }
+    }
+    imgDash.addEventListener("mouseover",()=>{//מעבר עכבר על תמונה
+        imgDash.src="images/BagelLogo.png";
+    });
+    imgDash.addEventListener("mouseleave",()=>{
+        imgDash.src="images/CoffeeLogo.png";
+    });
+
+    categoryBtn.addEventListener("click",()=>{//פתיחת קטגוריות
+        document.getElementById("categoryPart").style.display="block";
+    });
+    categoryBtn.addEventListener("mouseover",()=>{//מעבר עכבר על כפתור הקטגוריות
+        categoryBtn.style.backgroundColor="#F6DADF";
+        categoryBtn.style.color="#2B1B17";
+
+    });
+    categoryBtn.addEventListener("mouseleave",()=>{//מעבר עכבר על כפתור קטגוריות
+        categoryBtn.style.backgroundColor="#2B1B17";
+        categoryBtn.style.color="#F5EFE6";
+
+    });
+    categoryDiv.forEach(box => {//מעבר עכבר על אופציות של קטגוריות
+        box.addEventListener("mouseenter", () => {
+            box.style.backgroundColor = "#F6DADF";
+        });
+
+        box.addEventListener("mouseleave", () => {
+            box.style.backgroundColor = "transparent";
+        });
+    });
+
+    btnCloseCategory.addEventListener("click",()=>{//לחיצה על הכפתרו שסוגר את הקטגוריות
+        document.getElementById("categoryPart").style.display="none";
+    btnCloseCategory.addEventListener("mouseover", () => {
+        btnCloseCategory.style.backgroundColor = "#F5EFE6";
+        btnCloseCategory.style.color = "#2B1B17";
+    });
+    btnCloseCategory.addEventListener("mouseleave", () => {
+        btnCloseCategory.style.backgroundColor = "#2B1B17";
+        btnCloseCategory.style.color = "#F5EFE6";
+    });
+    });
+    document.querySelector(".row1Part3").addEventListener("mouseover",()=>{//מעבר עכבר על דיב של ניהול גייסון
+         document.querySelector(".row1Part3").style.backgroundColor="papayawhip";
+         document.querySelector(".row1Part3").style.color="#2B1B17";
+
+    });
+     document.querySelector(".row1Part3").addEventListener("mouseleave",()=>{
+         document.querySelector(".row1Part3").style.backgroundColor="#F5EFE6";
+         document.querySelector(".row1Part3").style.color="#2B1B17";
+
+    });
+    boxes.forEach(box => {//מעבר עכבר על דיבים וורודים
+        box.addEventListener("mouseenter", () => {
+            box.style.backgroundColor = "#F6DADF"; 
+        });
+
+        box.addEventListener("mouseleave", () => {
+            box.style.backgroundColor = "#CBAFB2"; 
+        });
+    });
+
+/////מעברים לדפים אחרים
     document.getElementById("menuPart").addEventListener("click",()=>{
         window.location.href = "Menu.html";
     })
@@ -446,268 +620,6 @@
     document.querySelector(".row1Part3").addEventListener("click", ()=>{
         window.location.href = "ManagePage.html";
     });
-     document.querySelector(".row1Part3").addEventListener("mouseover",()=>{
-         document.querySelector(".row1Part3").style.backgroundColor="papayawhip";
-         document.querySelector(".row1Part3").style.color="#2B1B17";
-
-    });
-     document.querySelector(".row1Part3").addEventListener("mouseleave",()=>{
-         document.querySelector(".row1Part3").style.backgroundColor="#F5EFE6";
-         document.querySelector(".row1Part3").style.color="#2B1B17";
-
-    });
-
-        /* ===== פריט הכי נקנה החודש ===== */
-
-    function updateTopProduct(){
-    const orders = JSON.parse(localStorage.getItem("orders")) || [];
-    if(!orders.length) return;
-
-    const now = new Date();
-    const currentMonth = now.getMonth();
-    const currentYear = now.getFullYear();
-
-    const counter = {};
-
-    orders.forEach(order=>{
-        const d = new Date(order.date || order.orderDate || Date.now());
-        if(d.getMonth() === currentMonth && d.getFullYear() === currentYear){
-            counter[order.ProductName] =
-                (counter[order.ProductName] || 0) + 1;
-        }
-    });
-
-    let topName = "";
-    let topQty = 0;
-
-    for(const name in counter){
-        if(counter[name] > topQty){
-            topQty = counter[name];
-            topName = name;
-        }
-    }
-
-    if(topName){
-        document.getElementById("topProductName").innerText = topName;
-        document.getElementById("topProductQty").innerText = topQty;
-    }
-}
-
-updateTopProduct();
-    /* ===== כמות הזמנות החודש ===== */
-
- function updateMonthOrdersCount(){
-    const orders = JSON.parse(localStorage.getItem("orders")) || [];
-    if(!orders.length) return;
-
-    const now = new Date();
-    const month = now.getMonth();
-    const year = now.getFullYear();
-
-    let count = 0;
-
-    orders.forEach(order=>{
-        const d = new Date(order.date || order.orderDate || Date.now());
-        if(d.getMonth() === month && d.getFullYear() === year){
-            count++;
-        }
-    });
-
-    document.getElementById("monthOrdersCount").innerText = count;
-}
-
-updateMonthOrdersCount();
-
-    /* ===== ברכה ===== */
-    function updateGreeting(){
-        const hour = new Date().getHours();
-        let greeting = "";
-
-        if(hour < 12){
-            greeting = "בוקר טוב!";
-        } else if(hour < 18){
-            greeting = "צהריים טובים!";
-        } else {
-            greeting = "ערב טוב!";
-        }
-
-        document.getElementById("greeting").innerText = greeting;
-       
-    }
-
-    /* ===== שעון ===== */
-    function updateClock(){
-        const now = new Date();
-        const h = String(now.getHours()).padStart(2,'0');
-        const m = String(now.getMinutes()).padStart(2,'0');
-        const s = String(now.getSeconds()).padStart(2,'0');
-        const d = String(now.getDate()).padStart(2,'0');
-        const mo = String(now.getMonth()+1).padStart(2,'0');
-        const y = now.getFullYear();
-
-        document.getElementById("clock").innerText =
-            `${d}/${mo}/${y} | ${h}:${m}:${s}`;
-    }
-
-    /* ===== HOVER עם JavaScript ===== */
-    const boxes = document.querySelectorAll(".row2 > div");
-
-    boxes.forEach(box => {
-        box.addEventListener("mouseenter", () => {
-            box.style.backgroundColor = "#F6DADF"; // ורוד בייבי בהיר
-        });
-
-        box.addEventListener("mouseleave", () => {
-            box.style.backgroundColor = "#CBAFB2"; // חזרה לבסיס
-        });
-    });
-
-    updateGreeting();
-    updateClock();
-    setInterval(updateClock,1000);
-
-    const imgDash=document.querySelector(".row1Part2 img");
-    imgDash.addEventListener("mouseover",()=>{
-        imgDash.src="images/BagelLogo.png";
-    });
-    imgDash.addEventListener("mouseleave",()=>{
-        imgDash.src="images/CoffeeLogo.png";
-    });
-
-
-    const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
-    btnCloseCategory.addEventListener("mouseover", () => {
-        btnCloseCategory.style.backgroundColor = "#F5EFE6";
-        btnCloseCategory.style.color = "#2B1B17";
-    });
-    btnCloseCategory.addEventListener("mouseleave", () => {
-        btnCloseCategory.style.backgroundColor = "#2B1B17";
-        btnCloseCategory.style.color = "#F5EFE6";
-    });
-    const categoryDiv=document.querySelectorAll(".divCategory");// מה שמופיע שחלק של הקטגוריות- המעברים לדפים
-    categoryDiv.forEach(box => {
-        box.addEventListener("mouseenter", () => {
-            box.style.backgroundColor = "#F6DADF"; // ורוד בייבי בהיר
-        });
-
-        box.addEventListener("mouseleave", () => {
-            box.style.backgroundColor = "transparent"; // חזרה לבסיס
-        });
-    });
-    const categoryBtn=document.getElementById("categoryButton");// הכפתור שפותח את החלון קטגוריות
-    categoryBtn.addEventListener("click",()=>{
-        document.getElementById("categoryPart").style.display="block";
-    });
-    categoryBtn.addEventListener("mouseover",()=>{
-        categoryBtn.style.backgroundColor="#F6DADF";
-        categoryBtn.style.color="#2B1B17";
-
-    });
-    categoryBtn.addEventListener("mouseleave",()=>{
-        categoryBtn.style.backgroundColor="#2B1B17";
-        categoryBtn.style.color="#F5EFE6";
-
-    });
-
-    btnCloseCategory.addEventListener("click",()=>{
-        document.getElementById("categoryPart").style.display="none";
-    });
-    btnCloseCategory.addEventListener("mouseover", () => {
-    btnCloseCategory.style.backgroundColor = "#F5EFE6";
-    btnCloseCategory.style.color = "#2B1B17";
-    });
-
-    btnCloseCategory.addEventListener("mouseleave", () => {
-        btnCloseCategory.style.backgroundColor = "#2B1B17";
-        btnCloseCategory.style.color = "#F5EFE6";
-    });
-
-
-    function countOrdersThisMonth() {
-    const orders = JSON.parse(localStorage.getItem("orders")) || [];
-
-    const today = new Date();
-    const currentMonth = today.getMonth(); // 0–11
-    const currentYear = today.getFullYear();
-
-    let count = 0;
-
-    orders.forEach(order => {
-        const [day, month, year] = order.Date.split("/").map(Number);
-        const orderDate = new Date(year, month - 1, day);
-
-        if (
-            orderDate.getMonth() === currentMonth &&
-            orderDate.getFullYear() === currentYear
-        ) {
-            count++;
-        }
-    });
-
-    return count;
-}
-
-function getProductCounts() {
-const orders = JSON.parse(localStorage.getItem("orders")) || {};
-const productCounts = {};
-
-orders.forEach(order => {
-    const productName = order.ProductName;
-    if (productCounts[productName]) {
-        productCounts[productName]++;
-    } else {
-        productCounts[productName] = 1;
-    }
-});
-
-    return productCounts;
-}
-function drawProductsHistogram() {
-    const productCounts = getProductCounts();
-
-    const labels = Object.keys(productCounts);   // שמות מוצרים
-    const data = Object.values(productCounts);   // כמות רכישות
-
-    const ctx = document.getElementById("productsChart").getContext("2d");
-
-    new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "כמות רכישות",
-                data: data,
-                backgroundColor: "#CBAFB2"
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                },
-                tooltip: {   // כיבוי ההאובר
-                    enabled: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 1
-                    }
-                }
-            }
-        }
-    });
-}
-
-drawProductsHistogram();
-
-
-
-
 </script>
-
 </body>
 </html>

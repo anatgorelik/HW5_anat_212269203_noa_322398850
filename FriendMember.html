@@ -13,7 +13,6 @@
         margin:0;
         padding:20px;
         background-image: url("images/backGrountCoffee.JPG");
-
         }
 
         .categoryButton{
@@ -74,7 +73,6 @@
             font-size:40px;
             font-weight:bold;
         }
-
 
         #friendMemberPart{
             display: flex;
@@ -144,9 +142,7 @@
                 width: 300px;
              }
             
-         }
-        
-
+         } 
 </style>
 </head>
 
@@ -177,12 +173,12 @@
     </div>
 
     <script>
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));// משיכת שם משתמש מהזיכרון כדי לכתוב בשם הכרטיס
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));// משיכת משתמש נוכחימהזיכרון כדי לכתוב בשם הכרטיס
     const currentUserCardName=document.getElementById("userNameCard");
-    let balance=0;////////זה היתרה-ג!!!!!!!!!!
+    let balance=0;//יתרה של השמתמש
     if(currentUser&&currentUser.name){
         currentUserCardName.innerText="הכרטיס של    "+currentUser.name;
-        balance=currentUser.balance;
+        balance=currentUser.balance;//משיכת היתרה של המשתמש הנוכחי אם קיימת
     }else{
         currentUserCardName="אורח";
     }
@@ -190,14 +186,14 @@
     balanceTxt.innerText = "טעינה נוכחית: " + balance + " ₪";
     
     
-    function loadBalance(){//////פוקנציה שתקרא את הסכום שהמתשמש רוצה לטעון
+    function loadBalance(){//פוקנציה שתקרא את הסכום שהמתשמש רוצה לטעון
         let sumInput=document.getElementById("userInsertSum");
         let sumMoney=Number(sumInput.value);
-        if(sumMoney<0 ||isNaN(sumMoney)){
+        if(sumMoney<0 ||isNaN(sumMoney)){//בדיקה שהוכנס סכום כסף תקין
             sumInput.value = "";
             sumInput.placeholder = "ערך לא תקין";
          }
-        else{
+        else{//עדכון היתרה בכרטיס ובלוקאל סטוראג
             balance+=sumMoney;
             balanceTxt.innerText="טעינה נוכחית: " + balance + " ₪";
             sumInput.value = "";
@@ -211,12 +207,12 @@
         }
         }
     }
-    const btnLoadMoney=document.getElementById("loadConfirmBtn");
+    const btnLoadMoney=document.getElementById("loadConfirmBtn");//לחיצה על כפתור טעינת הכסף
     btnLoadMoney.addEventListener("click",()=>{
         loadBalance();
     });
 
-    const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
+    const btnCloseCategory=document.getElementById("closeCategory");// מעבר עכבר על כפתור סגירת הקטגוריות
     btnCloseCategory.addEventListener("mouseover", () => {
         btnCloseCategory.style.backgroundColor = "#F5EFE6";
         btnCloseCategory.style.color = "#2B1B17";
@@ -225,23 +221,24 @@
         btnCloseCategory.style.backgroundColor = "#2B1B17";
         btnCloseCategory.style.color = "#F5EFE6";
     });
-    const categoryDiv=document.querySelectorAll(".divCategory");// מה שמופיע שחלק של הקטגוריות- המעברים לדפים
+    const categoryDiv=document.querySelectorAll(".divCategory");// מעבר עכבר על האופציות של הקטגוריות
     categoryDiv.forEach(box => {
         box.addEventListener("mouseenter", () => {
-            box.style.backgroundColor = "#F6DADF"; // ורוד בייבי בהיר
+            box.style.backgroundColor = "#F6DADF"; 
         });
 
         box.addEventListener("mouseleave", () => {
-            box.style.backgroundColor = "transparent"; // חזרה לבסיס
+            box.style.backgroundColor = "transparent"; 
         });
     });
-    const categoryBtn=document.querySelector(".categoryButton");// הכפתור שפותח את החלון קטגוריות
+    const categoryBtn=document.querySelector(".categoryButton");// לחיצה על פתחית הקטגוריות
     categoryBtn.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="block";
     });
-    btnCloseCategory.addEventListener("click",()=>{
+    btnCloseCategory.addEventListener("click",()=>{//לחיצה על כפתור סגירת הקטגוריות
         document.getElementById("categoryPart").style.display="none";
     });
+    ///מעברים לדפים אחרים
     document.getElementById("homeCategory").addEventListener("click", ()=>{
         window.location.href = "DashBoard.html";
     });
@@ -255,7 +252,7 @@
         window.location.href = "LoginPage.html";
     });
 
-    const loadConfirmation=document.getElementById("loadConfirmBtn");
+    const loadConfirmation=document.getElementById("loadConfirmBtn");//מעבר עכבר על כפתור טעינת כסף
     loadConfirmation.addEventListener("mouseover",()=>{
         loadConfirmation.style.backgroundColor="#F6DADF";
     })

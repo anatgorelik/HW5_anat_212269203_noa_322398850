@@ -144,111 +144,88 @@
 
     <script>
 
-        const nameRow=document.getElementById("row1");// שומרים במשתנה את החלק של הכנסת שם פרטי
-        let mode = "";//מייצג לנו על איזה מבין הכפתורים הלקוח לחץ
-        const screenStart = document.querySelector(".screenStart");//מסך הכניסה שמור במשתנה
-        const title = document.getElementById("screenH3")//הכותרת שמורה במשתנה
-        const loginBtn = document.getElementById("btnLogIn");//כפתור הסיום שמור במשתנה
-        loginBtn.addEventListener("click", function () {//  אם הלקוח לחץ על משתמש קיים
+        const nameRow=document.getElementById("row1");//שומרים במתשנה את הערך שהשמתמש הכניס לשם פרטי
+        
+        let mode = "";//משתנה שיידע אותנו אם המשתמש קיים או חדש
+        const screenStart = document.querySelector(".screenStart");
+        const title = document.getElementById("screenH3")
+        const loginBtn = document.getElementById("btnLogIn");
+        
+        loginBtn.addEventListener("click", function () {//  לחיצה על כפתור משתמש קיים
             mode = "login";
-            document.querySelectorAll(".notValReg").forEach(p => {//ניקוי כל ההיערות
+            document.querySelectorAll(".notValReg").forEach(p => {
                 p.style.display = "none";
             });
             screenStart.classList.add("loginMode");//הוספת מחלקת עיצוב
-            screenStart.style.display = "grid";//מציגים את המסך
-            title.innerText = "כניסה למערכת";//כותרת בהתאם
-            nameRow.style.display = "none";// בגלל שהמשתמש רשום, מסתירים את החלק של הכנסת פרטי משתמש 
+            screenStart.style.display = "grid";
+            title.innerText = "כניסה למערכת";
+            nameRow.style.display = "none";//הסרת החלק של הכנסת שם פרטי
         })
-
 
         const registerBtn = document.getElementById("btnRegister");// אם הלקוח לחץ על משתמש חדש
             registerBtn.addEventListener("click", function () {
             mode = "register";
-            document.querySelectorAll(".notValReg").forEach(p => {//ניקוי של פקדי ההיערות
+            document.querySelectorAll(".notValReg").forEach(p => {
                 p.style.display = "none";
             });
             screenStart.style.display = "grid";
             title.innerText = "הרשמה למערכת";
             screenStart.classList.remove("loginMode");// מסירים את מחלקת העיצוב של מסך הכניסה,למקרה שהיה שימוש בו לפני וזה נשמר
-            nameRow.style.display = "flex";//הצגת החלק של הכנסת שם משתמש
-
+            nameRow.style.display = "flex";//הצגת החלק של הכנסת שם פרטי
         })
-        const buttons = document.querySelectorAll(".overStyle");/// כשהעכבר על הכפתורים הראשונים הצבע משתנה
-        buttons.forEach(btn => {
-            btn.addEventListener("mouseover", () => {
-                btn.style.backgroundColor = "papayawhip";
-            });
-            btn.addEventListener("mouseleave", () => {
-                btn.style.backgroundColor = "tan";
-            });
-        });
-       
-        const buttons2 = document.querySelectorAll(".overStyling2");/// כשהעכבר על הכפתור חזור וסיום הצבע משתנה
-        buttons2.forEach(btn => {
-            btn.addEventListener("mouseover", () => {
-                btn.style.backgroundColor = "papayawhip";
-                hoverFinish.style.color = "#4d3e2e";
-            });
-            btn.addEventListener("mouseleave", () => {
-                btn.style.backgroundColor = "#2c1f15";
-                hoverFinish.style.color = "#4d3e2e";
-            });
-        });
-
-        const finishBtn = document.getElementById("btnFinishReg");// לחיצה על כפתור הסיום, תלוי באיזה מסך אנחנו
+        
+        const finishBtn = document.getElementById("btnFinishReg");// לחיצה על כפתור סיום- בדיקה אם זה משתמש קיים וא משתמש חדש
         finishBtn.addEventListener("click", function () {
-            if (mode == "register") {//לחיצה על כפתור הסיום כשאנחנו במשתמתש חדש
+            if (mode == "register") {
                 register();
-            } else if (mode == "login") {//לחיצה על כפתור סיום כשאנחנו במשתמש קיים
+            } else if (mode == "login") {
                 login();
             }
         });
-        const backBtn = document.getElementById("btnBack");// במסך התחברות יש כפתור חזרה למסך ראשי שמאפס הכל
+        const backBtn = document.getElementById("btnBack");//כפתור חזור
         backBtn.addEventListener("click", function () {
             document.querySelectorAll(".notValReg").forEach(p => {
                     p.style.display = "none";
                });              
-            screenStart.classList.remove("loginMode");//מסירים את מחלקת העיצוב של משתמש רשום, היא תעלה מחדש כשירצו להתחבר שוב
-            screenStart.style.display = "none";//מסתירים את המסך כי לחתנו על חזור
+            screenStart.classList.remove("loginMode");
+            screenStart.style.display = "none";
             resetScreen();  
         });
         
         function register(){// כפתור סיום במסך משתמש חדש
             let valid = true;
-            let userEmail = document.getElementById("userEmailTxt").value;//האימייל שהמשתמש הכניס
-            let userPassword = document.getElementById("userPasswordTxt").value;//הסיסימא שהמשתמש הכניס
-            const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;//בדיקת תקינות של האימייל
-            document.getElementById("warningEmail").style.display = "none";
+            let userEmail = document.getElementById("userEmailTxt").value;
+            let userPassword = document.getElementById("userPasswordTxt").value;
+            const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
+            document.getElementById("warningEmail").style.display = "none";//כאן נבדוק שהוכנס אימייל תקין לפי הפורמט
             if (!emailRegex.test(userEmail)) {
                 valid = false;
                 document.getElementById("userEmailTxt").value = "";
-                document.getElementById("warningEmail").style.display = "block";
+                document.getElementById("warningEmail").style.display = "block";//אם הערך לא תקין , נראה הודעה מתאימה
             }
-            document.getElementById("warningPassAndUser").style.display = "none";
+            document.getElementById("warningPassAndUser").style.display = "none";//כאן נבדוק שהוכנסה סייסמא תקינה
             if (userPassword.length < 8) {
                 valid = false;
                 document.getElementById("userPasswordTxt").value = "";
-                document.getElementById("warningPassAndUser").innerText = "סיסמא לא תקינה - יש לכתוב לפחות 8 תווים";
+                document.getElementById("warningPassAndUser").innerText = "סיסמא לא תקינה - יש לכתוב לפחות 8 תווים";//אם הסיסימא לא תקינה- נכתוב הודעה בהתאם
                 document.getElementById("warningPassAndUser").style.display = "block";
             }
             document.getElementById("warningUserName").style.display = "none";       
-            if(document.getElementById("userNameTxt").value.trim() === "")
+            if(document.getElementById("userNameTxt").value.trim() === "")//כאן נבדוק שהוכנס שם פרטי תקין
             {
                 valid=false;
                 document.getElementById("warningUserName").style.display = "block";
             }
-
-
             if (valid) {//אם הכל תקין נעבור למסך של התחברות למשתמש קיים
-                nameRow.style.display = "none";//מסתירים את החלק של שם השמתמש
+                nameRow.style.display = "none";
                 saveUser();//שומרים את המשתמש 
                 mode = "login";
                 screenStart.classList.add("loginMode");//מוסיפים למסך את מחלקת העיצוב שלמשתמש קיים
                 title.innerText = "כניסה למערכת";
-                resetScreen();
-           
+                resetScreen(); 
             }
         }
+
         function resetScreen() {// פוקנציה שמאפסת את מסכי ההרשמה
             document.getElementById("userNameTxt").value = "";
             document.getElementById("userEmailTxt").value = "";
@@ -256,32 +233,31 @@
             document.querySelectorAll(".notValReg").style.display ="none";
         }
 
-
         let currentUser = {};//פה נשמור את הפרטים של מי שמתחבר
         function login() {// כפתור סיום במסך התחברות
             let found = false;
-            let userEmail = document.getElementById("userEmailTxt").value;//האימייל שהוא הכניס
-            let userPassword = document.getElementById("userPasswordTxt").value;//הסייסמא שהוא הכניס
-            const users = JSON.parse(localStorage.getItem("users")) || [];//משיכה מהזיכרון בשביל לבדוק אם קיים כזה משתמש????????????
+            let userEmail = document.getElementById("userEmailTxt").value;
+            let userPassword = document.getElementById("userPasswordTxt").value;
+            const users = JSON.parse(localStorage.getItem("users")) || [];//משיכה מהלוקאל סטוראג של מערך השמתמשים כדי לבדוק את פרטי המשתמש
             document.getElementById("warningPassAndUser").style.display = "none";
             for (user of users) {
                 if (user.email === userEmail && user.password === userPassword) {//בדיקה אם יש משתמש כזה, אם כן
                     currentUser=user;//נשמור אותו
                     localStorage.setItem("currentUser",JSON.stringify(currentUser));//נשמור את המשתמש הנוכחי בזיכרון כדי להשתמש בו אחרי זה
                     found = true;
-                    window.location.href="DashBoard.html";
+                    window.location.href="DashBoard.html";//מעבר לדשבורד
                     break;
                 }
             }
             if (!found) {//אם השמתמש לא נמצא
-                document.getElementById("warningPassAndUser").innerText = "משתמש לא נמצא, נסו שוב";//תגית אזהרה אדומה גם לסיסמא וגם לשמתמש שלא נמצא, משנים לה תא הטקטס
+                document.getElementById("warningPassAndUser").innerText = "משתמש לא נמצא, נסו שוב";
                 document.getElementById("warningPassAndUser").style.display = "block";
                 document.getElementById("userEmailTxt").value = "";
                 document.getElementById("userPasswordTxt").value = "";
             } 
-
         }
-        function saveUser() {
+
+        function saveUser() {//שמירת המשתמש במערך השמתמשים שנמצא בלוקאל סטוראג
             const userEmail = document.getElementById("userEmailTxt").value;
             const userPassword = document.getElementById("userPasswordTxt").value;
             const userName = document.getElementById("userNameTxt").value;
@@ -292,14 +268,15 @@
                 email: userEmail,
                 password: userPassword,
                 name: userName,
-                balance: 0
+                balance: 0//למשתמש יש שדה של יתרה, שבו נתשמש בהמשך
             };
 
             users.push(user);
             localStorage.setItem("users", JSON.stringify(users));
             localStorage.setItem("currentUser", JSON.stringify(user));
         }
-        const imgDash=document.getElementById("imgLogo")
+
+        const imgDash=document.getElementById("imgLogo")//מעבר עכבר על התמונה
             imgDash.addEventListener("mouseover",()=>{
                 imgDash.src="images/BagelLogo.png";
             });
@@ -307,9 +284,27 @@
                 imgDash.src="images/CoffeeLogo.png";
             });
 
-         
-
+            const buttons = document.querySelectorAll(".overStyle");/// מעבר עכבר על כפתור משתמש חדש ומשתמש קיים
+        buttons.forEach(btn => {
+            btn.addEventListener("mouseover", () => {
+                btn.style.backgroundColor = "papayawhip";
+            });
+            btn.addEventListener("mouseleave", () => {
+                btn.style.backgroundColor = "tan";
+            });
+        });
+       
+        const buttons2 = document.querySelectorAll(".overStyling2");///מעבר עכבר על כתפור סיום
+        buttons2.forEach(btn => {
+            btn.addEventListener("mouseover", () => {
+                btn.style.backgroundColor = "papayawhip";
+                hoverFinish.style.color = "#4d3e2e";
+            });
+            btn.addEventListener("mouseleave", () => {
+                btn.style.backgroundColor = "#2c1f15";
+                hoverFinish.style.color = "#4d3e2e";
+            });
+        });
     </script>
-
 </body>
 </html>
