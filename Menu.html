@@ -15,7 +15,6 @@
         background-image: url("images/backGrountCoffee.JPG");
 
     }
-
     .container{
         display:flex;
         flex-direction:column;
@@ -31,13 +30,11 @@
         font-size:40px;
         font-weight:bold;
     }
-
     .row{
         display:grid;
         grid-template-columns:1fr 1fr 1fr;
         gap:20px;
     }
-
     .menuBox{
         background-color:#F5EFE6;
         border-radius:20px;
@@ -49,8 +46,6 @@
         cursor:pointer;
         transition:0.3s;
     }
-
-    /* ---------- POPUP ---------- */
 
     .popup{
         position:fixed;
@@ -86,8 +81,6 @@
         font-size:18px;
         cursor:pointer;
     }
-
-    /* ---------- MENU ITEMS ---------- */
 
     .menuItem{
         position: relative;
@@ -148,7 +141,6 @@
             .categoryRows{
                 margin-top: 15%;
             }
-    /*buy product button*/
     .buyBtn{
         position: absolute;
         left: 2%;                 
@@ -165,8 +157,6 @@
         cursor: pointer;
     }
 
-
-    /* הטקסט שמופיע ב־hover */
     .buyTextHover{
     position: absolute;
         left: 2%;
@@ -192,28 +182,23 @@
 
         @media screen and (max-width: 600px) {
 
-        /* הסתרת כפתור הקטגוריות */
         .categoryButton {
             display: none;
         }
 
-        /* כל השורות יהיו עמודה אחת מתחת לשנייה */
         .row {
             display: flex;            
             flex-direction: column;  
             gap: 15px;              
         }
 
-        /* הדיבים עצמם יתפרסו לכל רוחב */
         .menuBox {
             width: 100%;
         }
 
-        /* הכותרת למעלה תישאר רגילה או ניתן להקטין קצת אם רוצים */
         #titleMenu {
             right: 20px;
         }
-        /* אפשר גם להקטין קצת את הפאדינג של הקונטיינר */
         .container {
             padding: 10px;
             gap: 20px;
@@ -259,7 +244,6 @@
 
 </div>
 
-<!-- POPUP -->
 <div id="popup" class="popup">
     <button id="btnClosePopup">X</button>
     <div id="popupContent"></div>
@@ -272,29 +256,17 @@
     const popupContent = document.getElementById("popupContent");
     const closeBtn = document.getElementById("btnClosePopup");
 
-    // fetch("Menu.json")
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         localStorage.setItem("menuItems", JSON.stringify(data));
-    //         console.log("Menu saved to LocalStorage", data);
-    //     })
-    //     .catch(error => {
-    //         console.error("Error loading Menu.json", error);
-    // });
-    /* הצגת תפריט לפי CategoryId */
-    function showMenu(categoryId) {
+    function showMenu(categoryId) {//פוקנציה שמראה את התפריט של כל קטגוריה באופן דינאמי
 
-        const data = JSON.parse(localStorage.getItem("menuItems"));
+        const data = JSON.parse(localStorage.getItem("menuItems"));//משתנה שיחזיק את התפריט מתוך הלוקאל סטוראג
         if (!data) return;
 
-        popupContent.innerHTML = ""; // ניקוי קודם
+        popupContent.innerHTML = ""; 
 
-        // כותרת
         const title = document.createElement("h2");
         title.textContent = getCategoryName(Number(categoryId));
         popupContent.appendChild(title);
 
-        // סינון פריטים לפי קטגוריה
         const items = data.filter(item => item.CategoryId === Number(categoryId));
 
         items.forEach(item => {
@@ -318,7 +290,7 @@
             buyTextHover.className = "buyTextHover";
             buyTextHover.textContent = "רכישת פריט";
 
-           buyBtn.addEventListener("mouseenter", () => {
+           buyBtn.addEventListener("mouseenter", () => {//מעבר עכבר על כפתור הרכישה
                 buyTextHover.style.display = "block";
             });
 
@@ -326,18 +298,16 @@
                 buyTextHover.style.display = "none";
             });
             
-            const currentUser=JSON.parse(localStorage.getItem("currentUser"));
-            buyBtn.addEventListener("click", () =>{
-
-                let currentUser = JSON.parse(localStorage.getItem("currentUser"));              
-
+            const currentUser=JSON.parse(localStorage.getItem("currentUser"));//משתנה שיזחיק את המשתמש הנוכחי
+            buyBtn.addEventListener("click", () =>{//לחיצה על כפתור הרכישה
+                let currentUser = JSON.parse(localStorage.getItem("currentUser"));//בדיקת היתרה של המשתמש הנוכחי          
                 if (currentUser.balance < item.Price) {
                     alert("אין מספיק כסף, יש לטעון את חבר המועדון");
                     return;
                 }
-                addToOrder(item);
-                currentUser.balance -= item.Price;
-                let users = JSON.parse(localStorage.getItem("users")) || [];
+                addToOrder(item);//אם יש מספיק יתרה, נקרא לפוקנציה שתוסיף את הפריט לרשימת ההזמנות
+                currentUser.balance -= item.Price;//עדכון היתרה של המשתמש
+                let users = JSON.parse(localStorage.getItem("users")) || [];//עדכון היצרה בלוקאל סטוראג
                 const userIndex = users.findIndex(
                     u => u.email === currentUser.email
                 );
@@ -349,10 +319,7 @@
                 localStorage.setItem("users", JSON.stringify(users));
 
             });
-                          
-                            
-
-
+            ///הוספת המוצרים לפי הקטגוריות באופן דינאמי
             itemDiv.appendChild(name);
             itemDiv.appendChild(br);
             itemDiv.appendChild(price);
@@ -365,15 +332,14 @@
         popup.style.display = "block";
     }
 
-    function addToOrder(item){
+    function addToOrder(item){//פוקנציה שמופעלת כשהמשתמש רוכש פריט
         const orders = JSON.parse(localStorage.getItem("orders"))||[];
-        
         const timeNow = new Date();
         const date = 
             String(timeNow.getDate()).padStart(2,'0')+"/"+
             String(timeNow.getMonth()+1).padStart(2,'0') + "/" +
             timeNow.getFullYear();
-        
+        //הוספת הפריט שנרכש לרשימת ההזמנות שנרכשו
         const order = {
             Date: date,
             ProductName: item.ProductName,
@@ -381,15 +347,14 @@
             Amount: item.Price
         }
 
-        orders.push(order);
+        orders.push(order);//עדכון בלוקאל סטוראג
         localStorage.setItem("orders", JSON.stringify(orders));
         
         alert("ההזמנה נוספה בהצלחה :)");
         popup.style.display = "none";
     }
 
-    /* מיפוי שמות קטגוריות */
-    function getCategoryName(id) {
+    function getCategoryName(id) {//פוקנציה שמאפשרת לנו לכתוב את שם הקטגוריה כפופאפ שמציג את התפריט
         const map = {
             1: "ארוחות בוקר",
             2: "כריכים",
@@ -401,8 +366,8 @@
         return map[id];
     }
 
-    /* חיבור הקופסאות */
-    menuBoxes.forEach(box => {
+
+    menuBoxes.forEach(box => {//מעבר עכבר על הקטגוריות של התפריט
 
         box.addEventListener("mouseenter", () => {
             box.style.backgroundColor = "#F6DADF";
@@ -418,13 +383,11 @@
 
     });
 
-    /* סגירה */
-    closeBtn.addEventListener("click", () => {
+    closeBtn.addEventListener("click", () => {//לחיצה על הכפתור שסוגר את התפריט
         popup.style.display = "none";
     });
 
-
-    const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
+    const btnCloseCategory=document.getElementById("closeCategory");// מעבר עכבר על הכפתור שסגור את הקטגוריות
     btnCloseCategory.addEventListener("mouseover", () => {
         btnCloseCategory.style.backgroundColor = "#F5EFE6";
         btnCloseCategory.style.color = "#2B1B17";
@@ -433,24 +396,25 @@
         btnCloseCategory.style.backgroundColor = "#2B1B17";
         btnCloseCategory.style.color = "#F5EFE6";
     });
-    const categoryDiv=document.querySelectorAll(".divCategory");// מה שמופיע שחלק של הקטגוריות- המעברים לדפים
+    const categoryDiv=document.querySelectorAll(".divCategory");//מעבר עכבר על האופציות בתוך הקטגוריות
     categoryDiv.forEach(box => {
         box.addEventListener("mouseenter", () => {
-            box.style.backgroundColor = "#F6DADF"; // ורוד בייבי בהיר
+            box.style.backgroundColor = "#F6DADF"; 
         });
 
         box.addEventListener("mouseleave", () => {
-            box.style.backgroundColor = "transparent"; // חזרה לבסיס
+            box.style.backgroundColor = "transparent"; 
         });
     });
-    const categoryBtn=document.querySelector(".categoryButton");// הכפתור שפותח את החלון קטגוריות
+    const categoryBtn=document.querySelector(".categoryButton");//לחיצה על הכפתור שפותח את הקטגוריות
     categoryBtn.addEventListener("click",()=>{
         document.getElementById("categoryPart").style.display="block";
         popup.style.display = "none";
     });
-    btnCloseCategory.addEventListener("click",()=>{
+    btnCloseCategory.addEventListener("click",()=>{//לחיצה על הכפתור שסוגר את הקטגוריות
         document.getElementById("categoryPart").style.display="none";
     });
+    /////מעבר לדפים אחרים
     document.getElementById("homeCategory").addEventListener("click", ()=>{
         window.location.href = "DashBoard.html";
     });
@@ -463,10 +427,6 @@
      document.getElementById("logOutCategory").addEventListener("click", ()=>{
         window.location.href = "LoginPage.html";
     });
-   
-
-    
 </script>
-
 </body>
 </html>
