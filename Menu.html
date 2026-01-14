@@ -250,7 +250,7 @@
 </div>
 
 <script>
-
+    //הגדרת אלמנטים בדף
     const menuBoxes = document.querySelectorAll(".menuBox");
     const popup = document.getElementById("popup");
     const popupContent = document.getElementById("popupContent");
@@ -259,17 +259,18 @@
     function showMenu(categoryId) {//פוקנציה שמראה את התפריט של כל קטגוריה באופן דינאמי
 
         const data = JSON.parse(localStorage.getItem("menuItems"));//משתנה שיחזיק את התפריט מתוך הלוקאל סטוראג
-        if (!data) return;
+        if (!data) return; 
 
-        popupContent.innerHTML = ""; 
+        popupContent.innerHTML = ""; //נאתחל את פופאפ תפריט הקטגוריות
 
         const title = document.createElement("h2");
         title.textContent = getCategoryName(Number(categoryId));
         popupContent.appendChild(title);
 
+        //נפלטר להכניס למשתנה את כל האייטמים שבקטגוריה לפי המספר זיהוי שלו
         const items = data.filter(item => item.CategoryId === Number(categoryId));
 
-        items.forEach(item => {
+        items.forEach(item => { //יצירת אלמנט עבור כל פריט לפי הגייסון
 
             const itemDiv = document.createElement("div");
             itemDiv.className = "menuItem";

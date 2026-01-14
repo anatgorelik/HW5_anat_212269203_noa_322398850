@@ -436,7 +436,7 @@
     }
 
     function getProductCounts() {//פוקנציית עזר לגרף שמחזירה את סוגי המוצרים שנרכשו החודשים והכמות שלהם
-    const orders = JSON.parse(localStorage.getItem("orders")) || {};
+    const orders = JSON.parse(localStorage.getItem("orders")) ||[];
     const productCounts = {};
 
     orders.forEach(order => {//יצירת אובייקט שמחזיק את כל המוצרים שנרכשו החודש ואת הכמות שלהם
