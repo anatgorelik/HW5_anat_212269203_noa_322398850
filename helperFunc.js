@@ -1,5 +1,4 @@
 export function showCategory(){
-    
     const btnCloseCategory=document.getElementById("closeCategory");// מעבר עכבר על כפתור סגירת הקטגוריות
     const categoryDiv=document.querySelectorAll(".divCategory");// מעבר עכבר על האופציות של הקטגוריות
     const categoryBtn=document.querySelector(".categoryButton");// לחיצה על פתחית הקטגוריות
@@ -26,5 +25,23 @@ export function showCategory(){
     });
     btnCloseCategory.addEventListener("click",()=>{//לחיצה על כפתור סגירת הקטגוריות
         document.getElementById("categoryPart").style.display="none";
+    });
+}
+
+export function moveToPage(){
+       document.getElementById("homeCategory").addEventListener("click", ()=>{
+        window.location.href = "DashBoard.html";
+    });
+    document.getElementById("frienMemberCategory").addEventListener("click", ()=>{
+        window.location.href = "FriendMember.html";
+    });
+    document.getElementById("menuCategory").addEventListener("click", ()=>{
+        window.location.href = "Menu.html";
+    });
+     document.getElementById("logOutCategory").addEventListener("click", ()=>{
+        window.location.href = "LoginPage.html";
+    });
+       document.getElementById("myOrdersCategory").addEventListener("click", ()=>{
+        window.location.href = "MyOrders.html";
     });
 }

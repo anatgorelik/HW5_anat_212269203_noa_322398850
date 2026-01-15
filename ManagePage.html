@@ -167,23 +167,10 @@ body{
 </div>
 
 <script type="module">
-    import {showCategory} from "./helperFunc.js"
+    import {showCategory, moveToPage} from "./helperFunc.js"
     showCategory();
-    
-    //מעבר בין עמודים
-    document.getElementById("homeCategory").addEventListener("click", ()=>{
-        window.location.href = "DashBoard.html";
-    });
-    document.getElementById("frienMemberCategory").addEventListener("click", ()=>{
-        window.location.href = "FriendMember.html";
-    });
-    document.getElementById("myOrdersCategory").addEventListener("click", ()=>{
-        window.location.href = "MyOrders.html";
-    });
-     document.getElementById("logOutCategory").addEventListener("click", ()=>{
-        window.location.href = "LoginPage.html";
-    });
-
+    moveToPage();
+   
     //כל הכפתורים בעמוד ניהול
     const adminActions = document.querySelectorAll(".admin-action");
 

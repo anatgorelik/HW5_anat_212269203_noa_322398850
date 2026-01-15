@@ -174,23 +174,10 @@
 
 
     <script type="module">
-    import {showCategory} from "./helperFunc.js";
+    import {showCategory, moveToPage} from "./helperFunc.js";
     showCategory();
-
-    ///מעבר לדפים אחרים
-    document.getElementById("homeCategory").addEventListener("click", ()=>{
-        window.location.href = "DashBoard.html";
-    });
-    document.getElementById("frienMemberCategory").addEventListener("click", ()=>{
-        window.location.href = "FriendMember.html";
-    });
-    document.getElementById("menuCategory").addEventListener("click", ()=>{
-        window.location.href = "Menu.html";
-    });
-     document.getElementById("logOutCategory").addEventListener("click", ()=>{
-        window.location.href = "LoginPage.html";
-    });
-
+    moveToPage();
+    
     function loadOrders(){ // פונקציה שטוענת את כל ההזמנות מהלוקל סטורג ומציגה למשתמש
         const orders = JSON.parse(localStorage.getItem("orders")) || []; //שליפת הזמנות
 

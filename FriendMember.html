@@ -173,7 +173,9 @@
     </div>
 
     <script type="module">
+    import {showCategory, moveToPage} from "./helperFunc.js";
     showCategory();
+    moveToPage();
 
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));// משיכת משתמש נוכחימהזיכרון כדי לכתוב בשם הכרטיס
     const currentUserCardName=document.getElementById("userNameCard");
@@ -212,46 +214,6 @@
     const btnLoadMoney=document.getElementById("loadConfirmBtn");//לחיצה על כפתור טעינת הכסף
     btnLoadMoney.addEventListener("click",()=>{
         loadBalance();
-    });
-
-    // const btnCloseCategory=document.getElementById("closeCategory");// מעבר עכבר על כפתור סגירת הקטגוריות
-    // btnCloseCategory.addEventListener("mouseover", () => {
-    //     btnCloseCategory.style.backgroundColor = "#F5EFE6";
-    //     btnCloseCategory.style.color = "#2B1B17";
-    // });
-    // btnCloseCategory.addEventListener("mouseleave", () => {
-    //     btnCloseCategory.style.backgroundColor = "#2B1B17";
-    //     btnCloseCategory.style.color = "#F5EFE6";
-    // });
-    // const categoryDiv=document.querySelectorAll(".divCategory");// מעבר עכבר על האופציות של הקטגוריות
-    // categoryDiv.forEach(box => {
-    //     box.addEventListener("mouseenter", () => {
-    //         box.style.backgroundColor = "#F6DADF"; 
-    //     });
-
-    //     box.addEventListener("mouseleave", () => {
-    //         box.style.backgroundColor = "transparent"; 
-    //     });
-    // });
-    // const categoryBtn=document.querySelector(".categoryButton");// לחיצה על פתחית הקטגוריות
-    // categoryBtn.addEventListener("click",()=>{
-    //     document.getElementById("categoryPart").style.display="block";
-    // });
-    // btnCloseCategory.addEventListener("click",()=>{//לחיצה על כפתור סגירת הקטגוריות
-    //     document.getElementById("categoryPart").style.display="none";
-    // });
-    ///מעברים לדפים אחרים
-    document.getElementById("homeCategory").addEventListener("click", ()=>{
-        window.location.href = "DashBoard.html";
-    });
-    document.getElementById("menuCategory").addEventListener("click", ()=>{
-        window.location.href = "Menu.html";
-    });
-    document.getElementById("myOrdersCategory").addEventListener("click", ()=>{
-        window.location.href = "MyOrders.html";
-    });
-     document.getElementById("logOutCategory").addEventListener("click", ()=>{
-        window.location.href = "LoginPage.html";
     });
 
     const loadConfirmation=document.getElementById("loadConfirmBtn");//מעבר עכבר על כפתור טעינת כסף

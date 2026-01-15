@@ -386,9 +386,10 @@
         </div>
     </div> 
 </div>
-<script type="module">
-import { showCategory } from "./helperFunc.js";
-showCategory();
+   <script type="module">
+    import {showCategory, moveToPage} from "./helperFunc.js";
+    showCategory();
+    moveToPage();
     const imgDash=document.querySelector(".row1Part2 img");//תמונה
     const boxes = document.querySelectorAll(".row2 > div");//דיבים וורודים 
     updateTopProduct();//קריאה לפונקציה שמראה מי המוצר שהומזן הכי הרבה החודש
@@ -567,22 +568,9 @@ showCategory();
     document.getElementById("myOrdersPart").addEventListener("click",()=>{
         window.location.href = "MyOrders.html";
     })
-
-    document.getElementById("menuCategory").addEventListener("click", ()=>{
-        window.location.href = "Menu.html";
-    });
-    document.getElementById("frienMemberCategory").addEventListener("click", ()=>{
-        window.location.href = "FriendMember.html";
-    });
-    document.getElementById("myOrdersCategory").addEventListener("click", ()=>{
-        window.location.href = "MyOrders.html";
-    });
-     document.getElementById("logOutCategory").addEventListener("click", ()=>{
-        window.location.href = "LoginPage.html";
-    });
-    document.querySelector(".row1Part3").addEventListener("click", ()=>{
+    document.querySelector(".row1Part3").addEventListener("click",()=>{
         window.location.href = "ManagePage.html";
-    });
+    })
 </script>
 </body>
 </html>
