@@ -70,7 +70,7 @@
             color:#6b5a55;
         }
 
-        p{
+        .noOrders{
             color: #F5EFE6;
             font-size:22px;
             font-weight:bold;
@@ -81,7 +81,7 @@
             font-weight:bold;
             color:#2B1B17;
         }
-        #categoryButton{
+        .categoryButton{
                 width:56px;
                 height: 56px;
                 background-color: #2B1B17;
@@ -140,7 +140,7 @@
             font-weight:bold;
         }
         @media screen and (max-width: 600px){
-        #categoryButton {
+        .categoryButton {
             display: none;
         }
 
@@ -166,47 +166,17 @@
             <div id="logOutCategory" class="divCategory"><p>התנתקות</p></div>
         </div>
     </div>
-    <input type="button" id="categoryButton" value="☰">
+    <input type="button" class="categoryButton" value="☰">
     <div id="titleMyOrder">ההזמנות שלי:</div>
     <div class="container">  
         <div class="orderList" id="orderList"></div>
     </div>
-    <script>
-    const btnCloseCategory=document.getElementById("closeCategory");// מעבר עכבר על כפתור סיגרת הקטגוריות
-    btnCloseCategory.addEventListener("mouseover", () => {
-        btnCloseCategory.style.backgroundColor = "#F5EFE6";
-        btnCloseCategory.style.color = "#2B1B17";
-    });
-    btnCloseCategory.addEventListener("mouseleave", () => {
-        btnCloseCategory.style.backgroundColor = "#2B1B17";
-        btnCloseCategory.style.color = "#F5EFE6";
-    });
-    const categoryDiv=document.querySelectorAll(".divCategory");//מעבר עכבר על האופציות בתוך הקטגוריות
-    categoryDiv.forEach(box => {
-        box.addEventListener("mouseenter", () => {
-            box.style.backgroundColor = "#F6DADF"; 
-        });
 
-        box.addEventListener("mouseleave", () => {
-            box.style.backgroundColor = "transparent"; 
-        });
-    });
-    const categoryBtn=document.getElementById("categoryButton");// לחיצה על כפתור פתחית הקטגוריות
-    categoryBtn.addEventListener("click",()=>{
-        document.getElementById("categoryPart").style.display="block";
-    });
-    categoryBtn.addEventListener("mouseover",()=>{//מעבר עכבר על כפתור פתיחת הקטגרויות
-        categoryBtn.style.backgroundColor="#F6DADF";
-        categoryBtn.style.color="#2B1B17";
-    });
-    categoryBtn.addEventListener("mouseleave",()=>{
-        categoryBtn.style.backgroundColor="#2B1B17";
-        categoryBtn.style.color="#F5EFE6";
-    });
 
-    btnCloseCategory.addEventListener("click",()=>{//לחיצה על כפתור סגירת הקטגוריות
-        document.getElementById("categoryPart").style.display="none";
-    });
+    <script type="module">
+    import {showCategory} from "./helperFunc.js";
+    showCategory();
+
     ///מעבר לדפים אחרים
     document.getElementById("homeCategory").addEventListener("click", ()=>{
         window.location.href = "DashBoard.html";
@@ -233,6 +203,7 @@
 
         if(orders.length === 0){ 
             const msg = document.createElement("p");
+            msg.className = "noOrders";
             msg.textContent = "אין הזמנות עדיין☕";
             orderList.appendChild(msg);
             return;

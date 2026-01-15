@@ -166,34 +166,10 @@ body{
     </div>
 </div>
 
-<script>
-const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
-    btnCloseCategory.addEventListener("mouseover", () => {
-        btnCloseCategory.style.backgroundColor = "#F5EFE6";
-        btnCloseCategory.style.color = "#2B1B17";
-    });
-    btnCloseCategory.addEventListener("mouseleave", () => {
-        btnCloseCategory.style.backgroundColor = "#2B1B17";
-        btnCloseCategory.style.color = "#F5EFE6";
-    });
-    const categoryDiv=document.querySelectorAll(".divCategory");// מה שמופיע שחלק של הקטגוריות- המעברים לדפים
-    categoryDiv.forEach(box => {
-        box.addEventListener("mouseenter", () => {
-            box.style.backgroundColor = "#F6DADF"; 
-        });
-
-        box.addEventListener("mouseleave", () => {
-            box.style.backgroundColor = "transparent";
-        });
-    });
-    const categoryBtn=document.querySelector(".categoryButton");// הכפתור שפותח את החלון קטגוריות
-    categoryBtn.addEventListener("click",()=>{
-        document.getElementById("categoryPart").style.display="block";
-        popup.style.display = "none";
-    });
-    btnCloseCategory.addEventListener("click",()=>{
-        document.getElementById("categoryPart").style.display="none";
-    });
+<script type="module">
+    import {showCategory} from "./helperFunc.js"
+    showCategory();
+    
     //מעבר בין עמודים
     document.getElementById("homeCategory").addEventListener("click", ()=>{
         window.location.href = "DashBoard.html";
