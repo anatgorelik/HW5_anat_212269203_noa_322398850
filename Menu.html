@@ -249,8 +249,11 @@
     <div id="popupContent"></div>
 </div>
 
-<script>
-
+<script type="module">
+    import {showCategory, moveToPage} from "./helperFunc.js"
+    showCategory();
+    moveToPage();
+    //הגדרת אלמנטים בדף
     const menuBoxes = document.querySelectorAll(".menuBox");
     const popup = document.getElementById("popup");
     const popupContent = document.getElementById("popupContent");
@@ -259,17 +262,18 @@
     function showMenu(categoryId) {//פוקנציה שמראה את התפריט של כל קטגוריה באופן דינאמי
 
         const data = JSON.parse(localStorage.getItem("menuItems"));//משתנה שיחזיק את התפריט מתוך הלוקאל סטוראג
-        if (!data) return;
+        if (!data) return; 
 
-        popupContent.innerHTML = ""; 
+        popupContent.innerHTML = ""; //נאתחל את פופאפ תפריט הקטגוריות
 
         const title = document.createElement("h2");
         title.textContent = getCategoryName(Number(categoryId));
         popupContent.appendChild(title);
 
+        //נפלטר להכניס למשתנה את כל האייטמים שבקטגוריה לפי המספר זיהוי שלו
         const items = data.filter(item => item.CategoryId === Number(categoryId));
 
-        items.forEach(item => {
+        items.forEach(item => { //יצירת אלמנט עבור כל פריט לפי הגייסון
 
             const itemDiv = document.createElement("div");
             itemDiv.className = "menuItem";
@@ -385,47 +389,6 @@
 
     closeBtn.addEventListener("click", () => {//לחיצה על הכפתור שסוגר את התפריט
         popup.style.display = "none";
-    });
-
-    const btnCloseCategory=document.getElementById("closeCategory");// מעבר עכבר על הכפתור שסגור את הקטגוריות
-    btnCloseCategory.addEventListener("mouseover", () => {
-        btnCloseCategory.style.backgroundColor = "#F5EFE6";
-        btnCloseCategory.style.color = "#2B1B17";
-    });
-    btnCloseCategory.addEventListener("mouseleave", () => {
-        btnCloseCategory.style.backgroundColor = "#2B1B17";
-        btnCloseCategory.style.color = "#F5EFE6";
-    });
-    const categoryDiv=document.querySelectorAll(".divCategory");//מעבר עכבר על האופציות בתוך הקטגוריות
-    categoryDiv.forEach(box => {
-        box.addEventListener("mouseenter", () => {
-            box.style.backgroundColor = "#F6DADF"; 
-        });
-
-        box.addEventListener("mouseleave", () => {
-            box.style.backgroundColor = "transparent"; 
-        });
-    });
-    const categoryBtn=document.querySelector(".categoryButton");//לחיצה על הכפתור שפותח את הקטגוריות
-    categoryBtn.addEventListener("click",()=>{
-        document.getElementById("categoryPart").style.display="block";
-        popup.style.display = "none";
-    });
-    btnCloseCategory.addEventListener("click",()=>{//לחיצה על הכפתור שסוגר את הקטגוריות
-        document.getElementById("categoryPart").style.display="none";
-    });
-    /////מעבר לדפים אחרים
-    document.getElementById("homeCategory").addEventListener("click", ()=>{
-        window.location.href = "DashBoard.html";
-    });
-    document.getElementById("frienMemberCategory").addEventListener("click", ()=>{
-        window.location.href = "FriendMember.html";
-    });
-    document.getElementById("myOrdersCategory").addEventListener("click", ()=>{
-        window.location.href = "MyOrders.html";
-    });
-     document.getElementById("logOutCategory").addEventListener("click", ()=>{
-        window.location.href = "LoginPage.html";
     });
 </script>
 </body>

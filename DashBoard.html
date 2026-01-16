@@ -67,7 +67,7 @@
         }
         
 
-        #categoryButton{
+        .categoryButton{
             width:56px;
             height: 56px;
             background-color: #2B1B17;
@@ -280,7 +280,7 @@
         @media screen and (max-width: 600px) {      
 
 
-            .row1Part2, #categoryButton {
+            .row1Part2, .categoryButton {
                 display: none;
             }
 
@@ -336,7 +336,7 @@
 <div class="container">
     <div class="row1">     
         <div class="row1Part1">
-            <input type="button" value="☰" id="categoryButton" >
+            <input type="button" value="☰" class="categoryButton" >
             <div id="helloPart">
                 <h2>שלום <span id="userName"></span></h2>
                 <h3 id="greeting"></h3>
@@ -386,14 +386,19 @@
         </div>
     </div> 
 </div>
-<script>
+   <script type="module">
+    import {showCategory, moveToPage} from "./helperFunc.js";
+    showCategory();
+    moveToPage();
     const imgDash=document.querySelector(".row1Part2 img");//תמונה
-    const categoryBtn=document.getElementById("categoryButton");// כפתור קטגוריות
-    const categoryDiv=document.querySelectorAll(".divCategory");//אופציות של הקטגוריות
-    const btnCloseCategory=document.getElementById("closeCategory");//כפתור שסוגר את הקטגוריות
     const boxes = document.querySelectorAll(".row2 > div");//דיבים וורודים 
-   
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));//משיכה של המשתמש הנוכחי מהלוקאל סטוראג
+    updateTopProduct();//קריאה לפונקציה שמראה מי המוצר שהומזן הכי הרבה החודש
+    updateMonthOrdersCount();//קריאה לפוקנציה שמראה כמה הזמנות בוצעו החודש
+    updateGreeting();//קריאה לפוקנציית ברכת שלום
+    updateClock();//קריאה לפוקנציית שעון
+    setInterval(updateClock,1000);//הפעלה של השעון
+    drawProductsHistogram();//קריאה לפוקנציה שמייצרת את הגרף
+   const currentUser = JSON.parse(localStorage.getItem("currentUser"));//משיכה של המשתמש הנוכחי מהלוקאל סטוראג
     const balance=currentUser.balance;//משיכת היתרה של המשתמש הנוכחי מהלוקאל סטוראג
     document.getElementById("showBalance").innerText="יתרה: "+balance+" שח";
     if (currentUser && currentUser.name) {//הצגת של הלקוח בברכת השלום
@@ -401,14 +406,6 @@
         } else {
         document.getElementById("userName").innerText = "אורח";
     }
-
-    updateTopProduct();//קריאה לפונקציה שמראה מי המוצר שהומזן הכי הרבה החודש
-    updateMonthOrdersCount();//קריאה לפוקנציה שמראה כמה הזמנות בוצעו החודש
-    updateGreeting();//קריאה לפוקנציית ברכת שלום
-    updateClock();//קריאה לפוקנציית שעון
-    setInterval(updateClock,1000);//הפעלה של השעון
-    drawProductsHistogram();//קריאה לפוקנציה שמייצרת את הגרף
-
     function updateGreeting(){//פוקנציה של הצגת ברכת שלום
         const hour = new Date().getHours();
         let greeting = "";
@@ -436,7 +433,7 @@
     }
 
     function getProductCounts() {//פוקנציית עזר לגרף שמחזירה את סוגי המוצרים שנרכשו החודשים והכמות שלהם
-    const orders = JSON.parse(localStorage.getItem("orders")) || {};
+    const orders = JSON.parse(localStorage.getItem("orders")) ||[];
     const productCounts = {};
 
     orders.forEach(order => {//יצירת אובייקט שמחזיק את כל המוצרים שנרכשו החודש ואת הכמות שלהם
@@ -533,6 +530,7 @@
             document.getElementById("topProductQty").innerText = topQty;
         }
     }
+   
     imgDash.addEventListener("mouseover",()=>{//מעבר עכבר על תמונה
         imgDash.src="images/BagelLogo.png";
     });
@@ -540,40 +538,6 @@
         imgDash.src="images/CoffeeLogo.png";
     });
 
-    categoryBtn.addEventListener("click",()=>{//פתיחת קטגוריות
-        document.getElementById("categoryPart").style.display="block";
-    });
-    categoryBtn.addEventListener("mouseover",()=>{//מעבר עכבר על כפתור הקטגוריות
-        categoryBtn.style.backgroundColor="#F6DADF";
-        categoryBtn.style.color="#2B1B17";
-
-    });
-    categoryBtn.addEventListener("mouseleave",()=>{//מעבר עכבר על כפתור קטגוריות
-        categoryBtn.style.backgroundColor="#2B1B17";
-        categoryBtn.style.color="#F5EFE6";
-
-    });
-    categoryDiv.forEach(box => {//מעבר עכבר על אופציות של קטגוריות
-        box.addEventListener("mouseenter", () => {
-            box.style.backgroundColor = "#F6DADF";
-        });
-
-        box.addEventListener("mouseleave", () => {
-            box.style.backgroundColor = "transparent";
-        });
-    });
-
-    btnCloseCategory.addEventListener("click",()=>{//לחיצה על הכפתרו שסוגר את הקטגוריות
-        document.getElementById("categoryPart").style.display="none";
-    btnCloseCategory.addEventListener("mouseover", () => {
-        btnCloseCategory.style.backgroundColor = "#F5EFE6";
-        btnCloseCategory.style.color = "#2B1B17";
-    });
-    btnCloseCategory.addEventListener("mouseleave", () => {
-        btnCloseCategory.style.backgroundColor = "#2B1B17";
-        btnCloseCategory.style.color = "#F5EFE6";
-    });
-    });
     document.querySelector(".row1Part3").addEventListener("mouseover",()=>{//מעבר עכבר על דיב של ניהול גייסון
          document.querySelector(".row1Part3").style.backgroundColor="papayawhip";
          document.querySelector(".row1Part3").style.color="#2B1B17";
@@ -604,22 +568,9 @@
     document.getElementById("myOrdersPart").addEventListener("click",()=>{
         window.location.href = "MyOrders.html";
     })
-
-    document.getElementById("menuCategory").addEventListener("click", ()=>{
-        window.location.href = "Menu.html";
-    });
-    document.getElementById("frienMemberCategory").addEventListener("click", ()=>{
-        window.location.href = "FriendMember.html";
-    });
-    document.getElementById("myOrdersCategory").addEventListener("click", ()=>{
-        window.location.href = "MyOrders.html";
-    });
-     document.getElementById("logOutCategory").addEventListener("click", ()=>{
-        window.location.href = "LoginPage.html";
-    });
-    document.querySelector(".row1Part3").addEventListener("click", ()=>{
+    document.querySelector(".row1Part3").addEventListener("click",()=>{
         window.location.href = "ManagePage.html";
-    });
+    })
 </script>
 </body>
 </html>

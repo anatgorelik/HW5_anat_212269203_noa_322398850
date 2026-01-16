@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="he">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,57 +67,57 @@ body{
             margin-right: 10px;
             align-self: flex-start;
               
-    }
-    #categoryPart{
-            display:none;
-            background-image: url("images/pinkBackGround.JPG");
-            color: #2B1B17;
-            position: fixed;
-            top: 1%;
-            bottom:1%;
-            right: 0px;
-            width: 20%;
-            height: 98%;
-            z-index: 1004;
-            border-radius: 15px;
-            row-gap: 10px;  
-            right: 0.5%;
-    }
+}
+#categoryPart{
+        display:none;
+        background-image: url("images/pinkBackGround.JPG");
+        color: #2B1B17;
+        position: fixed;
+        top: 1%;
+        bottom:1%;
+        right: 0px;
+        width: 20%;
+        height: 98%;
+        z-index: 1004;
+        border-radius: 15px;
+        row-gap: 10px;  
+        right: 0.5%;
+}
 
-            #categoryPart div{
-            
-                font-size: 25px;
-                gap:10px;
-                border-radius: 15px;
-                width: 80%;
-            }
-            #closeCategory{
-                position: absolute;
-                top:3%;
-                left:3%;
-                background-color:#2B1B17 ;
-                color: #CBAFB2;
-                text-align: center;
-                border-radius: 10px;
-                font-size: 20px;
-                border: none;
-            }
-            .categoryRows{
-                margin-top: 15%;
-            }
-             .admin-title{
-                position:fixed;
-                top:15px;
-                right: 120px;
-                color:#F5EFE6;
-                font-size:40px;
-                font-weight:bold;
-            }
-             @media screen and (max-width: 600px){
+        #categoryPart div{
+        
+            font-size: 25px;
+            gap:10px;
+            border-radius: 15px;
+            width: 80%;
+        }
+        #closeCategory{
+            position: absolute;
+            top:3%;
+            left:3%;
+            background-color:#2B1B17 ;
+            color: #CBAFB2;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 20px;
+            border: none;
+        }
+        .categoryRows{
+            margin-top: 15%;
+        }
+            .admin-title{
+            position:fixed;
+            top:15px;
+            right: 120px;
+            color:#F5EFE6;
+            font-size:40px;
+            font-weight:bold;
+        }
+        @media screen and (max-width: 600px){
             .categoryButton {
-             display: none;
+                display: none;
             }
-            }
+        }
 </style>
 </head>
 
@@ -132,15 +131,13 @@ body{
             <div id="frienMemberCategory" class="divCategory"><p>חבר מועדון</p></div>
             <div id="logOutCategory" class="divCategory"><p>התנתקות</p></div>
         </div>
-       
     </div>
     <input type="button" class="categoryButton" value="☰">
     <h1 class="admin-title">עמוד ניהול</h1>
 
 <div class="admin-panel">
 
-    <!-- ניהול תפריט -->
-    <div class="admin-section">
+    <div class="admin-section"> 
         <strong>ניהול תפריט</strong>
 
         <div class="admin-action" id="menu-load-from-project">
@@ -148,11 +145,10 @@ body{
         </div>
 
         <div class="admin-action" id="menu-load-from-file">
-            טעינת תפריט מקובץ חיצוני
+            טעינת תפריט מקובץ אחר
         </div>
     </div>
 
-    <!-- ניהול הזמנות -->
     <div class="admin-section">
         <strong>ניהול הזמנות</strong>
 
@@ -161,7 +157,7 @@ body{
         </div>
 
         <div class="admin-action" id="orders-load-from-file">
-            טעינת הזמנות מקובץ חיצוני
+            טעינת הזמנות מקובץ אחר
         </div>
     </div>
 
@@ -170,86 +166,47 @@ body{
     </div>
 </div>
 
-<script>
-const btnCloseCategory=document.getElementById("closeCategory");// הכפתור שיסגור את הקטגוריות בצד
-    btnCloseCategory.addEventListener("mouseover", () => {
-        btnCloseCategory.style.backgroundColor = "#F5EFE6";
-        btnCloseCategory.style.color = "#2B1B17";
-    });
-    btnCloseCategory.addEventListener("mouseleave", () => {
-        btnCloseCategory.style.backgroundColor = "#2B1B17";
-        btnCloseCategory.style.color = "#F5EFE6";
-    });
-    const categoryDiv=document.querySelectorAll(".divCategory");// מה שמופיע שחלק של הקטגוריות- המעברים לדפים
-    categoryDiv.forEach(box => {
-        box.addEventListener("mouseenter", () => {
-            box.style.backgroundColor = "#F6DADF"; // ורוד בייבי בהיר
-        });
+<script type="module">
+    import {showCategory, moveToPage} from "./helperFunc.js"
+    showCategory();
+    moveToPage();
+   
+    //כל הכפתורים בעמוד ניהול
+    const adminActions = document.querySelectorAll(".admin-action");
 
-        box.addEventListener("mouseleave", () => {
-            box.style.backgroundColor = "transparent"; // חזרה לבסיס
+    adminActions.forEach(action => {//הובר על הכפתורים
+        action.addEventListener("mouseenter", () => {
+            action.style.backgroundColor = "#3a2622";
+        });
+        action.addEventListener("mouseleave", () => {
+            action.style.backgroundColor = "#2B1B17";
         });
     });
-    const categoryBtn=document.querySelector(".categoryButton");// הכפתור שפותח את החלון קטגוריות
-    categoryBtn.addEventListener("click",()=>{
-        document.getElementById("categoryPart").style.display="block";
-        popup.style.display = "none";
-    });
-    btnCloseCategory.addEventListener("click",()=>{
-        document.getElementById("categoryPart").style.display="none";
-    });
-    document.getElementById("homeCategory").addEventListener("click", ()=>{
-        window.location.href = "DashBoard.html";
-    });
-    document.getElementById("frienMemberCategory").addEventListener("click", ()=>{
-        window.location.href = "FriendMember.html";
-    });
-    document.getElementById("myOrdersCategory").addEventListener("click", ()=>{
-        window.location.href = "MyOrders.html";
-    });
-     document.getElementById("logOutCategory").addEventListener("click", ()=>{
-        window.location.href = "LoginPage.html";
-    });
 
-
-/* ---------- HOVER ---------- */
-const adminActions = document.querySelectorAll(".admin-action");
-
-adminActions.forEach(action => {
-    action.addEventListener("mouseenter", () => {
-        action.style.backgroundColor = "#3a2622";
-    });
-    action.addEventListener("mouseleave", () => {
-        action.style.backgroundColor = "#2B1B17";
-    });
-});
-
-/* ---------- CLICK EVENTS ---------- */
 
 // תפריט
-document.getElementById("menu-load-from-project")
+document.getElementById("menu-load-from-project")//טעינת תפריט מהפרויקט
     .addEventListener("click", () => {
         loadJsonFromProject("Menu.json", "menuItems");
     });
 
-document.getElementById("menu-load-from-file")
+document.getElementById("menu-load-from-file")//טעינת תפריט מקובץ נבחר אחר
     .addEventListener("click", () => {
         loadJsonFromFile("menuItems");
     });
 
 // הזמנות
-document.getElementById("orders-load-from-project")
+document.getElementById("orders-load-from-project")//טעינת הזמנות מהפרויקט
     .addEventListener("click", () => {
         loadJsonFromProject("MyOrders.json", "orders");
     });
 
-document.getElementById("orders-load-from-file")
+document.getElementById("orders-load-from-file")//טעינת הזמנות מקובץ נבחר אחר
     .addEventListener("click", () => {
         loadJsonFromFile("orders");
     });
 
-/* ---------- פונקציות ---------- */
-
+//טעינת קובץ גייסון ושמירה בלוקל סטוראז
 function loadJsonFromProject(fileName, storageKey){
     fetch(fileName)
         .then(response => response.json())
@@ -264,17 +221,18 @@ function loadJsonFromProject(fileName, storageKey){
         .catch(() => alert("שגיאה בטעינת הקובץ מהפרויקט"));
 }
 
-function loadJsonFromFile(storageKey){
+function loadJsonFromFile(storageKey){ //טעינת קובץ גייסון אחר
+    //יצירת קלט לבחירת קובץ חדש
     const fileInput = document.createElement("input");
     fileInput.type = "file";
     fileInput.accept = ".json";
 
     fileInput.addEventListener("change", () => {
         const file = fileInput.files[0];
-        if(!file) return;
+        if(!file) return;//אם לא נבחר קובץ
 
         const reader = new FileReader();
-        reader.onload = event => {
+        reader.onload = event => { //קריאת תוכן הקובץ
             try{
                 const data = JSON.parse(event.target.result);
                 if(!Array.isArray(data)){
@@ -289,7 +247,6 @@ function loadJsonFromFile(storageKey){
         };
         reader.readAsText(file);
     });
-
     fileInput.click();
 }
 </script>

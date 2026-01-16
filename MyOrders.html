@@ -30,128 +30,133 @@
             font-weight:bold;    
         }
 
-    .orderList{
-        flex:1;                   
-        overflow-y:auto;          
-        direction: rtl;
-        padding:20px;
-        display:flex;
-        flex-direction:column;
-        gap:20px;
-        scrollbar-width: none;
-    }
+        .orderList{
+            flex:1;                   
+            overflow-y:auto;          
+            direction: rtl;
+            padding:20px;
+            display:flex;
+            flex-direction:column;
+            gap:20px;
+            scrollbar-width: none;
+        }
 
-    .orderItem{
-        background-color:#F5EFE6;
-        border:2px solid #2B1B17;
-        border-radius:12px;
-        padding:10px 18px;
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        box-shadow:0 3px 10px rgba(0,0,0,0.15);
-        direction: rtl;
-    }
+        .orderItem{
+            background-color:#F5EFE6;
+            border:2px solid #2B1B17;
+            border-radius:12px;
+            padding:10px 18px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            box-shadow:0 3px 10px rgba(0,0,0,0.15);
+            direction: rtl;
+        }
 
-    .orderInfo{
-        display:flex;
-        flex-direction:column;
-        gap:3px;
-    }
+        .orderInfo{
+            display:flex;
+            flex-direction:column;
+            gap:3px;
+        }
 
-    .orderName{
-        font-size:20px;
-        font-weight:bold;
-        color:#2B1B17;
-    }
+        .orderName{
+            font-size:20px;
+            font-weight:bold;
+            color:#2B1B17;
+        }
 
-    .orderTime{
-        font-size:14px;
-        color:#6b5a55;
-    }
+        .orderTime{
+            font-size:14px;
+            color:#6b5a55;
+        }
 
-
-    .orderPrice{
-        font-size:18px;
-        font-weight:bold;
-        color:#2B1B17;
-    }
-    #categoryButton{
-            width:56px;
-            height: 56px;
-            background-color: #2B1B17;
+        .noOrders{
             color: #F5EFE6;
-            font-size: 28px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 10px;
-            margin-right: 10px;
-            align-self: flex-start;
-              
-    }
-    #categoryPart{
-            display:none;
-            background-image: url("images/pinkBackGround.JPG");
-            color: #2B1B17;
-            position: fixed;
-            top: 1%;
-            bottom:1%;
-            right: 0px;
-            width: 20%;
-            height: 98%;
-            z-index: 1004;
-            border-radius: 15px;
-            row-gap: 10px;  
-            right: 0.5%;
-    }
+            font-size:22px;
+            font-weight:bold;
+        }
 
-            #categoryPart div{
-                font-size: 25px;
-                gap:10px;
-                border-radius: 15px;
-                width: 80%;
-            }
-            #closeCategory{
-                position: absolute;
-                top:3%;
-                left:3%;
-                background-color:#2B1B17 ;
-                color: #CBAFB2;
-                text-align: center;
-                border-radius: 10px;
-                font-size: 20px;
+        .orderPrice{
+            font-size:18px;
+            font-weight:bold;
+            color:#2B1B17;
+        }
+        .categoryButton{
+                width:56px;
+                height: 56px;
+                background-color: #2B1B17;
+                color: #F5EFE6;
+                font-size: 28px;
                 border: none;
-            }
-            .categoryRows{
-                margin-top: 15%;
-            }
-            #titleMyOrder{
-                position:fixed;
-                top:10px;
-                right:100px;
-                color:#F5EFE6;
-                font-size:40px;
-                font-weight:bold;
-            }
-            @media screen and (max-width: 600px){
-            #categoryButton {
-             display: none;
-            }
+                border-radius: 6px;
+                cursor: pointer;
+                margin-top: 10px;
+                margin-right: 10px;
+                align-self: flex-start;
+                
+        }
+        #categoryPart{
+                display:none;
+                background-image: url("images/pinkBackGround.JPG");
+                color: #2B1B17;
+                position: fixed;
+                top: 1%;
+                bottom:1%;
+                right: 0px;
+                width: 20%;
+                height: 98%;
+                z-index: 1004;
+                border-radius: 15px;
+                row-gap: 10px;  
+                right: 0.5%;
+        }
 
-            #titleMyOrder {
-                right: 20px;
-            }
-           .container {
-            padding: 10px;
-            gap: 20px;
-            margin-top: 100px;
-           }
-            }
+        #categoryPart div{
+            font-size: 25px;
+            gap:10px;
+            border-radius: 15px;
+            width: 80%;
+        }
+        #closeCategory{
+            position: absolute;
+            top:3%;
+            left:3%;
+            background-color:#2B1B17 ;
+            color: #CBAFB2;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 20px;
+            border: none;
+        }
+        .categoryRows{
+            margin-top: 15%;
+        }
+        #titleMyOrder{
+            position:fixed;
+            top:10px;
+            right:100px;
+            color:#F5EFE6;
+            font-size:40px;
+            font-weight:bold;
+        }
+        @media screen and (max-width: 600px){
+        .categoryButton {
+            display: none;
+        }
+
+        #titleMyOrder {
+            right: 20px;
+        }
+        .container {
+        padding: 10px;
+        gap: 20px;
+        margin-top: 100px;
+        }
+    }
     </style>
 </head>
 <body>
-    <div id="categoryPart">
+    <div id="categoryPart"> 
         <input type="button"value="X" id="closeCategory">
         <div class="categoryRows">
             <div id="homeCategory" class="divCategory"><p>בית</p></div>
@@ -161,83 +166,37 @@
             <div id="logOutCategory" class="divCategory"><p>התנתקות</p></div>
         </div>
     </div>
-    <input type="button" id="categoryButton" value="☰">
+    <input type="button" class="categoryButton" value="☰">
     <div id="titleMyOrder">ההזמנות שלי:</div>
     <div class="container">  
         <div class="orderList" id="orderList"></div>
     </div>
-    <script>
-    const btnCloseCategory=document.getElementById("closeCategory");// מעבר עכבר על כפתור סיגרת הקטגוריות
-    btnCloseCategory.addEventListener("mouseover", () => {
-        btnCloseCategory.style.backgroundColor = "#F5EFE6";
-        btnCloseCategory.style.color = "#2B1B17";
-    });
-    btnCloseCategory.addEventListener("mouseleave", () => {
-        btnCloseCategory.style.backgroundColor = "#2B1B17";
-        btnCloseCategory.style.color = "#F5EFE6";
-    });
-    const categoryDiv=document.querySelectorAll(".divCategory");//מעבר עכבר על האופציות בתוך הקטגוריות
-    categoryDiv.forEach(box => {
-        box.addEventListener("mouseenter", () => {
-            box.style.backgroundColor = "#F6DADF"; 
-        });
 
-        box.addEventListener("mouseleave", () => {
-            box.style.backgroundColor = "transparent"; 
-        });
-    });
-    const categoryBtn=document.getElementById("categoryButton");// לחיצה על כפתור פתחית הקטגוריות
-    categoryBtn.addEventListener("click",()=>{
-        document.getElementById("categoryPart").style.display="block";
-    });
-    categoryBtn.addEventListener("mouseover",()=>{//מעבר עכבר על כפתור פתיחת הקטגרויות
-        categoryBtn.style.backgroundColor="#F6DADF";
-        categoryBtn.style.color="#2B1B17";
-    });
-    categoryBtn.addEventListener("mouseleave",()=>{
-        categoryBtn.style.backgroundColor="#2B1B17";
-        categoryBtn.style.color="#F5EFE6";
-    });
 
-    btnCloseCategory.addEventListener("click",()=>{//לחיצה על כפתור סגירת הקטגוריות
-        document.getElementById("categoryPart").style.display="none";
-    });
-    ///מעבר לדפים אחרים
-    document.getElementById("homeCategory").addEventListener("click", ()=>{
-        window.location.href = "DashBoard.html";
-    });
-    document.getElementById("frienMemberCategory").addEventListener("click", ()=>{
-        window.location.href = "FriendMember.html";
-    });
-    document.getElementById("menuCategory").addEventListener("click", ()=>{
-        window.location.href = "Menu.html";
-    });
-     document.getElementById("logOutCategory").addEventListener("click", ()=>{
-        window.location.href = "LoginPage.html";
-    });
+    <script type="module">
+    import {showCategory, moveToPage} from "./helperFunc.js";
+    showCategory();
+    moveToPage();
+    
+    function loadOrders(){ // פונקציה שטוענת את כל ההזמנות מהלוקל סטורג ומציגה למשתמש
+        const orders = JSON.parse(localStorage.getItem("orders")) || []; //שליפת הזמנות
 
-    function loadOrders(){
-        const orders = JSON.parse(localStorage.getItem("orders")) || [];
-
-        orders.sort((a, b) => {
+        orders.sort((a, b) => {// מסדר את הפריטים לפי תאריך (ראשון למעלה)
             const dateA = new Date(a.Date.split('/').reverse().join('-'));
             const dateB = new Date(b.Date.split('/').reverse().join('-'));
             return dateB - dateA; // חדש למעלה
         });
-        const orderList = document.getElementById("orderList");
+        const orderList = document.getElementById("orderList");// אלמנט בו יוצגו ההזמנות
 
-        while(orderList.firstChild){
-            orderList.removeChild(orderList.firstChild);
-        }
-
-        if(orders.length === 0){
+        if(orders.length === 0){ 
             const msg = document.createElement("p");
-            msg.textContent = "אין הזמנות עדיין";
+            msg.className = "noOrders";
+            msg.textContent = "אין הזמנות עדיין☕";
             orderList.appendChild(msg);
             return;
         }
-        orders.forEach(order => {
 
+        orders.forEach(order => { //מעבר על ההזמנות ויצירת קונטיינר לכל הזמנה
             const orderDiv = document.createElement("div");
             orderDiv.className = "orderItem";
 
