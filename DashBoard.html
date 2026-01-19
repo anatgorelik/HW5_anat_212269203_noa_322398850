@@ -108,7 +108,7 @@
   
         .row2{
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
             gap: 20px;
             background: none;
             padding: 0;
@@ -358,6 +358,7 @@
             <p id="showBalance"></p>
         </div>
         <div id="myOrdersPart">ההזמנות שלי</div>
+        <div id="reccomendPart">מומלץ עבורך</div>
     </div>
 
     <div class="row3">
@@ -570,6 +571,9 @@
     })
     document.querySelector(".row1Part3").addEventListener("click",()=>{
         window.location.href = "ManagePage.html";
+    })
+    document.getElementById("reccomendPart").addEventListener("click", () =>{
+        window.location.href = "ReccomendPage.html";
     })
 </script>
 </body>
