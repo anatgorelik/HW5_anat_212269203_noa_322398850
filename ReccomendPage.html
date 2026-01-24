@@ -1,67 +1,142 @@
 <!DOCTYPE html>
+<html lang="he">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>עמוד ניהול</title>
-    <link href="ReccomendPage.css" rel="stylesheet" />
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>עמוד המלצה</title>
+  <link href="ReccomendPage.css" rel="stylesheet" />
 </head>
 
 <body>
-    
-<div id="categoryPart">
-        <input type="button"value="X" id="closeCategory">
-        <div class="categoryRows">
-            <div id="homeCategory" class="divCategory"><p>בית</p></div>
-            <div id="myOrdersCategory" class="divCategory"><p>הזמנות שלי</p></div>
-            <div id="menuCategory" class="divCategory"><p>תפריט</p></div>
-            <div id="frienMemberCategory" class="divCategory"><p>חבר מועדון</p></div>
-            <div id="logOutCategory" class="divCategory"><p>התנתקות</p></div>
-        </div>
+  <div id="categoryPart">
+    <input type="button" value="X" id="closeCategory">
+    <div class="categoryRows">
+      <div id="homeCategory" class="divCategory"><p>בית</p></div>
+      <div id="myOrdersCategory" class="divCategory"><p>הזמנות שלי</p></div>
+      <div id="menuCategory" class="divCategory"><p>תפריט</p></div>
+      <div id="frienMemberCategory" class="divCategory"><p>חבר מועדון</p></div>
+      <div id="logOutCategory" class="divCategory"><p>התנתקות</p></div>
     </div>
-    <input type="button" class="categoryButton" value="☰">
-<h1>המלצות אישיות עבורך</h1>
+  </div>
 
-<!-- כאן ההמלצות יופיעו -->
-<div id="recommendations">טוען המלצות...</div>
+  <input type="button" class="categoryButton" value="☰">
 
+  <h1>המלצות אישיות עבורך</h1>
 
-<script  type="module">
-import { showCategory, moveToPage } from "./helperFunc.js";
-showCategory();
-moveToPage();
+  <!-- קופסת ההמלצות -->
+  <div id="recommendations">טוען המלצות...</div>
 
-const url = "https://yael-ex-client-side-2026a-197579115104.me-west1.run.app/get-recommendations?api-key=afGre4Eerf223432AXE&lang=he";
+  <script type="module">
+    import { showCategory, moveToPage } from "./helperFunc.js";
+    showCategory();
+    moveToPage();
 
-fetch("./MyOrders.json")
-  .then(response => response.json())
-  .then(orders => {
+  const API_URL =
+  "https://yael-ex-client-side-2026a-197579115104.me-west1.run.app/get-recommendations?api-key=afGre4Eerf223432AXE&lang=he";
 
-    const transactions = orders.map(order => ({
-      date: order.Date,
-      item: order.ProductName,
-      price: Number(order.Amount)
-    }));
+const recommendationsDiv = document.getElementById("recommendations");
 
-    return fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+// קורא הזמנות מה-localStorage 
+function getOrdersFromLocalStorage() {
+  const stored = localStorage.getItem("orders");// שליפה  מהגייסון
+  if (!stored) return [];
+  try {
+    const parsed = JSON.parse(stored); //המרה מגייסון לגאווה סקריפט
+    if (Array.isArray(parsed)) return parsed;//אם מערך נחזיר אות
+  } catch (e) {}
+
+  return [];
+}
+
+// הופך כל הזמנה לפורמט API
+function normalizeOrder(order) {
+  //חילוץ תאריך
+  const rawDate =
+    order.Date ?? order.date ?? Date.now();
+//חילוץ שם מוצר
+  const rawItem =
+    order.ProductName ?? order.productName ?? "Unknown";
+//חילוץ מחיר
+  const rawPrice =
+    order.Amount ?? order.price ?? 0;
+//החזרת אובייקט בפורמט
+  return {
+    date: rawDate,
+    item: String(rawItem),
+    price: Number(rawPrice)
+  };
+}
+//מקבלים את מה שחזר מה אייפיאיי ונציג במסך
+function renderRecommendations(recommendations) {
+  if (!recommendations) {
+    recommendationsDiv.textContent = "לא התקבלו המלצות";
+    return;
+  }
+
+  let items = [];
+//המלצות הגיעו כמערך
+  if (Array.isArray(recommendations)) {
+    items = recommendations;
+  //אם הגיע טקסט
+  } else if (typeof recommendations === "string") {
+    const txt = recommendations.trim();
+
+    // אם השרת החזיר HTML מוכן
+    if (txt.startsWith("<")) {
+      recommendationsDiv.innerHTML = txt;
+      return;
+    }
+
+  } else {//אם פורמט לא נתמך (אם בעתיד נקבל יואראל אחר)
+    recommendationsDiv.textContent = "המלצות בפורמט לא נתמך";
+    return;
+  }
+//אם אין פריטים להצגה
+  if (items.length === 0) {
+    recommendationsDiv.textContent = "אין המלצות להצגה";
+    return;
+  }
+//HTML שמתאים לCSS
+  recommendationsDiv.innerHTML = items
+    .map(item => `<div class="recommendation-item">${escapeHtml(String(item))}</div>`)
+    .join("");
+}
+
+// פונקציה אסינכרונית שמריצה את כל התהליך לפי הסדר
+(async () => {
+  try {
+    //שליפת כל ההזמנות
+    const orders = getOrdersFromLocalStorage();
+    // אם אין הזמנות – אין על מה להמליץ
+    if (!Array.isArray(orders) || orders.length === 0) {
+      recommendationsDiv.textContent = " לא טענת הזמנות, גש לעמוד הניהול לטעינת ההזמנות וחזור לכאן :)";
+      return;
+    }
+    // התאמת כל ההזמנות לפורמט שהאייפיאיי דורש
+    const transactions = orders.map(normalizeOrder);
+
+    // שליחת ההזמנות לשרת לקבלת המלצות
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ transactions })
     });
-  })
-  .then(response => response.json())
-  .then(data => {
+
+    // המרת התגובה ל־JSON
+    const data = await response.json();
     console.log("API response:", data);
-    document.getElementById("recommendations").innerHTML =
-      data.recommendations;
-  })
-  .catch(error => {
+    
+    const rec = data.recommendations;//שליפת שדה המלצות
+   
+    renderRecommendations(rec);// הצגת ההמלצות במסך
+
+  } catch (error) {
+    // טיפול בשגיאה כללית
     console.error("API Error:", error);
-  });
+    recommendationsDiv.textContent = "שגיאה בטעינת ההמלצות";
+  }
+})();
 
-</script>
-
+  </script>
 </body>
 </html>

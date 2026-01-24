@@ -8,9 +8,9 @@ body{
 }
 
 .container{
-    display: flex;
-    flex-direction: column;
-    gap: 13px;
+    display: flex; 
+    flex-direction: column;  /* שורות */
+    gap: 13px; /*רווחים בין השורות*/
 }
 
 
@@ -34,14 +34,14 @@ body{
 }
 
 .row1Part1, .row1Part3{
-    position: relative;
+    position: relative; /* שוומר את המקום של השעון */
     font-size: 14px;
     align-self: flex-start;
     background-color: #F5EFE6;
     height: 100px;
     border-radius: 15px;
     display: flex;
-    flex: 1;
+    flex: 1; /*לקחת את כל המקום שאפשר ביחס לאחרים*/
     color: #2B1B17;
 }
 .row1Part3 p{
@@ -66,7 +66,7 @@ body{
     font-size: 28px;
     border: none;
     border-radius: 6px;
-    cursor: pointer;
+    cursor: pointer; /* עכבר לחיץ */
     margin-top: 10px;
     margin-right: 10px;
     align-self: flex-start;
@@ -77,7 +77,7 @@ body{
 
 }
 #clock{
-    position: absolute;
+    position: absolute; /*שליטה מלאה במיקום*/
     top:55px;
     left: 10px;
     background-color: #2B1B17;
@@ -96,16 +96,14 @@ body{
     width: 180px;
 }
 
-
 .row2{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 20px;
     background: none;
     padding: 0;
     height: auto;
 }
-
 
 .row2 > div{
     background-color: #CBAFB2; 
@@ -116,7 +114,6 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-
     cursor: pointer;
 }
 
@@ -267,7 +264,7 @@ body{
     font-size:13px;
     color:#4A2C23;
 }
-
+/*דריסת עיצוב לעיצוב נייד*/
 @media screen and (max-width: 600px) {      
     .row1Part2, .categoryButton {
         display: none;
