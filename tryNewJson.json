@@ -1,9 +1,0 @@
-[
-  { "Date": "01/01/2001", "ProductName": "קפה הפוך", "Category": 6, "Amount": "1" },
-  { "Date": "01/01/2001", "ProductName": "קרואסון שוקולד", "Category": 5, "Amount": "1" },
-  { "Date": "01/01/2001", "ProductName": "ארוחת בוקר ישראלית", "Category": 1, "Amount": "3" },
-  { "Date": "01/01/2001", "ProductName": "כריך טונה", "Category": 2, "Amount": "1" },
-  { "Date": "01/01/2001", "ProductName": "טוסט גבינות", "Category": 3, "Amount": "3" },
-  { "Date": "01/01/2001", "ProductName": "סלט יווני", "Category": 4, "Amount": "3" },
-  { "Date": "01/01/2001", "ProductName": "בורקס גבינה", "Category": 5, "Amount": "3" }
-]
