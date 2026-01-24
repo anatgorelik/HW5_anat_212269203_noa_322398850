@@ -42,42 +42,42 @@ body{
             margin-top: 10px;
             margin-right: 10px;
             align-self: flex-start;                 
-        }
-        #categoryPart{
-            display:none;
-            background-image: url("images/pinkBackGround.JPG");
-            color: #2B1B17;
-            position: fixed;
-            top: 1%;
-            bottom:1%;
-            right: 0px;
-            width: 20%;
-            height: 98%;
-            z-index: 1004;
-            border-radius: 15px;
-            row-gap: 10px;  
-            right: 0.5%;
-        }
+    }
+    #categoryPart{
+        display:none;
+        background-image: url("images/pinkBackGround.JPG");
+        color: #2B1B17;
+        position: fixed;
+        top: 1%;
+        bottom:1%;
+        right: 0px;
+        width: 20%;
+        height: 98%;
+        z-index: 1004;
+        border-radius: 15px;
+        row-gap: 10px;  
+        right: 0.5%;
+    }
 
-        #categoryPart div{
-          
-            font-size: 25px;
-            gap:10px;
-            border-radius: 15px;
-            width: 80%;
-        }
-        #closeCategory{
-            position: absolute;
-            top:3%;
-            left:3%;
-            background-color:#2B1B17 ;
-            color: #CBAFB2;
-            text-align: center;
-            border-radius: 10px;
-            font-size: 20px;
-            border: none;
-        }
-        .categoryRows{
-            margin-top: 15%;
-        }
+    #categoryPart div{
         
+        font-size: 25px;
+        gap:10px;
+        border-radius: 15px;
+        width: 80%;
+    }
+    #closeCategory{
+        position: absolute;
+        top:3%;
+        left:3%;
+        background-color:#2B1B17 ;
+        color: #CBAFB2;
+        text-align: center;
+        border-radius: 10px;
+        font-size: 20px;
+        border: none;
+    }
+    .categoryRows{
+        margin-top: 15%;
+    }
+    

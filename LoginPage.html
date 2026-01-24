@@ -45,7 +45,7 @@
 
     <script>
 
-        const nameRow=document.getElementById("row1");//שומרים במתשנה את הערך שהשמתמש הכניס לשם פרטי
+        const nameRow=document.getElementById("row1");//הגדרת משתנה שבו נשים את שם המשתמש
         
         let mode = "";//משתנה שיידע אותנו אם המשתמש קיים או חדש
         const screenStart = document.querySelector(".screenStart");
@@ -55,7 +55,7 @@
         loginBtn.addEventListener("click", function () {//  לחיצה על כפתור משתמש קיים
             mode = "login";
             document.querySelectorAll(".notValReg").forEach(p => {
-                p.style.display = "none";
+                p.style.display = "none";// הסתרת הודעות שגיאה של הרשמה
             });
             screenStart.classList.add("loginMode");//הוספת מחלקת עיצוב
             screenStart.style.display = "grid";
@@ -99,7 +99,7 @@
             let userPassword = document.getElementById("userPasswordTxt").value;
             const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
             document.getElementById("warningEmail").style.display = "none";//כאן נבדוק שהוכנס אימייל תקין לפי הפורמט
-            if (!emailRegex.test(userEmail)) {
+            if (!emailRegex.test(userEmail)) { //בודק אם האימייל מתאים לתבנית
                 valid = false;
                 document.getElementById("userEmailTxt").value = "";
                 document.getElementById("warningEmail").style.display = "block";//אם הערך לא תקין , נראה הודעה מתאימה

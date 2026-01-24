@@ -4,15 +4,17 @@
     <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard</title>
+    <title>Dashboard</title> 
     <link href="DashBoard.css" rel="stylesheet" />
-
 </head>
 
 <body>
+    <!-- שורת טעינה של ספרייה שמאפשרת לנו לצייר את הגרף -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   
     <div id="categoryPart">
         <input type="button"value="X" id="closeCategory">
+
         <div class="categoryRows">
             <div id="homeCategory" class="divCategory"><p>בית</p></div>
             <div id="myOrdersCategory" class="divCategory"><p>הזמנות שלי</p></div>
@@ -21,6 +23,7 @@
             <div id="logOutCategory" class="divCategory"><p>התנתקות</p></div>
         </div>       
     </div>
+    <!-- כל האלמנטים בדף -->
 <div class="container">
     <div class="row1">     
         <div class="row1Part1">
@@ -51,6 +54,7 @@
 
     <div class="row3">
         <div id="graphPart">
+            <!-- הגדרת משטח ציור לגרף -->
             <canvas id="productsChart" width="400" height="200"></canvas>
         </div>
         <div class="row3Left">
@@ -75,10 +79,12 @@
         </div>
     </div> 
 </div>
+
    <script type="module">
     import {showCategory, moveToPage} from "./helperFunc.js";
     showCategory();
     moveToPage();
+
     const imgDash=document.querySelector(".row1Part2 img");//תמונה
     const boxes = document.querySelectorAll(".row2 > div");//דיבים וורודים 
     updateTopProduct();//קריאה לפונקציה שמראה מי המוצר שהומזן הכי הרבה החודש
@@ -87,7 +93,8 @@
     updateClock();//קריאה לפוקנציית שעון
     setInterval(updateClock,1000);//הפעלה של השעון
     drawProductsHistogram();//קריאה לפוקנציה שמייצרת את הגרף
-   const currentUser = JSON.parse(localStorage.getItem("currentUser"));//משיכה של המשתמש הנוכחי מהלוקאל סטוראג
+ 
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));//משיכה של המשתמש הנוכחי מהלוקאל סטוראג
     const balance=currentUser.balance;//משיכת היתרה של המשתמש הנוכחי מהלוקאל סטוראג
     document.getElementById("showBalance").innerText="יתרה: "+balance+" שח";
     if (currentUser && currentUser.name) {//הצגת של הלקוח בברכת השלום
@@ -96,7 +103,7 @@
         document.getElementById("userName").innerText = "אורח";
     }
     function updateGreeting(){//פוקנציה של הצגת ברכת שלום
-        const hour = new Date().getHours();
+        const hour = new Date().getHours(); //איזה שעה עכשיו
         let greeting = "";
 
         if(hour < 12){
@@ -121,8 +128,8 @@
             `${d}/${mo}/${y} | ${h}:${m}:${s}`;
     }
 
-    function getProductCounts() {//פוקנציית עזר לגרף שמחזירה את סוגי המוצרים שנרכשו החודשים והכמות שלהם
-    const orders = JSON.parse(localStorage.getItem("orders")) ||[];
+    function getProductCounts() {//פוקנציית עזר לגרף שמחזירה את סוגי המוצרים שנרכשו החודש והכמות שלהם
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
     const productCounts = {};
 
     orders.forEach(order => {//יצירת אובייקט שמחזיק את כל המוצרים שנרכשו החודש ואת הכמות שלהם
@@ -133,29 +140,29 @@
             productCounts[productName] = 1;
         }
     });
-
         return productCounts;
     }
-    function drawProductsHistogram() {//פונצקיית יצירת גרף
+    function drawProductsHistogram() { //פונקציית יצירת גרף
         const productCounts = getProductCounts();//פה מקבלים את המוצרים שנרכשו החודש ואת הכמות
 
         const labels = Object.keys(productCounts);   // שמות מוצרים
         const data = Object.values(productCounts);   // כמות רכישות
 
+        // מחברת את הקוד למשטח הציור דו מימדי
         const ctx = document.getElementById("productsChart").getContext("2d");
 
         new Chart(ctx, {//יצירת הגרף
-            type: "bar",
+            type: "bar", //גרף עמודות
             data: {
-                labels: labels,
+                labels: labels,//שמות ציר X
                 datasets: [{
                     label: "כמות רכישות",
-                    data: data,
+                    data: data, //ערכים מספריים בעמודה
                     backgroundColor: "#CBAFB2"
                 }]
             },
             options: {
-                responsive: true,
+                responsive: true, 
                 plugins: {
                     legend: {
                         display: false
@@ -164,7 +171,7 @@
                         enabled: false
                     }
                 },
-                scales: {
+                scales: {//הגדרת צירים
                     y: {
                         beginAtZero: true,
                         ticks: {
